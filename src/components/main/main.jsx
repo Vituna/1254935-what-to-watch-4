@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Main = ({movieTitle, movieGenre, movieReleaseDate, movieListTitle}) => {
+const Main = ({movieTitle, movieGenre, movieReleaseDate, movieListTitle, onWhatToWatchClick}) => {
 
   const movieCard = movieListTitle.map((it, i) => {
 
@@ -24,7 +24,7 @@ const Main = ({movieTitle, movieGenre, movieReleaseDate, movieListTitle}) => {
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
         </div>
 
-        <h1 className="visually-hidden">WTW</h1>
+        <h1 onClick={onWhatToWatchClick} className="visually-hidden">WTW</h1>
 
         <header className="page-header movie-card__head">
           <div className="logo">
@@ -143,6 +143,7 @@ Main.propTypes = {
   movieGenre: PropTypes.string.isRequired,
   movieReleaseDate: PropTypes.number.isRequired,
   movieListTitle: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onWhatToWatchClick: PropTypes.func,
 };
 
 export default Main;
