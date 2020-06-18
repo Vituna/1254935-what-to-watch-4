@@ -1,21 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Main = ({movieTitle, movieGenre, movieReleaseDate, movieListTitle, onMovieCardClick}) => {
+import MoviesList from '../movie-list/movie-list.jsx';
 
-  const movieCard = movieListTitle.map((it, i) => {
 
-    return (
-      <article className="small-movie-card catalog__movies-card" key={it + i} >
-        <div className="small-movie-card__image">
-          <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={it} width="280" height="175" />
-        </div>
-        <h3 className="small-movie-card__title">
-          <a onClick={onMovieCardClick} className="small-movie-card__link" href="movie-page.html">{it}</a>
-        </h3>
-      </article>
-    );
-  });
+const Main = ({movieTitle, movieGenre, movieReleaseDate, movieСardsSettings}) => {
 
   return (
     <>
@@ -112,7 +101,9 @@ const Main = ({movieTitle, movieGenre, movieReleaseDate, movieListTitle, onMovie
           </ul>
 
           <div className="catalog__movies-list">
-            {movieCard}
+            <MoviesList
+              movieСardsSettings={movieСardsSettings}
+            />
           </div>
 
           <div className="catalog__more">
@@ -142,8 +133,10 @@ Main.propTypes = {
   movieTitle: PropTypes.string.isRequired,
   movieGenre: PropTypes.string.isRequired,
   movieReleaseDate: PropTypes.number.isRequired,
-  movieListTitle: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onMovieCardClick: PropTypes.func,
+  movieСardsSettings: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    image: PropTypes.string
+  })),
 };
 
 export default Main;

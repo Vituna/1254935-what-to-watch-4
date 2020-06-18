@@ -1,12 +1,12 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import React from 'react';
+import Enzyme, {shallow} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-import App from "./app.jsx";
+import MoviesList from './movies-list';
+
+Enzyme.configure({adapter: new Adapter()});
 
 const Settings = {
-  MOVIE_TITLE: `The Grand Budapest Hotel`,
-  MOVIE_GENRE: `Drama`,
-  MOVIE_RELEASE_DATE: 2014,
   MOVIE_CARDS: [
     {
       name: `Avatar`,
@@ -41,17 +41,22 @@ const Settings = {
       image: `img/war-of-the-worlds.jpg`
     },
   ]
+
 };
 
-it(`Render App`, () => {
-  const tree = renderer
-    .create(<App
-      movieTitle={Settings.MOVIE_TITLE}
-      movieGenre={Settings.MOVIE_GENRE}
-      movieReleaseDate={Settings.MOVIE_RELEASE_DATE}
-      movieСardsSettings={Settings.MOVIE_CARDS}
-    />)
-    .toJSON();
+it(`MovieList is correctly handled click on title`, () => {
+  const onHoverHandler = jest.fn();
 
-  expect(tree).toMatchSnapshot();
+
+  const main = shallow(<MoviesList
+    movieSetting={Settings.MOVIE_CARDS}
+    onMovieCardClick={onHoverHandler}
+
+  />);
+
+  const movieCard = main.find(`.small-movie-card__link`);
+
+  movieCard.simulate(`mouseenter`);
+
+  expect(onHoverHandler).toHaveBeenCalledWith(Settings.MOVIE_CARDS);
 });
