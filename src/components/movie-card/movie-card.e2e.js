@@ -60,6 +60,4 @@ it(`Should there be a click on the title card`, () => {
   movieCardClick.simulate(`click`);
 
   expect(onMovieCardClick.mock.calls.length).toBe(1);
-
-
 });
