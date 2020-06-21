@@ -11,11 +11,11 @@ class MovieList extends PureComponent {
       activeCard: null,
     };
 
-    this._onHoverCard = this._onHoverCard.bind(this);
+    this._handleCardHover = this._handleCardHover.bind(this);
     this._handleTitleClick = this._handleTitleClick.bind(this);
   }
 
-  _onHoverCard(movieSetting) {
+  _handleCardHover(movieSetting) {
     this.setState({
       activeCard: movieSetting
     });
@@ -34,7 +34,7 @@ class MovieList extends PureComponent {
         key={i}
         movieSetting={it}
         onClick={this._handleTitleClick}
-        onHover={this._onHoverCard}
+        onHover={this._handleCardHover}
       />
     );
   }
