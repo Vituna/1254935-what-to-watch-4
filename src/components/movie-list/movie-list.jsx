@@ -11,38 +11,38 @@ class MovieList extends PureComponent {
       activeCard: null,
     };
 
-    this._handleCardHover = this._handleCardHover.bind(this);
-    this._handleTitleClick = this._handleTitleClick.bind(this);
+    this._onCardMouseEnter = this._onCardMouseEnter.bind(this);
+    this._onTitleClick = this._onTitleClick.bind(this);
   }
 
-  _handleCardHover(movieSetting) {
+  _onCardMouseEnter(movieSetting) {
     this.setState({
-      activeCard: movieSetting
+      activeCard: movieSetting,
     });
   }
 
-  _handleTitleClick(onClick, movieSetting) {
-    return (evt) => {
-      evt.preventDefault();
-      onClick(movieSetting);
-    };
+  _onTitleClick(movieSetting) {
+    this.setState({
+      activeCard: movieSetting,
+    });
   }
 
   _getMovie(it, i) {
+
     return (
       <MovieCard
-        key={i}
+        key={`${i}`}
         movieSetting={it}
-        onClick={this._handleTitleClick}
-        onHover={this._handleCardHover}
+        onTitleClick={this._onTitleClick}
+        onCardMouseEnter={this._onCardMouseEnter}
       />
     );
   }
 
   _renderMovies() {
     const {movieСardsSettings} = this.props;
-    return movieСardsSettings.map((it, i) => this._getMovie(it, i)
-    );
+
+    return movieСardsSettings.map(this._getMovie, this);
   }
 
   render() {
@@ -57,8 +57,6 @@ MovieList.propTypes = {
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
   })),
-  onClick: PropTypes.func,
-  onHover: PropTypes.func,
 };
 
 export default MovieList;

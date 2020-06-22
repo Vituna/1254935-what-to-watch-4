@@ -10,6 +10,7 @@ const App = ({movieTitle, movieGenre, movieReleaseDate, movieСardsSettings}) =>
     movieGenre={movieGenre}
     movieReleaseDate={movieReleaseDate}
     movieСardsSettings={movieСardsSettings}
+
   />;
 };
 

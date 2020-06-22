@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 import MoviesList from '../movie-list/movie-list.jsx';
 
-
 const Main = ({movieTitle, movieGenre, movieReleaseDate, movieСardsSettings}) => {
 
   return (
