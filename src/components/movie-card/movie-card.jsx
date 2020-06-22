@@ -7,6 +7,7 @@ const MovieCard = ({movieSetting, onCardMouseEnter, onTitleClick}) => {
   const handleCardMouseEnter = () => onCardMouseEnter(movieSetting);
   const handleCartTitleClick = (evt) => {
     evt.preventDefault();
+
     onTitleClick(movieSetting);
   };
 
