@@ -3,12 +3,8 @@ import ReactDOM from "react-dom";
 
 import App from "./components/app/app.jsx";
 import movieСardsSettings from "./mocks/movie-cards-settings.js";
+import {Settings, movieDetails} from "./mocks/movie-info.js";
 
-const Settings = {
-  MOVIE_TITLE: `The Grand Budapest Hotel`,
-  MOVIE_GENRE: `Drama`,
-  MOVIE_RELEASE_DATE: 2014,
-};
 
 ReactDOM.render(
     <App
@@ -16,5 +12,6 @@ ReactDOM.render(
       movieTitle={Settings.MOVIE_TITLE}
       movieGenre={Settings.MOVIE_GENRE}
       movieReleaseDate={Settings.MOVIE_RELEASE_DATE}
+      movieDetails = {movieDetails}
     />, document.querySelector(`#root`)
 );

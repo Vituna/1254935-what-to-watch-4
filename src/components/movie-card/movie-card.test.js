@@ -15,7 +15,8 @@ it(`Renders cards correctly`, () => {
   const tree = renderer
     .create(<MovieCard
       movieSetting={Settings.MOVIE_CARDS}
-      onClick={() => {}}
+      onCardClick={() => {}}
+      onTitleClick={() => {}}
       onHover={() => {}}
     />)
     .toJSON();

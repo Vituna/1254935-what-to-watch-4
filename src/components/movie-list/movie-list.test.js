@@ -44,6 +44,8 @@ it(`Should WTW render correctly`, () => {
   const tree = renderer
     .create(<MovieList
       movieСardsSettings={Settings.MOVIE_CARDS}
+      onCardClick={() => {}}
+      onTitleClick={() => {}}
     />)
     .toJSON();
 

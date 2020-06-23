@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import MoviesList from '../movie-list/movie-list.jsx';
 
-const Main = ({movieTitle, movieGenre, movieReleaseDate, movieСardsSettings}) => {
+const Main = ({movieTitle, movieGenre, movieReleaseDate, movieСardsSettings, onTitleClick, onCardClick}) => {
 
   return (
     <>
@@ -102,6 +102,8 @@ const Main = ({movieTitle, movieGenre, movieReleaseDate, movieСardsSettings}) =
           <div className="catalog__movies-list">
             <MoviesList
               movieСardsSettings={movieСardsSettings}
+              onTitleClick={onTitleClick}
+              onCardClick={onCardClick}
             />
           </div>
 
@@ -136,6 +138,8 @@ Main.propTypes = {
     name: PropTypes.string,
     image: PropTypes.string
   })),
+  onTitleClick: PropTypes.func,
+  onCardClick: PropTypes.func,
 };
 
 export default Main;
