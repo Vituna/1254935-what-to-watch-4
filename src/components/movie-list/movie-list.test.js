@@ -1,12 +1,9 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import renderer from 'react-test-renderer';
 
-import App from "./app.jsx";
+import MovieList from './movie-list.jsx';
 
 const Settings = {
-  MOVIE_TITLE: `The Grand Budapest Hotel`,
-  MOVIE_GENRE: `Drama`,
-  MOVIE_RELEASE_DATE: 2014,
   MOVIE_CARDS: [
     {
       name: `Avatar`,
@@ -43,15 +40,13 @@ const Settings = {
   ]
 };
 
-it(`Render App`, () => {
+it(`Should WTW render correctly`, () => {
   const tree = renderer
-    .create(<App
-      movieTitle={Settings.MOVIE_TITLE}
-      movieGenre={Settings.MOVIE_GENRE}
-      movieReleaseDate={Settings.MOVIE_RELEASE_DATE}
+    .create(<MovieList
       movieСardsSettings={Settings.MOVIE_CARDS}
     />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
+

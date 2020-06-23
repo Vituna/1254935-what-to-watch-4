@@ -1,12 +1,10 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import Enzyme, {shallow} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
-import App from "./app.jsx";
+import MovieCard from './movie-card';
 
 const Settings = {
-  MOVIE_TITLE: `The Grand Budapest Hotel`,
-  MOVIE_GENRE: `Drama`,
-  MOVIE_RELEASE_DATE: 2014,
   MOVIE_CARDS: [
     {
       name: `Avatar`,
@@ -41,17 +39,25 @@ const Settings = {
       image: `img/war-of-the-worlds.jpg`
     },
   ]
+
 };
 
-it(`Render App`, () => {
-  const tree = renderer
-    .create(<App
-      movieTitle={Settings.MOVIE_TITLE}
-      movieGenre={Settings.MOVIE_GENRE}
-      movieReleaseDate={Settings.MOVIE_RELEASE_DATE}
-      movieСardsSettings={Settings.MOVIE_CARDS}
-    />)
-    .toJSON();
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
-  expect(tree).toMatchSnapshot();
+it(`Should there be a click on the title card`, () => {
+  const onMovieCardClick = jest.fn();
+
+  const main = shallow(
+      <MovieCard
+        movieSetting={Settings.MOVIE_CARDS}
+        onMovieCardClick={onMovieCardClick}
+      />
+  );
+
+  const movieCardClick = main.find(`a.small-movie-card__link`).first();
+  movieCardClick.simulate(`click`);
+
+  expect(onMovieCardClick.mock.calls.length).toBe(1);
 });
