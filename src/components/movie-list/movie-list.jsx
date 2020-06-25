@@ -10,9 +10,7 @@ class MovieList extends PureComponent {
     this.state = {
       activeCard: null,
     };
-
     this._onCardMouseEnter = this._onCardMouseEnter.bind(this);
-    this._onTitleClick = this._onTitleClick.bind(this);
   }
 
   _onCardMouseEnter(movieSetting) {
@@ -21,19 +19,13 @@ class MovieList extends PureComponent {
     });
   }
 
-  _onTitleClick(movieSetting) {
-    this.setState({
-      activeCard: movieSetting,
-    });
-  }
-
   _getMovie(it, i) {
-
     return (
       <MovieCard
         key={`${i}`}
         movieSetting={it}
-        onTitleClick={this._onTitleClick}
+        onTitleClick={this.props.onTitleClick}
+        onCardClick={this.props.onCardClick}
         onCardMouseEnter={this._onCardMouseEnter}
       />
     );
@@ -57,6 +49,8 @@ MovieList.propTypes = {
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
   })),
+  onTitleClick: PropTypes.func,
+  onCardClick: PropTypes.func,
 };
 
 export default MovieList;

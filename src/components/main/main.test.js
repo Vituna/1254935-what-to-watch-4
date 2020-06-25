@@ -50,6 +50,8 @@ it(`Should WTW render correctly`, () => {
       movieGenre={Settings.MOVIE_GENRE}
       movieReleaseDate={Settings.MOVIE_RELEASE_DATE}
       movieСardsSettings={Settings.MOVIE_CARDS}
+      onCardClick={() => {}}
+      onTitleClick={() => {}}
     />)
     .toJSON();
 
