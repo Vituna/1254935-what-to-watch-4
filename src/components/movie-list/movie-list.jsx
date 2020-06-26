@@ -48,6 +48,7 @@ MovieList.propTypes = {
   movieСardsSettings: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
+    previewVideo: PropTypes.string,
   })),
   onTitleClick: PropTypes.func,
   onCardClick: PropTypes.func,

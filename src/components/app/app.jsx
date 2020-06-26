@@ -52,10 +52,8 @@ class App extends PureComponent {
   _renderApp() {
     const {activeCard} = this.state;
 
-    if (activeCard) {
-      return this._renderMoviePage();
-    }
-    return this._renderMain();
+    const isActiveCard = activeCard ? this._renderMoviePage() : this._renderMain();
+    return isActiveCard;
   }
 
   render() {
@@ -80,7 +78,8 @@ App.propTypes = {
   movieReleaseDate: PropTypes.number.isRequired,
   movieСardsSettings: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
-    image: PropTypes.string
+    image: PropTypes.string,
+    previewVideo: PropTypes.string,
   })),
   movieDetails: PropTypes.shape({
     title: PropTypes.string.isRequired,

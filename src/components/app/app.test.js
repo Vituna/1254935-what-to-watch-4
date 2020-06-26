@@ -10,35 +10,43 @@ const Settings = {
   MOVIE_CARDS: [
     {
       name: `Avatar`,
-      image: `img/avatar.jpg`
+      image: `img/avatar.jpg`,
+      previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     },
     {
       name: `Aviator`,
-      image: `img/aviator.jpg`
+      image: `img/aviator.jpg`,
+      previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     },
     {
       name: `Bohemian rhapsody`,
-      image: `img/bohemian-rhapsody.jpg`
+      image: `img/bohemian-rhapsody.jpg`,
+      previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     },
     {
       name: `Johnny English`,
-      image: `img/johnny-english.jpg`
+      image: `img/johnny-english.jpg`,
+      previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     },
     {
       name: `Orlando`,
-      image: `img/orlando.jpg`
+      image: `img/orlando.jpg`,
+      previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     },
     {
       name: `Pulp Fiction`,
-      image: `img/pulp-fiction.jpg`
+      image: `img/pulp-fiction.jpg`,
+      previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     },
     {
       name: `Player poster`,
-      image: `img/player-poster.jpg`
+      image: `img/player-poster.jpg`,
+      previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     },
     {
       name: `War of the worlds`,
-      image: `img/war-of-the-worlds.jpg`
+      image: `img/war-of-the-worlds.jpg`,
+      previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     },
   ]
 };
@@ -57,6 +65,10 @@ const movieDetails = {
   starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`
 };
 
+const createNodeMock = () => {
+  return {};
+};
+
 it(`Render App`, () => {
   const tree = renderer
     .create(<App
@@ -65,8 +77,8 @@ it(`Render App`, () => {
       movieReleaseDate={Settings.MOVIE_RELEASE_DATE}
       movieСardsSettings={Settings.MOVIE_CARDS}
       movieDetails={movieDetails}
-    />)
-    .toJSON();
+    />, {createNodeMock})
+      .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

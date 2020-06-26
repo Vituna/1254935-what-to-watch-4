@@ -4,7 +4,19 @@ import PropTypes from 'prop-types';
 import MoviesList from '../movie-list/movie-list.jsx';
 
 const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails}) => {
-  const {title, genre, year, bigPoster, filmCover, rating, numberVotes, descriptionOne, descriptionTwo, director, starring} = movieDetails;
+  const {
+    title,
+    genre,
+    year,
+    bigPoster,
+    filmCover,
+    rating,
+    numberVotes,
+    descriptionOne,
+    descriptionTwo,
+    director,
+    starring
+  } = movieDetails;
 
   return (
     <>

@@ -7,8 +7,13 @@ const Settings = {
   MOVIE_CARDS:
     {
       name: `Avatar`,
-      image: `img/avatar.jpg`
+      image: `img/avatar.jpg`,
+      previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     },
+};
+
+const createNodeMock = () => {
+  return {};
 };
 
 it(`Renders cards correctly`, () => {
@@ -18,8 +23,8 @@ it(`Renders cards correctly`, () => {
       onCardClick={() => {}}
       onTitleClick={() => {}}
       onHover={() => {}}
-    />)
-    .toJSON();
+    />, {createNodeMock})
+      .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
