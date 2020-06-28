@@ -148,8 +148,8 @@ MoviePage.propTypes = {
     name: PropTypes.string,
     image: PropTypes.string
   })),
-  onTitleClick: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
+  onTitleClick: PropTypes.func,
+  onCardClick: PropTypes.func,
   movieDetails: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
