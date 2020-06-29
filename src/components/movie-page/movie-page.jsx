@@ -4,7 +4,19 @@ import PropTypes from 'prop-types';
 import MoviesList from '../movie-list/movie-list.jsx';
 
 const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails}) => {
-  const {title, genre, year, bigPoster, filmCover, rating, numberVotes, descriptionOne, descriptionTwo, director, starring} = movieDetails;
+  const {
+    title,
+    genre,
+    year,
+    bigPoster,
+    filmCover,
+    rating,
+    numberVotes,
+    descriptionOne,
+    descriptionTwo,
+    director,
+    starring
+  } = movieDetails;
 
   return (
     <>
@@ -136,8 +148,8 @@ MoviePage.propTypes = {
     name: PropTypes.string,
     image: PropTypes.string
   })),
-  onTitleClick: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
+  onTitleClick: PropTypes.func,
+  onCardClick: PropTypes.func,
   movieDetails: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,

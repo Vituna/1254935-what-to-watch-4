@@ -11,11 +11,18 @@ class MovieList extends PureComponent {
       activeCard: null,
     };
     this._onCardMouseEnter = this._onCardMouseEnter.bind(this);
+    this._onCardMouseLeave = this._onCardMouseLeave.bind(this);
   }
 
   _onCardMouseEnter(movieSetting) {
     this.setState({
       activeCard: movieSetting,
+    });
+  }
+
+  _onCardMouseLeave() {
+    this.setState({
+      activeCard: null,
     });
   }
 
@@ -27,6 +34,7 @@ class MovieList extends PureComponent {
         onTitleClick={this.props.onTitleClick}
         onCardClick={this.props.onCardClick}
         onCardMouseEnter={this._onCardMouseEnter}
+        onCardMouseLeave={this._onCardMouseLeave}
       />
     );
   }
@@ -48,6 +56,7 @@ MovieList.propTypes = {
   movieСardsSettings: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
+    previewVideo: PropTypes.string,
   })),
   onTitleClick: PropTypes.func,
   onCardClick: PropTypes.func,

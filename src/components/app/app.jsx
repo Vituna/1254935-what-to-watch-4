@@ -13,10 +13,10 @@ class App extends PureComponent {
       activeCard: null,
     };
 
-    this._handleCardTitleClick = this._handleCardTitleClick.bind(this);
+    this._handleMovieCardClick = this._handleMovieCardClick.bind(this);
   }
 
-  _handleCardTitleClick(movieSetting) {
+  _handleMovieCardClick(movieSetting) {
     this.setState({
       activeCard: movieSetting,
     });
@@ -30,8 +30,8 @@ class App extends PureComponent {
         movieGenre={movieGenre}
         movieReleaseDate={movieReleaseDate}
         movieСardsSettings={movieСardsSettings}
-        onTitleClick={this._handleCardTitleClick}
-        onCardClick={this._handleCardTitleClick}
+        onTitleClick={this._handleMovieCardClick}
+        onCardClick={this._handleMovieCardClick}
       />
     );
   }
@@ -52,10 +52,8 @@ class App extends PureComponent {
   _renderApp() {
     const {activeCard} = this.state;
 
-    if (activeCard) {
-      return this._renderMoviePage();
-    }
-    return this._renderMain();
+    const isActiveCard = activeCard ? this._renderMoviePage() : this._renderMain();
+    return isActiveCard;
   }
 
   render() {
@@ -80,7 +78,8 @@ App.propTypes = {
   movieReleaseDate: PropTypes.number.isRequired,
   movieСardsSettings: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
-    image: PropTypes.string
+    image: PropTypes.string,
+    previewVideo: PropTypes.string,
   })),
   movieDetails: PropTypes.shape({
     title: PropTypes.string.isRequired,

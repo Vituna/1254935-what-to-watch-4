@@ -5,16 +5,17 @@ Array [
   <article
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Avatar"
-        height="175"
-        src="img/avatar.jpg"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/avatar.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
     <h3
@@ -32,16 +33,17 @@ Array [
   <article
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Aviator"
-        height="175"
-        src="img/aviator.jpg"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/aviator.jpg"
+        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
       />
     </div>
     <h3
@@ -59,16 +61,17 @@ Array [
   <article
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Bohemian rhapsody"
-        height="175"
-        src="img/bohemian-rhapsody.jpg"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/bohemian-rhapsody.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
     <h3
@@ -86,16 +89,17 @@ Array [
   <article
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Johnny English"
-        height="175"
-        src="img/johnny-english.jpg"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/johnny-english.jpg"
+        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
       />
     </div>
     <h3
@@ -113,16 +117,17 @@ Array [
   <article
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Orlando"
-        height="175"
-        src="img/orlando.jpg"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/orlando.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
     <h3
@@ -140,16 +145,17 @@ Array [
   <article
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Pulp Fiction"
-        height="175"
-        src="img/pulp-fiction.jpg"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/pulp-fiction.jpg"
+        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
       />
     </div>
     <h3
@@ -167,16 +173,17 @@ Array [
   <article
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Player poster"
-        height="175"
-        src="img/player-poster.jpg"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/player-poster.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
     <h3
@@ -194,16 +201,17 @@ Array [
   <article
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="War of the worlds"
-        height="175"
-        src="img/war-of-the-worlds.jpg"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/war-of-the-worlds.jpg"
+        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
       />
     </div>
     <h3
