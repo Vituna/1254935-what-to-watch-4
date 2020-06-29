@@ -2,8 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MoviesList from '../movie-list/movie-list.jsx';
+import PageOverview from '../page-overview/page-overview.jsx';
+import PageDetails from '../page-details/page-details.jsx';
+import PageReviews from '../page-reviews/page-reviews.jsx';
 
-const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails}) => {
+const getSimilarCards = (movieСardsSettings, genre) => {
+  return movieСardsSettings.filter((movie) => movie.genre === genre).slice(0, 4);
+};
+
+const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails, movieReviews, renderTabs, activeTab}) => {
   const {
     title,
     genre,
@@ -15,8 +22,39 @@ const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails
     descriptionOne,
     descriptionTwo,
     director,
-    starring
+    starring,
+    movieDurationTime
   } = movieDetails;
+
+  const similarCards = getSimilarCards(movieСardsSettings, genre);
+
+  const renderActiveTab = () => {
+    switch (activeTab) {
+      case `Overview`:
+        return <PageOverview
+          rating={rating}
+          numberVotes={numberVotes}
+          descriptionOne={descriptionOne}
+          descriptionTwo={descriptionTwo}
+          director={director}
+          starring={starring}
+        />;
+      case `Details`:
+        return <PageDetails
+          director={director}
+          genre={genre}
+          movieDurationTime={movieDurationTime}
+          starring={starring}
+          year={year}
+        />;
+      case `Reviews`:
+        return <PageReviews
+          movieReviews={movieReviews}
+        />;
+      default:
+        return ``;
+    }
+  };
 
   return (
     <>
@@ -78,35 +116,8 @@ const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails
             </div>
 
             <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="movie-rating">
-                <div className="movie-rating__score">{rating}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">Very good</span>
-                  <span className="movie-rating__count">{numberVotes} ratings</span>
-                </p>
-              </div>
-
-              <div className="movie-card__text">
-                <p>{descriptionOne}</p>
-                <p>{descriptionTwo}</p>
-                <p className="movie-card__director"><strong>Director: {director}</strong></p>
-                <p className="movie-card__starring"><strong>Starring: {starring}</strong></p>
-              </div>
-
+              {renderTabs()}
+              {renderActiveTab()}
             </div>
           </div>
         </div>
@@ -117,7 +128,7 @@ const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__movies-list">
             <MoviesList
-              movieСardsSettings={movieСardsSettings}
+              movieСardsSettings={similarCards}
               onTitleClick={onTitleClick}
               onCardClick={onCardClick}
             />
@@ -145,6 +156,7 @@ const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails
 
 MoviePage.propTypes = {
   movieСardsSettings: PropTypes.arrayOf(PropTypes.shape({
+    genre: PropTypes.string,
     name: PropTypes.string,
     image: PropTypes.string
   })),
@@ -162,7 +174,16 @@ MoviePage.propTypes = {
     descriptionTwo: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.string.isRequired,
+    movieDurationTime: PropTypes.string.isRequired,
   }),
+  movieReviews: PropTypes.arrayOf(PropTypes.shape({
+    author: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+  })),
+  renderTabs: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };
 
 export default MoviePage;
