@@ -58,6 +58,7 @@ class VideoPlayer extends PureComponent {
 
   render() {
     const {src, poster, muted} = this.props;
+
     return (
       <Fragment>
         <video

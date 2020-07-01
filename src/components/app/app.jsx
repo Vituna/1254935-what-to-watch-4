@@ -4,6 +4,9 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 
 import Main from "../main/main.jsx";
 import MoviePage from '../movie-page/movie-page.jsx';
+import withTabs from '../../hocs/with-tabs.jsx';
+
+const MoviePageWrapped = withTabs(MoviePage);
 
 class App extends PureComponent {
   constructor(props) {
@@ -37,12 +40,14 @@ class App extends PureComponent {
   }
 
   _renderMoviePage() {
-    const {movieСardsSettings, movieDetails} = this.props;
+    const {movieСardsSettings, movieDetails, movieReviews, movieDetail} = this.props;
 
     return (
-      <MoviePage
+      <MoviePageWrapped
         movieСardsSettings={movieСardsSettings}
-        movieDetails = {movieDetails}
+        movieDetails={movieDetails}
+        movieDetail={movieDetail}
+        movieReviews={movieReviews}
         onTitleClick={this._handleCardTitleClick}
         onCardClick={this._handleCardTitleClick}
       />
@@ -77,6 +82,7 @@ App.propTypes = {
   movieGenre: PropTypes.string.isRequired,
   movieReleaseDate: PropTypes.number.isRequired,
   movieСardsSettings: PropTypes.arrayOf(PropTypes.shape({
+    genre: PropTypes.string,
     name: PropTypes.string,
     image: PropTypes.string,
     previewVideo: PropTypes.string,
@@ -93,7 +99,19 @@ App.propTypes = {
     descriptionTwo: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.string.isRequired,
+    movieDurationTime: PropTypes.string.isRequired,
   }),
+  movieReviews: PropTypes.arrayOf(PropTypes.shape({
+    author: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+  })),
+  movieDetail: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.number,
+  })),
+
 };
 
 export default App;
