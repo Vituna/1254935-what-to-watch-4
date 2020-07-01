@@ -1,43 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PageDetails = ({director, starring, genre, movieDurationTime, year}) => {
+const PageDetails = ({movieDetail}) => {
+
+  const getDetails = (it, i) => {
+    const {name, value} = it;
+    return (
+      <p key={`${i}`} className="movie-card__details-item">
+        <strong className="movie-card__details-name">{name}</strong>
+        <span className="movie-card__details-value">{value}</span>
+      </p>
+    );
+  };
+
+  const renderDetails = () => movieDetail.map(getDetails);
+
   return (
     <div className="movie-card__text movie-card__row">
       <div className="movie-card__text-col">
-        <p className="movie-card__details-item">
-          <strong className="movie-card__details-name">Director</strong>
-          <span className="movie-card__details-value">{director}</span>
-        </p>
-        <p className="movie-card__details-item">
-          <strong className="movie-card__details-name">Starring</strong>
-          <span className="movie-card__details-value">{starring}</span>
-        </p>
+        {renderDetails()}
       </div>
       <div className="movie-card__text-col">
-        <p className="movie-card__details-item">
-          <strong className="movie-card__details-name">Run Time</strong>
-          <span className="movie-card__details-value">{movieDurationTime}</span>
-        </p>
-        <p className="movie-card__details-item">
-          <strong className="movie-card__details-name">Genre</strong>
-          <span className="movie-card__details-value">{genre}</span>
-        </p>
-        <p className="movie-card__details-item">
-          <strong className="movie-card__details-name">Released</strong>
-          <span className="movie-card__details-value">{year}</span>
-        </p>
       </div>
     </div>
   );
 };
 
 PageDetails.propTypes = {
-  director: PropTypes.string.isRequired,
-  starring: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  movieDurationTime: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
+  movieDetail: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        value: PropTypes.string.number,
+      })),
 };
 
 export default PageDetails;

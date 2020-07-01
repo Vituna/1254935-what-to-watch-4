@@ -5,12 +5,14 @@ import MoviesList from '../movie-list/movie-list.jsx';
 import PageOverview from '../page-overview/page-overview.jsx';
 import PageDetails from '../page-details/page-details.jsx';
 import PageReviews from '../page-reviews/page-reviews.jsx';
+import {MaxSimilarCards} from '../../consts.js';
+
 
 const getSimilarCards = (movieСardsSettings, genre) => {
-  return movieСardsSettings.filter((movie) => movie.genre === genre).slice(0, 4);
+  return movieСardsSettings.filter((movie) => movie.genre === genre).slice(0, MaxSimilarCards);
 };
 
-const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails, movieReviews, renderTabs, activeTab}) => {
+const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails, movieReviews, renderTabs, activeTab, movieDetail}) => {
   const {
     title,
     genre,
@@ -23,7 +25,6 @@ const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails
     descriptionTwo,
     director,
     starring,
-    movieDurationTime
   } = movieDetails;
 
   const similarCards = getSimilarCards(movieСardsSettings, genre);
@@ -41,11 +42,7 @@ const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails
         />;
       case `Details`:
         return <PageDetails
-          director={director}
-          genre={genre}
-          movieDurationTime={movieDurationTime}
-          starring={starring}
-          year={year}
+          movieDetail={movieDetail}
         />;
       case `Reviews`:
         return <PageReviews
@@ -184,6 +181,10 @@ MoviePage.propTypes = {
   })),
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
+  movieDetail: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.number,
+  })),
 };
 
 export default MoviePage;

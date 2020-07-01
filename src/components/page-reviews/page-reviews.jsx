@@ -5,11 +5,11 @@ import Review from '../review/review.jsx';
 
 const PageReviews = ({movieReviews}) => {
 
-  const getReview = (it, i) => {
+  const getReview = (review, i) => {
     return (
       <Review
         key={`${i}`}
-        review={it}
+        review={review}
       />
     );
   };
