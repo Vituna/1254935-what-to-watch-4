@@ -56,7 +56,7 @@ const ActionCreator = {
   },
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = extend(initialState), action) => {
   switch (action.type) {
     case ActionType.CHANGE_GENRE_FILTER:
       return extend(state, {
