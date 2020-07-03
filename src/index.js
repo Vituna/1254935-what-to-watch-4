@@ -1,20 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+import {reducer} from "./reducer/reducer.js";
 
 import App from "./components/app/app.jsx";
-import movieСardsSettings from "./mocks/movie-cards-settings.js";
-import {Settings, movieDetails, movieDetail} from "./mocks/movie-info.js";
-import movieReviews from "./mocks/movie-reviews.js";
 
+const store = createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+);
 
 ReactDOM.render(
-    <App
-      movieСardsSettings={movieСardsSettings}
-      movieTitle={Settings.MOVIE_TITLE}
-      movieGenre={Settings.MOVIE_GENRE}
-      movieReleaseDate={Settings.MOVIE_RELEASE_DATE}
-      movieDetails={movieDetails}
-      movieDetail={movieDetail}
-      movieReviews={movieReviews}
-    />, document.querySelector(`#root`)
+    <Provider store={store}>
+      <App/>
+    </Provider>,
+    document.querySelector(`#root`)
 );

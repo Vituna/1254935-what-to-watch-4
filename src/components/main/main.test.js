@@ -7,6 +7,7 @@ const Settings = {
   MOVIE_TITLE: `The Grand Budapest Hotel`,
   MOVIE_GENRE: `Drama`,
   MOVIE_RELEASE_DATE: 2014,
+
   MOVIE_CARDS: [
     {
       name: `Avatar`,
@@ -51,6 +52,9 @@ const Settings = {
   ]
 };
 
+const genres = [`Comedies`, `Crime`, `Documentary`];
+const activeGenre = `Comedies`;
+
 const createNodeMock = () => {
   return {};
 };
@@ -62,6 +66,9 @@ it(`Should WTW render correctly`, () => {
       movieGenre={Settings.MOVIE_GENRE}
       movieReleaseDate={Settings.MOVIE_RELEASE_DATE}
       movieСardsSettings={Settings.MOVIE_CARDS}
+      genres={genres}
+      activeGenre={activeGenre}
+      onGenreItemClick={() => {}}
       onCardClick={() => {}}
       onTitleClick={() => {}}
     />, {createNodeMock})

@@ -13,12 +13,6 @@ export const movieDetails = {
   movieDurationTime: `1h 49m`,
 };
 
-export const Settings = {
-  MOVIE_TITLE: `The Grand Budapest Hotel`,
-  MOVIE_GENRE: `Drama`,
-  MOVIE_RELEASE_DATE: 2014,
-};
-
 export const movieDetail = [
   {
     name: `Genre`,

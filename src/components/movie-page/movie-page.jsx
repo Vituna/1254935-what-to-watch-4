@@ -7,7 +7,6 @@ import PageDetails from '../page-details/page-details.jsx';
 import PageReviews from '../page-reviews/page-reviews.jsx';
 import {MaxSimilarCards} from '../../consts.js';
 
-
 const getSimilarCards = (movieСardsSettings, genre) => {
   return movieСardsSettings.filter((movie) => movie.genre === genre).slice(0, MaxSimilarCards);
 };

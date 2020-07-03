@@ -2,8 +2,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
 import VideoPlayer from '../video-player/video-player.jsx';
-
-const VIDEO_DELAY = 1000;
+import {VIDEO_DELAY} from "../../consts.js";
 
 class MovieCard extends PureComponent {
   constructor(props) {
@@ -14,7 +13,6 @@ class MovieCard extends PureComponent {
     };
 
     this._timer = null;
-
     this._handleCartTitleClick = this._handleCartTitleClick.bind(this);
     this._handleCardClick = this._handleCardClick.bind(this);
     this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
@@ -37,7 +35,7 @@ class MovieCard extends PureComponent {
   }
 
   _handleCardMouseRemove() {
-    clearTimeout(this.timer);
+    clearTimeout(this._timer);
     this.setState({isPlaying: false});
     this.props.onCardMouseLeave();
   }
@@ -53,7 +51,6 @@ class MovieCard extends PureComponent {
     const {movieSetting} = this.props;
     this.props.onCardClick(movieSetting);
   }
-
 
   render() {
     const {movieSetting} = this.props;

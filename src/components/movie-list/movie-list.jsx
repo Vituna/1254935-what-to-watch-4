@@ -41,7 +41,6 @@ class MovieList extends PureComponent {
 
   _renderMovies() {
     const {movieСardsSettings} = this.props;
-
     return movieСardsSettings.map(this._getMovie, this);
   }
 

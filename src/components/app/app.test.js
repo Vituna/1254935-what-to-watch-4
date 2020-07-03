@@ -1,7 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 
-import App from "./app.jsx";
+import {App} from "./app.jsx";
+
+const mockStore = configureStore([]);
 
 const Settings = {
   MOVIE_TITLE: `The Grand Budapest Hotel`,
@@ -90,6 +94,7 @@ const movieReviews = [
   },
 ];
 
+
 const movieDetails = {
   title: `The Grand Budapest Hotel`,
   genre: `Drama`,
@@ -105,20 +110,56 @@ const movieDetails = {
   movieDurationTime: `1h 49m`,
 };
 
+const movieDetail = [
+  {
+    name: `Genre`,
+    value: `Drama`,
+  },
+  {
+    name: `Released`,
+    value: 2014,
+  },
+  {
+    name: `Director`,
+    value: `Wes Andreson`,
+  },
+  {
+    name: `Starring`,
+    value: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
+  },
+  {
+    name: `Run Time`,
+    value: `1h 49m`,
+  },
+];
+
+const activeGenre = `Drama`;
+const genres = [`All genres`, `Drama`, `Documentary`, `Horror`];
+
 const createNodeMock = () => {
   return {};
 };
 
 it(`Render App`, () => {
+  const store = mockStore({
+    mistakes: 0,
+  });
   const tree = renderer
-    .create(<App
-      movieTitle={Settings.MOVIE_TITLE}
-      movieGenre={Settings.MOVIE_GENRE}
-      movieReleaseDate={Settings.MOVIE_RELEASE_DATE}
-      movieСardsSettings={Settings.MOVIE_CARDS}
-      movieDetails={movieDetails}
-      movieReviews={movieReviews}
-    />, {createNodeMock})
+    .create(
+        <Provider store={store}>
+          <App
+            movieTitle={Settings.MOVIE_TITLE}
+            movieGenre={Settings.MOVIE_GENRE}
+            movieReleaseDate={Settings.MOVIE_RELEASE_DATE}
+            genres={genres}
+            activeGenre={activeGenre}
+            onGenreItemClick={() => {}}
+            movieСardsSettings={Settings.MOVIE_CARDS}
+            movieDetails={movieDetails}
+            movieReviews={movieReviews}
+            movieDetail={movieDetail}
+          />
+        </Provider>, {createNodeMock})
       .toJSON();
 
   expect(tree).toMatchSnapshot();
