@@ -7,7 +7,7 @@ const Settings = {
   MOVIE_CARDS:
     {
       name: `Avatar`,
-      image: `img/avatar.jpg`,
+      filmCover: `img/avatar.jpg`,
       previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     },
 };

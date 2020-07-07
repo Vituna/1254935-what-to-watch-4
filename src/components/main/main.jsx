@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import MoviesList from '../movie-list/movie-list.jsx';
 import GenresList from "../genres-list/genres-list.jsx";
 
-const Main = ({movieTitle, movieGenre, movieReleaseDate, movieСardsSettings, onTitleClick, onCardClick, onGenreItemClick, genres, activeGenre}) => {
+const Main = ({movie, movies, onTitleClick, onCardClick, onGenreItemClick, genres, activeGenre}) => {
+  const {title, genre, year} = movie;
   return (
     <>
       <section className="movie-card">
@@ -37,10 +38,10 @@ const Main = ({movieTitle, movieGenre, movieReleaseDate, movieСardsSettings, on
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{movieTitle}</h2>
+              <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{movieGenre}</span>
-                <span className="movie-card__year">{movieReleaseDate}</span>
+                <span className="movie-card__genre">{genre}</span>
+                <span className="movie-card__year">{year}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -74,7 +75,7 @@ const Main = ({movieTitle, movieGenre, movieReleaseDate, movieСardsSettings, on
 
           <div className="catalog__movies-list">
             <MoviesList
-              movieСardsSettings={movieСardsSettings}
+              movies={movies}
               onTitleClick={onTitleClick}
               onCardClick={onCardClick}
             />
@@ -104,13 +105,8 @@ const Main = ({movieTitle, movieGenre, movieReleaseDate, movieСardsSettings, on
 };
 
 Main.propTypes = {
-  movieTitle: PropTypes.string,
-  movieGenre: PropTypes.string,
-  movieReleaseDate: PropTypes.number,
-  movieСardsSettings: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    image: PropTypes.string
-  })),
+  movies: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  movie: PropTypes.shape(),
   onTitleClick: PropTypes.func,
   onCardClick: PropTypes.func,
   activeGenre: PropTypes.string,

@@ -1,5 +1,3 @@
-import {reducer, ActionType} from "./reducer.js";
-
 const comments = [
   {
     text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director&apos;s funniest and most exquisitely designed movies in years.`,
@@ -193,58 +191,3 @@ export const movies = [
     comments,
   },
 ];
-
-const movieDetail = [
-  {
-    name: `Genre`,
-    value: `Drama`,
-  },
-  {
-    name: `Released`,
-    value: 2014,
-  },
-  {
-    name: `Director`,
-    value: `Wes Andreson`,
-  },
-  {
-    name: `Starring`,
-    value: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
-  },
-  {
-    name: `Run Time`,
-    value: `1h 49m`,
-  },
-];
-
-const genres = [`All genres`, `Drama`, `Sci-Fi`, `Comedies`, `Crime`, `Documentary`, `Horror`, `Thrillers`, `Kids & Family`, `Romance`];
-const DefaultGenre = `All genres`;
-
-
-it(`Reducer without additional parameters should return initial state`, () => {
-  expect(reducer(void 0, {})).toEqual({
-    activeGenre: DefaultGenre,
-    movieDetail,
-    activeCard: null,
-    movies,
-    genres,
-  });
-});
-
-it(`Reducer should change the genre to a given value`, () => {
-  expect(reducer({
-    activeGenre: DefaultGenre,
-    activeCard: null,
-    movies,
-    genres,
-  }, {
-    type: ActionType.CHANGE_GENRE_FILTER,
-    payload: `Drama`,
-  })).toEqual({
-    activeGenre: `Drama`,
-    activeCard: null,
-    movies,
-    genres,
-  });
-});
-

@@ -54,7 +54,7 @@ class MovieCard extends PureComponent {
 
   render() {
     const {movieSetting} = this.props;
-    const {name, image, previewVideo} = movieSetting;
+    const {name, filmCover, previewVideo} = movieSetting;
 
     return (
       <article className="small-movie-card catalog__movies-card"
@@ -64,7 +64,7 @@ class MovieCard extends PureComponent {
         <div className="small-movie-card__image" onClick={this._handleCardClick}>
           <VideoPlayer
             src={previewVideo}
-            poster={image}
+            poster={filmCover}
             muted={true}
             isPlaying={this.state.isPlaying}
           />
@@ -80,11 +80,7 @@ class MovieCard extends PureComponent {
 }
 
 MovieCard.propTypes = {
-  movieSetting: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    previewVideo: PropTypes.string,
-  }).isRequired,
+  movieSetting: PropTypes.shape(),
   onCardMouseEnter: PropTypes.func,
   onCardMouseLeave: PropTypes.func,
   onTitleClick: PropTypes.func,

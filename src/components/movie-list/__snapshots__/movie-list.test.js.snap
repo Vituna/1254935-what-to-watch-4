@@ -14,8 +14,6 @@ Array [
       <video
         className="player__video"
         muted={true}
-        poster="img/avatar.jpg"
-        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
     <h3
@@ -25,9 +23,7 @@ Array [
         className="small-movie-card__link"
         href="movie-page.html"
         onClick={[Function]}
-      >
-        Avatar
-      </a>
+      />
     </h3>
   </article>,
   <article
@@ -42,8 +38,6 @@ Array [
       <video
         className="player__video"
         muted={true}
-        poster="img/aviator.jpg"
-        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
       />
     </div>
     <h3
@@ -53,9 +47,7 @@ Array [
         className="small-movie-card__link"
         href="movie-page.html"
         onClick={[Function]}
-      >
-        Aviator
-      </a>
+      />
     </h3>
   </article>,
   <article
@@ -70,8 +62,6 @@ Array [
       <video
         className="player__video"
         muted={true}
-        poster="img/bohemian-rhapsody.jpg"
-        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
     <h3
@@ -81,9 +71,7 @@ Array [
         className="small-movie-card__link"
         href="movie-page.html"
         onClick={[Function]}
-      >
-        Bohemian rhapsody
-      </a>
+      />
     </h3>
   </article>,
   <article
@@ -98,8 +86,6 @@ Array [
       <video
         className="player__video"
         muted={true}
-        poster="img/johnny-english.jpg"
-        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
       />
     </div>
     <h3
@@ -109,9 +95,7 @@ Array [
         className="small-movie-card__link"
         href="movie-page.html"
         onClick={[Function]}
-      >
-        Johnny English
-      </a>
+      />
     </h3>
   </article>,
   <article
@@ -126,8 +110,6 @@ Array [
       <video
         className="player__video"
         muted={true}
-        poster="img/orlando.jpg"
-        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
     <h3
@@ -137,9 +119,7 @@ Array [
         className="small-movie-card__link"
         href="movie-page.html"
         onClick={[Function]}
-      >
-        Orlando
-      </a>
+      />
     </h3>
   </article>,
   <article
@@ -154,8 +134,6 @@ Array [
       <video
         className="player__video"
         muted={true}
-        poster="img/pulp-fiction.jpg"
-        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
       />
     </div>
     <h3
@@ -165,9 +143,7 @@ Array [
         className="small-movie-card__link"
         href="movie-page.html"
         onClick={[Function]}
-      >
-        Pulp Fiction
-      </a>
+      />
     </h3>
   </article>,
   <article
@@ -182,8 +158,6 @@ Array [
       <video
         className="player__video"
         muted={true}
-        poster="img/player-poster.jpg"
-        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
     <h3
@@ -193,9 +167,7 @@ Array [
         className="small-movie-card__link"
         href="movie-page.html"
         onClick={[Function]}
-      >
-        Player poster
-      </a>
+      />
     </h3>
   </article>,
   <article
@@ -210,8 +182,6 @@ Array [
       <video
         className="player__video"
         muted={true}
-        poster="img/war-of-the-worlds.jpg"
-        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
       />
     </div>
     <h3
@@ -221,9 +191,31 @@ Array [
         className="small-movie-card__link"
         href="movie-page.html"
         onClick={[Function]}
-      >
-        War of the worlds
-      </a>
+      />
+    </h3>
+  </article>,
+  <article
+    className="small-movie-card catalog__movies-card"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <div
+      className="small-movie-card__image"
+      onClick={[Function]}
+    >
+      <video
+        className="player__video"
+        muted={true}
+      />
+    </div>
+    <h3
+      className="small-movie-card__title"
+    >
+      <a
+        className="small-movie-card__link"
+        href="movie-page.html"
+        onClick={[Function]}
+      />
     </h3>
   </article>,
 ]

@@ -1,24 +1,14 @@
-import movieСardsSettings from "../mocks/movie-cards-settings.js";
-import {movieDetails, movieDetail} from "../mocks/movie-info.js";
-import movieReviews from "../mocks/movie-reviews.js";
+import {movies} from "../mocks/movies.js";
+import {movieDetail} from "../mocks/movie-info.js";
 import {DefaultGenre} from "../consts.js";
 import {extend} from "../utils.js";
 
-const movieTitle = movieDetails.title;
-const movieGenre = movieDetails.genre;
-const movieReleaseDate = movieDetails.year;
-
-const genres = Array.from(new Set(movieСardsSettings.map((film) => film.genre)));
+const genres = Array.from(new Set(movies.map((film) => film.genre)));
 genres.unshift(DefaultGenre);
 
 const initialState = {
-  movieСardsSettings,
-  movieDetails,
-  movieTitle,
-  movieGenre,
-  movieReleaseDate,
+  movies,
   movieDetail,
-  movieReviews,
   activeGenre: DefaultGenre,
   genres,
   activeCard: null,
@@ -29,8 +19,8 @@ const ActionType = {
   GET_FILMS_BY_GENRE: `GET_FILMS_BY_GENRE`,
 };
 
-const getFilmsByGenre = (movies, genre) => {
-  return movies.filter((movie) => movie.genre === genre);
+const getFilmsByGenre = (films, genre) => {
+  return films.filter((film) => film.genre === genre);
 };
 
 const ActionCreator = {
@@ -43,11 +33,11 @@ const ActionCreator = {
     if (genre === DefaultGenre) {
       return {
         type: ActionType.GET_FILMS_BY_GENRE,
-        payload: initialState.movieСardsSettings,
+        payload: initialState.movies,
       };
     }
 
-    const filteredFilms = getFilmsByGenre(initialState.movieСardsSettings, genre);
+    const filteredFilms = getFilmsByGenre(initialState.movies, genre);
 
     return {
       type: ActionType.GET_FILMS_BY_GENRE,
@@ -65,17 +55,11 @@ const reducer = (state = extend(initialState), action) => {
 
     case ActionType.GET_FILMS_BY_GENRE:
       return extend(state, {
-        movieСardsSettings: action.payload,
+        movies: action.payload,
       });
-
-    case ActionType.GET_ACTIVE_FILM:
-      return extend(state, {
-        activeCard: action.payload,
-      });
-
   }
 
   return state;
 };
 
-export {reducer, ActionType, ActionCreator, genres, getFilmsByGenre};
+export {reducer, ActionType, ActionCreator};

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 
 const PageDetails = ({movieDetail}) => {
 
@@ -36,4 +37,9 @@ PageDetails.propTypes = {
       })),
 };
 
-export default PageDetails;
+const mapStateToProps = (state) => ({
+  movieDetail: state.movieDetail,
+});
+
+export {PageDetails};
+export default connect(mapStateToProps, {})(PageDetails);

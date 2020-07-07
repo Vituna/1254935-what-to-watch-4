@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 
 import Review from '../review/review.jsx';
 
-const PageReviews = ({movieReviews}) => {
+const PageReviews = ({movie}) => {
+  const {comments} = movie;
 
   const getReview = (review, i) => {
     return (
       <Review
-        key={`${i}`}
+        key={`${i}` + `${review}`}
         review={review}
       />
     );
   };
 
-  const renderReviews = () => movieReviews.map(getReview);
+  const renderReviews = () => comments.map(getReview);
 
   return (
     <div className="movie-card__reviews movie-card__row">
@@ -28,14 +29,9 @@ const PageReviews = ({movieReviews}) => {
 };
 
 PageReviews.propTypes = {
-  movieReviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        author: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        text: PropTypes.string.isRequired,
-      }).isRequired
-  ),
+  movie: PropTypes.shape({
+    comments: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  }),
 };
 
 export default PageReviews;

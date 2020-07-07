@@ -1,7 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 
-import PageDetails from './page-details.jsx';
+const mockStore = configureStore([]);
+
+import {PageDetails} from './page-details.jsx';
 
 const movieDetail = [
   {
@@ -31,11 +35,17 @@ const createNodeMock = () => {
 };
 
 it(`Should PageDetails render correctly`, () => {
+  const store = mockStore({
+    mistakes: 0,
+  });
 
   const tree = renderer
-    .create(<PageDetails
-      movieDetail={movieDetail}
-    />, {createNodeMock})
+    .create(
+        <Provider store={store}>
+          <PageDetails
+            movieDetail={movieDetail}
+          />
+        </Provider>, {createNodeMock})
     .toJSON();
 
   expect(tree).toMatchSnapshot();
