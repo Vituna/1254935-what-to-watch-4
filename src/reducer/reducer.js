@@ -68,4 +68,4 @@ const reducer = (state = extend(initialState), action) => {
   return state;
 };
 
-export {reducer, ActionType, ActionCreator, getFilmsByGenre};
+export {reducer, ActionType, ActionCreator};
