@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+const activeClass = (activeGenre, genre) => {
+  return activeGenre === genre ? `catalog__genres-item--active` : ``;
+};
+
 const GenresList = (props) => {
   const {genres, onGenreItemClick, activeGenre} = props;
-
-  const activeClass = (genre) => {
-    return activeGenre === genre ? `catalog__genres-item--active` : ``;
-  };
 
   const handleGenreClick = (genre) => {
     return (evt) => {
@@ -16,7 +16,7 @@ const GenresList = (props) => {
   };
 
   const getGenre = (genre, i) => {
-    const genreClass = `catalog__genres-item ${activeClass(genre)}`;
+    const genreClass = `catalog__genres-item ${activeClass(activeGenre, genre)}`;
     const key = `${genre} + ${i}`;
 
     return (

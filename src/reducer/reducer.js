@@ -57,9 +57,15 @@ const reducer = (state = extend(initialState), action) => {
       return extend(state, {
         movies: action.payload,
       });
+
+    case ActionType.GET_ACTIVE_FILM:
+      return extend(state, {
+        activeCard: action.payload,
+      });
+
   }
 
   return state;
 };
 
-export {reducer, ActionType, ActionCreator};
+export {reducer, ActionType, ActionCreator, getFilmsByGenre};
