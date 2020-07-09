@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/reducer.js";
 
 import MoviesList from '../movie-list/movie-list.jsx';
 import GenresList from "../genres-list/genres-list.jsx";
@@ -126,6 +127,13 @@ const mapStateToProps = (state) => ({
   filmsLength: state.filmsLength,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onShowMoreClick() {
+    dispatch(ActionCreator.changeFilmsLength());
+  }
+});
+
+
 export {Main};
-export default connect(mapStateToProps, {})(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
 
