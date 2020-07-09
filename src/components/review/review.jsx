@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const Review = ({review}) => {
   const {author, date, rating, text} = review;
-
   return (
     <div className="review">
       <blockquote className="review__quote">
@@ -21,8 +20,8 @@ const Review = ({review}) => {
 Review.propTypes = {
   review: PropTypes.shape({
     author: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
+    date: PropTypes.string,
+    rating: PropTypes.string.number,
     text: PropTypes.string.isRequired,
   }),
 };

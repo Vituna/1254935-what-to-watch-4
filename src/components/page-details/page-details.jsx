@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 
 const PageDetails = ({movieDetail}) => {
 
-  const getDetails = (it, i) => {
-    const {name, value} = it;
+  const getDetails = (info, i) => {
+    const {name, value} = info;
+    const key = `${name} + ${i}`;
+
     return (
-      <p key={`${i}`} className="movie-card__details-item">
+      <p key={key} className="movie-card__details-item">
         <strong className="movie-card__details-name">{name}</strong>
         <span className="movie-card__details-value">{value}</span>
       </p>
@@ -34,4 +37,9 @@ PageDetails.propTypes = {
       })),
 };
 
-export default PageDetails;
+const mapStateToProps = (state) => ({
+  movieDetail: state.movieDetail,
+});
+
+export {PageDetails};
+export default connect(mapStateToProps, {})(PageDetails);

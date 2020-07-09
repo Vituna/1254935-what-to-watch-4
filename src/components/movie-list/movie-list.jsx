@@ -40,9 +40,8 @@ class MovieList extends PureComponent {
   }
 
   _renderMovies() {
-    const {movieСardsSettings} = this.props;
-
-    return movieСardsSettings.map(this._getMovie, this);
+    const {movies} = this.props;
+    return movies.map(this._getMovie, this);
   }
 
   render() {
@@ -53,11 +52,7 @@ class MovieList extends PureComponent {
 }
 
 MovieList.propTypes = {
-  movieСardsSettings: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    previewVideo: PropTypes.string,
-  })),
+  movies: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   onTitleClick: PropTypes.func,
   onCardClick: PropTypes.func,
 };

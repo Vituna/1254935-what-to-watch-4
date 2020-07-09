@@ -4,10 +4,10 @@ import renderer from 'react-test-renderer';
 import Review from './review.jsx';
 
 const review = {
-  author: `Bill Goodykoontz`,
-  date: `November 18, 2015`,
-  rating: 8.0,
-  text: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+  text: `I didn&apos;t find it amusing, and while I can appreciate the creativity, it&apos;s an hour and 40 minutes I wish I could take back.`,
+  author: `Amanda Greever`,
+  date: `2015-11-18`,
+  rating: `8,0`,
 };
 
 it(`Should Review render correctly`, () => {

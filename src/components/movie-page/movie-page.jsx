@@ -7,12 +7,11 @@ import PageDetails from '../page-details/page-details.jsx';
 import PageReviews from '../page-reviews/page-reviews.jsx';
 import {MaxSimilarCards} from '../../consts.js';
 
-
-const getSimilarCards = (movieСardsSettings, genre) => {
-  return movieСardsSettings.filter((movie) => movie.genre === genre).slice(0, MaxSimilarCards);
+const getSimilarCards = (movies, genre) => {
+  return movies.filter((movie) => movie.genre === genre).slice(0, MaxSimilarCards);
 };
 
-const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails, movieReviews, renderTabs, activeTab, movieDetail}) => {
+const MoviePage = ({movies, onTitleClick, onCardClick, movie, renderTabs, activeTab}) => {
   const {
     title,
     genre,
@@ -25,9 +24,9 @@ const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails
     descriptionTwo,
     director,
     starring,
-  } = movieDetails;
+  } = movie;
 
-  const similarCards = getSimilarCards(movieСardsSettings, genre);
+  const similarCards = getSimilarCards(movies, genre);
 
   const renderActiveTab = () => {
     switch (activeTab) {
@@ -42,11 +41,10 @@ const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails
         />;
       case `Details`:
         return <PageDetails
-          movieDetail={movieDetail}
         />;
       case `Reviews`:
         return <PageReviews
-          movieReviews={movieReviews}
+          movie={movie}
         />;
       default:
         return ``;
@@ -125,7 +123,7 @@ const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__movies-list">
             <MoviesList
-              movieСardsSettings={similarCards}
+              movies={similarCards}
               onTitleClick={onTitleClick}
               onCardClick={onCardClick}
             />
@@ -152,39 +150,12 @@ const MoviePage = ({movieСardsSettings, onTitleClick, onCardClick, movieDetails
 };
 
 MoviePage.propTypes = {
-  movieСardsSettings: PropTypes.arrayOf(PropTypes.shape({
-    genre: PropTypes.string,
-    name: PropTypes.string,
-    image: PropTypes.string
-  })),
+  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
   onTitleClick: PropTypes.func,
   onCardClick: PropTypes.func,
-  movieDetails: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    bigPoster: PropTypes.string.isRequired,
-    filmCover: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    numberVotes: PropTypes.number.isRequired,
-    descriptionOne: PropTypes.string.isRequired,
-    descriptionTwo: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.string.isRequired,
-    movieDurationTime: PropTypes.string.isRequired,
-  }),
-  movieReviews: PropTypes.arrayOf(PropTypes.shape({
-    author: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
-  })),
+  movie: PropTypes.shape(),
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
-  movieDetail: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    value: PropTypes.string.number,
-  })),
 };
 
 export default MoviePage;

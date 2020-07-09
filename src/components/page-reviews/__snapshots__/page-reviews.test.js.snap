@@ -16,7 +16,7 @@ exports[`Should PageReviews render correctly 1`] = `
         <p
           className="review__text"
         >
-          Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years
+          Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director&apos;s funniest and most exquisitely designed movies in years.
         </p>
         <footer
           className="review__details"
@@ -28,16 +28,16 @@ exports[`Should PageReviews render correctly 1`] = `
           </cite>
           <time
             className="review__date"
-            dateTime="December 24, 2016"
+            dateTime="2016-12-24"
           >
-            December 24, 2016
+            2016-12-24
           </time>
         </footer>
       </blockquote>
       <div
         className="review__rating"
       >
-        8.9
+        8,9
       </div>
     </div>
     <div
@@ -49,7 +49,7 @@ exports[`Should PageReviews render correctly 1`] = `
         <p
           className="review__text"
         >
-          Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.
+          Anderson&apos;s films are too precious for some, but for those of us willing to lose ourselves in them, they&apos;re a delight. &quot;The Grand Budapest Hotel&quot; is no different, except that he has added a hint of gravitas to the mix, improving the recipe.
         </p>
         <footer
           className="review__details"
@@ -61,16 +61,16 @@ exports[`Should PageReviews render correctly 1`] = `
           </cite>
           <time
             className="review__date"
-            dateTime="November 18, 2015"
+            dateTime="2015-11-18"
           >
-            November 18, 2015
+            2015-11-18
           </time>
         </footer>
       </blockquote>
       <div
         className="review__rating"
       >
-        8
+        8,0
       </div>
     </div>
     <div
@@ -82,7 +82,7 @@ exports[`Should PageReviews render correctly 1`] = `
         <p
           className="review__text"
         >
-          I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.
+          I didn&apos;t find it amusing, and while I can appreciate the creativity, it&apos;s an hour and 40 minutes I wish I could take back.
         </p>
         <footer
           className="review__details"
@@ -94,16 +94,16 @@ exports[`Should PageReviews render correctly 1`] = `
           </cite>
           <time
             className="review__date"
-            dateTime="November 18, 2015"
+            dateTime="2015-11-18"
           >
-            November 18, 2015
+            2015-11-18
           </time>
         </footer>
       </blockquote>
       <div
         className="review__rating"
       >
-        8
+        8,0
       </div>
     </div>
     <div
@@ -127,16 +127,16 @@ exports[`Should PageReviews render correctly 1`] = `
           </cite>
           <time
             className="review__date"
-            dateTime="December 20, 2016"
+            dateTime="2016-12-20"
           >
-            December 20, 2016
+            2016-12-20
           </time>
         </footer>
       </blockquote>
       <div
         className="review__rating"
       >
-        7.2
+        7,2
       </div>
     </div>
     <div
@@ -148,7 +148,7 @@ exports[`Should PageReviews render correctly 1`] = `
         <p
           className="review__text"
         >
-          It is certainly a magical and childlike way of storytelling, even if the content is a little more adult
+          Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director&apos;s funniest and most exquisitely designed movies in years.
         </p>
         <footer
           className="review__details"
@@ -156,20 +156,20 @@ exports[`Should PageReviews render correctly 1`] = `
           <cite
             className="review__author"
           >
-            Paula Fleri-Soler
+            Kate Muir
           </cite>
           <time
             className="review__date"
-            dateTime="December 20, 2016"
+            dateTime="2016-12-24"
           >
-            December 20, 2016
+            2016-12-24
           </time>
         </footer>
       </blockquote>
       <div
         className="review__rating"
       >
-        7.6
+        8,9
       </div>
     </div>
     <div
@@ -181,7 +181,7 @@ exports[`Should PageReviews render correctly 1`] = `
         <p
           className="review__text"
         >
-          It is certainly a magical and childlike way of storytelling, even if the content is a little more adult
+          I didn&apos;t find it amusing, and while I can appreciate the creativity, it&apos;s an hour and 40 minutes I wish I could take back.
         </p>
         <footer
           className="review__details"
@@ -189,20 +189,20 @@ exports[`Should PageReviews render correctly 1`] = `
           <cite
             className="review__author"
           >
-            Paula Fleri-Soler
+            Amanda Greever
           </cite>
           <time
             className="review__date"
-            dateTime="December 20, 2016"
+            dateTime="2015-11-18"
           >
-            December 20, 2016
+            2015-11-18
           </time>
         </footer>
       </blockquote>
       <div
         className="review__rating"
       >
-        7
+        8,0
       </div>
     </div>
   </div>
