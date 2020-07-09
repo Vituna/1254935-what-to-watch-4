@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import Main from "./main.jsx";
+import {Main} from "./main.jsx";
 
 const movie = {
   title: `The Grand Budapest Hotel`,
@@ -157,6 +157,7 @@ const movies = [
 
 const genres = [`Comedies`, `Crime`, `Documentary`];
 const activeGenre = `Comedies`;
+const filmsLength = 8;
 
 const createNodeMock = () => {
   return {};
@@ -169,9 +170,11 @@ it(`Should WTW render correctly`, () => {
       movies={movies}
       genres={genres}
       activeGenre={activeGenre}
+      filmsLength={filmsLength}
       onGenreItemClick={() => {}}
       onCardClick={() => {}}
       onTitleClick={() => {}}
+      onShowMoreClick={() => {}}
     />, {createNodeMock})
       .toJSON();
 

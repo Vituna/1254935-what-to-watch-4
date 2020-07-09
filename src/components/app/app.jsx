@@ -28,7 +28,7 @@ class App extends PureComponent {
   }
 
   _renderMain() {
-    const {movies, onGenreItemClick, genres, activeGenre} = this.props;
+    const {movies, onGenreItemClick, genres, activeGenre, onShowMoreClick} = this.props;
     const movie = movies[0];
 
     return (
@@ -40,6 +40,7 @@ class App extends PureComponent {
         genres={genres}
         activeGenre={activeGenre}
         onGenreItemClick={onGenreItemClick}
+        onShowMoreClick={onShowMoreClick}
       />
     );
   }
@@ -86,6 +87,7 @@ App.propTypes = {
   activeGenre: PropTypes.string,
   genres: PropTypes.arrayOf(PropTypes.string),
   onGenreItemClick: PropTypes.func.isRequired,
+  onShowMoreClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -99,6 +101,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.getFilmsByGenre(genre));
     dispatch(ActionCreator.changeFilter(genre));
   },
+  onShowMoreClick() {
+    dispatch(ActionCreator.changeFilmsLength());
+  }
 });
 
 export {App};

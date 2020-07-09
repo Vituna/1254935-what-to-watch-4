@@ -235,12 +235,13 @@ const movieDetail = [
 
 const genres = [`All genres`, `Drama`, `Sci-Fi`, `Comedies`, `Crime`, `Documentary`, `Horror`, `Thrillers`, `Kids & Family`, `Romance`];
 const DefaultGenre = `All genres`;
-
+const FILMS_LENGTH = 8;
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     activeGenre: DefaultGenre,
     movieDetail,
+    filmsLength: FILMS_LENGTH,
     movies,
     genres,
   });
@@ -307,4 +308,24 @@ it(`Action creator for getFilmsByGenre returns films filtered by genre`, () => {
     }],
   });
 });
+
+it(`Reducer should change the length of the movie list to a given value`, () => {
+  expect(reducer({
+    currentGenre: DefaultGenre,
+    activeFilm: null,
+    filmsLength: FILMS_LENGTH,
+    movies,
+    genres,
+  }, {
+    type: ActionType.SET_FILMS_LENGTH,
+    payload: FILMS_LENGTH,
+  })).toEqual({
+    currentGenre: DefaultGenre,
+    activeFilm: null,
+    filmsLength: 16,
+    movies,
+    genres,
+  });
+});
+
 

@@ -382,36 +382,13 @@ Array [
             />
           </h3>
         </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-            onClick={[Function]}
-          >
-            <video
-              className="player__video"
-              muted={true}
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-              onClick={[Function]}
-            />
-          </h3>
-        </article>
       </div>
       <div
         className="catalog__more"
       >
         <button
           className="catalog__button"
+          onClick={[Function]}
           type="button"
         >
           Show more

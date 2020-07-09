@@ -203,6 +203,7 @@ it(`Render App`, () => {
             genres={genres}
             activeGenre={activeGenre}
             onGenreItemClick={() => {}}
+            onShowMoreClick={() => {}}
             movieDetail={movieDetail}
           />
         </Provider>, {createNodeMock})
