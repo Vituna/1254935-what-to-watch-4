@@ -7,7 +7,8 @@ import MoviesList from '../movie-list/movie-list.jsx';
 import GenresList from "../genres-list/genres-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
 
-const Main = ({movie, movies, onTitleClick, onCardClick, onGenreItemClick, genres, activeGenre, filmsLength, onShowMoreClick}) => {
+const Main = ({movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick}) => {
+  const movie = movies[0];
   const {title, genre, year} = movie;
 
   return (
@@ -72,9 +73,6 @@ const Main = ({movie, movies, onTitleClick, onCardClick, onGenreItemClick, genre
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenresList
-            onGenreItemClick={onGenreItemClick}
-            activeGenre={activeGenre}
-            genres={genres}
           />
 
           <div className="catalog__movies-list">
@@ -112,19 +110,16 @@ const Main = ({movie, movies, onTitleClick, onCardClick, onGenreItemClick, genre
 };
 
 Main.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  movie: PropTypes.shape(),
+  movies: PropTypes.arrayOf(PropTypes.shape()),
   onTitleClick: PropTypes.func,
   onCardClick: PropTypes.func,
-  activeGenre: PropTypes.string,
-  genres: PropTypes.arrayOf(PropTypes.string),
-  onGenreItemClick: PropTypes.func.isRequired,
-  filmsLength: PropTypes.number.isRequired,
+  filmsLength: PropTypes.number,
   onShowMoreClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filmsLength: state.filmsLength,
+  movies: state.movies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -133,7 +128,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-
 export {Main};
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
-

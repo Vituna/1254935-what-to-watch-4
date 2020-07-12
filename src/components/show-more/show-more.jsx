@@ -1,19 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ShowMore = (props) => {
-  const {onShowMoreClick} = props;
-
-  const onClickHandler = () => {
-    onShowMoreClick();
-  };
+const ShowMore = ({onShowMoreClick}) => {
 
   return (
     <div className="catalog__more">
       <button
         className="catalog__button"
         type="button"
-        onClick={onClickHandler}
+        onClick={onShowMoreClick}
       >
         Show more
       </button>

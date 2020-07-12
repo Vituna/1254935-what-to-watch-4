@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import MoviePage from './movie-page';
+import {MoviePage} from './movie-page';
 
 const comments = [
   {
@@ -200,12 +200,10 @@ export const movies = [
 const createNodeMock = () => {
   return {};
 };
-const movie = movies[0];
 
 it(`Should MovieCard render correctly`, () => {
   const tree = renderer
     .create(<MoviePage
-      movie={movie}
       movies={movies}
       onCardClick={() => {}}
       onTitleClick={() => {}}
