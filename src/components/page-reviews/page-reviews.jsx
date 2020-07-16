@@ -20,9 +20,10 @@ const PageReviews = ({movie}) => {
   return (
     <div className="movie-card__reviews movie-card__row">
       <div className="movie-card__reviews-col">
-        {renderReviews()}
+        {renderReviews().slice(0, 3)}
       </div>
       <div className="movie-card__reviews-col">
+        {renderReviews().slice(3, 5)}
       </div>
     </div>
   );

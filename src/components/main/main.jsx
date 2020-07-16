@@ -6,6 +6,10 @@ import {ActionCreator} from "../../reducer/reducer.js";
 import MoviesList from '../movie-list/movie-list.jsx';
 import GenresList from "../genres-list/genres-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
+import withMoviesList from '../../hocs/with-movies-list.jsx';
+
+const MoviesListWrapped = withMoviesList(MoviesList);
+
 
 const Main = ({movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick}) => {
   const movie = movies[0];
@@ -76,7 +80,7 @@ const Main = ({movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick})
           />
 
           <div className="catalog__movies-list">
-            <MoviesList
+            <MoviesListWrapped
               movies={movies.slice(0, filmsLength)}
               onTitleClick={onTitleClick}
               onCardClick={onCardClick}

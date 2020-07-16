@@ -6,14 +6,16 @@ import MoviesList from '../movie-list/movie-list.jsx';
 import PageOverview from '../page-overview/page-overview.jsx';
 import PageDetails from '../page-details/page-details.jsx';
 import PageReviews from '../page-reviews/page-reviews.jsx';
+import withMoviesList from '../../hocs/with-movies-list.jsx';
 import {MaxSimilarCards} from '../../consts.js';
+
+const MoviesListWrapped = withMoviesList(MoviesList);
 
 const getSimilarCards = (movies, genre) => {
   return movies.filter((movie) => movie.genre === genre).slice(0, MaxSimilarCards);
 };
 
-const MoviePage = ({movies, onTitleClick, onCardClick, renderTabs, activeTab}) => {
-  const movie = movies[0];
+const MoviePage = ({movies, movie, onTitleClick, onCardClick, renderTabs, activeTab}) => {
 
   const {
     title,
@@ -125,7 +127,7 @@ const MoviePage = ({movies, onTitleClick, onCardClick, renderTabs, activeTab}) =
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__movies-list">
-            <MoviesList
+            <MoviesListWrapped
               movies={similarCards}
               onTitleClick={onTitleClick}
               onCardClick={onCardClick}
@@ -154,6 +156,7 @@ const MoviePage = ({movies, onTitleClick, onCardClick, renderTabs, activeTab}) =
 
 MoviePage.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  movie: PropTypes.shape(),
   onTitleClick: PropTypes.func,
   onCardClick: PropTypes.func,
   renderTabs: PropTypes.func.isRequired,

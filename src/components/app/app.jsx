@@ -1,5 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from '../movie-page/movie-page.jsx';
@@ -18,9 +20,9 @@ class App extends PureComponent {
     this._handleMovieCardClick = this._handleMovieCardClick.bind(this);
   }
 
-  _handleMovieCardClick(movieSetting) {
+  _handleMovieCardClick(title) {
     this.setState({
-      activeCard: movieSetting,
+      activeCard: title,
     });
   }
 
@@ -35,9 +37,12 @@ class App extends PureComponent {
   }
 
   _renderMoviePage() {
+    const {movies} = this.props;
+    const {activeCard} = this.state;
 
     return (
       <MoviePageWrapped
+        movie={movies.find((movie) => movie.title === activeCard)}
         onTitleClick={this._handleCardTitleClick}
         onCardClick={this._handleCardTitleClick}
       />
@@ -67,4 +72,13 @@ class App extends PureComponent {
   }
 }
 
-export default App;
+App.propTypes = {
+  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  movies: state.movies,
+});
+
+export {App};
+export default connect(mapStateToProps, {})(App);

@@ -27,10 +27,7 @@ class MovieCard extends PureComponent {
   }
 
   _handleCardMouseEnter() {
-    const {movieSetting} = this.props;
-
-    this.props.onCardMouseEnter(movieSetting);
-
+    this.props.onCardMouseEnter(this.props.title);
     this._timer = setTimeout(this._startPlaying, VIDEO_DELAY);
   }
 
@@ -41,20 +38,16 @@ class MovieCard extends PureComponent {
   }
 
   _handleCartTitleClick(evt) {
-    const {movieSetting} = this.props;
-
     evt.preventDefault();
-    this.props.onTitleClick(movieSetting);
+    this.props.onTitleClick(this.props.title);
   }
 
   _handleCardClick() {
-    const {movieSetting} = this.props;
-    this.props.onCardClick(movieSetting);
+    this.props.onCardClick(this.props.title);
   }
 
   render() {
-    const {movieSetting} = this.props;
-    const {name, filmCover, previewVideo} = movieSetting;
+    const {title, filmCover, previewVideo} = this.props;
 
     return (
       <article className="small-movie-card catalog__movies-card"
@@ -72,7 +65,7 @@ class MovieCard extends PureComponent {
         <h3 className="small-movie-card__title">
           <a className="small-movie-card__link" href="movie-page.html"
             onClick={this._handleCartTitleClick}
-          >{name}</a>
+          >{title}</a>
         </h3>
       </article>
     );
@@ -80,7 +73,9 @@ class MovieCard extends PureComponent {
 }
 
 MovieCard.propTypes = {
-  movieSetting: PropTypes.shape(),
+  title: PropTypes.string.isRequired,
+  filmCover: PropTypes.string.isRequired,
+  previewVideo: PropTypes.string.isRequired,
   onCardMouseEnter: PropTypes.func,
   onCardMouseLeave: PropTypes.func,
   onTitleClick: PropTypes.func,

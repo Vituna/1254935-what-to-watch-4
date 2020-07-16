@@ -21,9 +21,10 @@ const PageDetails = ({movieDetail}) => {
   return (
     <div className="movie-card__text movie-card__row">
       <div className="movie-card__text-col">
-        {renderDetails()}
+        {renderDetails().slice(0, 3)}
       </div>
       <div className="movie-card__text-col">
+        {renderDetails().slice(3, 5)}
       </div>
     </div>
   );
