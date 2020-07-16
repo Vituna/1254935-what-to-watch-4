@@ -3,9 +3,9 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 
-import Main from "../main/main.jsx";
-import MoviePage from '../movie-page/movie-page.jsx';
-import withTabs from '../../hocs/with-tabs.jsx';
+import Main from "../main/main";
+import MoviePage from '../movie-page/movie-page';
+import withTabs from '../../hocs/with-tabs';
 
 const MoviePageWrapped = withTabs(MoviePage);
 

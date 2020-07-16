@@ -1,8 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
-import VideoPlayer from '../video-player/video-player.jsx';
-import {VIDEO_DELAY} from "../../consts.js";
+import VideoPlayer from '../video-player/video-player';
+import {VIDEO_DELAY} from "../../consts";
 
 class MovieCard extends PureComponent {
   constructor(props) {

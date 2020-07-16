@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 
-import MoviesList from '../movie-list/movie-list.jsx';
-import PageOverview from '../page-overview/page-overview.jsx';
-import PageDetails from '../page-details/page-details.jsx';
-import PageReviews from '../page-reviews/page-reviews.jsx';
-import withMoviesList from '../../hocs/with-movies-list.jsx';
-import {MaxSimilarCards} from '../../consts.js';
+import MoviesList from '../movie-list/movie-list';
+import PageOverview from '../page-overview/page-overview';
+import PageDetails from '../page-details/page-details';
+import PageReviews from '../page-reviews/page-reviews';
+import withMoviesList from '../../hocs/with-movies-list';
+import {MaxSimilarCards} from '../../consts';
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 

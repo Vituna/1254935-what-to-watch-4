@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 
-import Tabs from '../components/tabs/tabs.jsx';
+import Tabs from '../components/tabs/tabs';
 
 const withTabs = (Component) => {
   class WithTabs extends PureComponent {

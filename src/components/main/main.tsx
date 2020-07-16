@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator} from "../../reducer/reducer";
 
-import MoviesList from '../movie-list/movie-list.jsx';
-import GenresList from "../genres-list/genres-list.jsx";
-import ShowMore from "../show-more/show-more.jsx";
-import withMoviesList from '../../hocs/with-movies-list.jsx';
+import MoviesList from '../movie-list/movie-list';
+import GenresList from "../genres-list/genres-list";
+import ShowMore from "../show-more/show-more";
+import withMoviesList from '../../hocs/with-movies-list';
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
