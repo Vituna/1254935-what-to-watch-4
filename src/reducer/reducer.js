@@ -1,6 +1,6 @@
 import {movies} from "../mocks/movies.js";
 import {movieDetail} from "../mocks/movie-info.js";
-import {DefaultGenre} from "../consts.js";
+import {DefaultGenre, FILMS_LENGTH} from "../consts.js";
 import {extend} from "../utils.js";
 
 const genres = Array.from(new Set(movies.map((film) => film.genre)));
@@ -12,11 +12,13 @@ const initialState = {
   activeGenre: DefaultGenre,
   genres,
   activeCard: null,
+  filmsLength: FILMS_LENGTH,
 };
 
 const ActionType = {
   CHANGE_GENRE_FILTER: `CHANGE_GENRE_FILTER`,
   GET_FILMS_BY_GENRE: `GET_FILMS_BY_GENRE`,
+  SET_FILMS_LENGTH: `SET_FILMS_LENGTH`,
 };
 
 const getFilmsByGenre = (films, genre) => {
@@ -44,6 +46,11 @@ const ActionCreator = {
       payload: filteredFilms,
     };
   },
+
+  changeFilmsLength: () => ({
+    type: ActionType.SET_FILMS_LENGTH,
+    payload: FILMS_LENGTH,
+  })
 };
 
 const reducer = (state = extend(initialState), action) => {
@@ -63,6 +70,10 @@ const reducer = (state = extend(initialState), action) => {
         activeCard: action.payload,
       });
 
+    case ActionType.SET_FILMS_LENGTH:
+      return extend(state, {
+        filmsLength: state.filmsLength + action.payload,
+      });
   }
 
   return state;

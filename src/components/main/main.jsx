@@ -1,11 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/reducer.js";
 
 import MoviesList from '../movie-list/movie-list.jsx';
 import GenresList from "../genres-list/genres-list.jsx";
+import ShowMore from "../show-more/show-more.jsx";
 
-const Main = ({movie, movies, onTitleClick, onCardClick, onGenreItemClick, genres, activeGenre}) => {
+const Main = ({movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick}) => {
+  const movie = movies[0];
   const {title, genre, year} = movie;
+
   return (
     <>
       <section className="movie-card">
@@ -68,22 +73,22 @@ const Main = ({movie, movies, onTitleClick, onCardClick, onGenreItemClick, genre
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenresList
-            onGenreItemClick={onGenreItemClick}
-            activeGenre={activeGenre}
-            genres={genres}
           />
 
           <div className="catalog__movies-list">
             <MoviesList
-              movies={movies}
+              movies={movies.slice(0, filmsLength)}
               onTitleClick={onTitleClick}
               onCardClick={onCardClick}
             />
           </div>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {filmsLength < movies.length
+            ? <ShowMore
+              onShowMoreClick={onShowMoreClick}
+            />
+            : null}
+
         </section>
 
         <footer className="page-footer">
@@ -105,13 +110,23 @@ const Main = ({movie, movies, onTitleClick, onCardClick, onGenreItemClick, genre
 };
 
 Main.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  movie: PropTypes.shape(),
+  movies: PropTypes.arrayOf(PropTypes.shape()),
   onTitleClick: PropTypes.func,
   onCardClick: PropTypes.func,
-  activeGenre: PropTypes.string,
-  genres: PropTypes.arrayOf(PropTypes.string),
-  onGenreItemClick: PropTypes.func.isRequired,
+  filmsLength: PropTypes.number,
+  onShowMoreClick: PropTypes.func.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  filmsLength: state.filmsLength,
+  movies: state.movies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onShowMoreClick() {
+    dispatch(ActionCreator.changeFilmsLength());
+  }
+});
+
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

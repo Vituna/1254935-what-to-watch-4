@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/reducer.js";
 
 const activeClass = (activeGenre, genre) => {
   return activeGenre === genre ? `catalog__genres-item--active` : ``;
@@ -40,9 +42,23 @@ const GenresList = (props) => {
 
 
 GenresList.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  activeGenre: PropTypes.string.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string),
+  activeGenre: PropTypes.string,
   onGenreItemClick: PropTypes.func.isRequired,
 };
 
-export default GenresList;
+const mapStateToProps = (state) => ({
+  activeGenre: state.activeGenre,
+  genres: state.genres,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onGenreItemClick(genre) {
+    dispatch(ActionCreator.getFilmsByGenre(genre));
+    dispatch(ActionCreator.changeFilter(genre));
+  },
+});
+
+export {GenresList};
+export default connect(mapStateToProps, mapDispatchToProps)(GenresList);
+

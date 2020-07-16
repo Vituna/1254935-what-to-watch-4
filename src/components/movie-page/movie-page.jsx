@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 
 import MoviesList from '../movie-list/movie-list.jsx';
 import PageOverview from '../page-overview/page-overview.jsx';
@@ -11,7 +12,9 @@ const getSimilarCards = (movies, genre) => {
   return movies.filter((movie) => movie.genre === genre).slice(0, MaxSimilarCards);
 };
 
-const MoviePage = ({movies, onTitleClick, onCardClick, movie, renderTabs, activeTab}) => {
+const MoviePage = ({movies, onTitleClick, onCardClick, renderTabs, activeTab}) => {
+  const movie = movies[0];
+
   const {
     title,
     genre,
@@ -153,9 +156,13 @@ MoviePage.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.object).isRequired,
   onTitleClick: PropTypes.func,
   onCardClick: PropTypes.func,
-  movie: PropTypes.shape(),
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
 };
 
-export default MoviePage;
+const mapStateToProps = (state) => ({
+  movies: state.movies,
+});
+
+export {MoviePage};
+export default connect(mapStateToProps, {})(MoviePage);
