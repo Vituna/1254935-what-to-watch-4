@@ -1,39 +1,45 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from "react";
 
 import MovieCard from '../movie-card/movie-card';
 
-const MovieList = ({movies, onTitleClick, onCardClick, onCardMouseEnter, onCardMouseLeave}) => {
+interface Props {
+  movies: [{
+    title: string,
+    filmCover: string,
+    previewVideo: string,
+  }];
+  filmsLength: number;
+  onTitleClick: () => void;
+  onCardClick: () => void;
+  onCardMouseEnter: () => void;
+  onCardMouseLeave: () => void;
+  onShowMoreClick: () => void;
+}
+
+const MovieList: React.FunctionComponent<Props> = ({movies, onTitleClick, onCardClick, onCardMouseEnter, onCardMouseLeave}) => {
 
   const getMovie = (it, i) => {
     return (
-      <MovieCard
-        key={`${i}`}
-        title={it.title}
-        filmCover={it.filmCover}
-        previewVideo={it.previewVideo}
-        onTitleClick={onTitleClick}
-        onCardClick={onCardClick}
-        onCardMouseEnter={onCardMouseEnter}
-        onCardMouseLeave={onCardMouseLeave}
-      />
+      <React.Fragment key={`${it.title + i}`}>
+        <MovieCard
+          title={it.title}
+          filmCover={it.filmCover}
+          previewVideo={it.previewVideo}
+          onTitleClick={onTitleClick}
+          onCardClick={onCardClick}
+          onCardMouseEnter={onCardMouseEnter}
+          onCardMouseLeave={onCardMouseLeave}
+        />
+      </React.Fragment>
     );
   };
-
   const renderMovies = () => movies.map(getMovie);
 
   return (
-    renderMovies()
+    <>
+      {renderMovies()}
+    </>
   );
-};
-
-MovieList.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  onTitleClick: PropTypes.func,
-  onCardClick: PropTypes.func,
-  onCardMouseEnter: PropTypes.func,
-  onCardMouseLeave: PropTypes.func,
-  title: PropTypes.any,
 };
 
 export default MovieList;

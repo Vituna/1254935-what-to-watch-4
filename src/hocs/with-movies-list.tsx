@@ -1,7 +1,24 @@
-import React, {PureComponent} from 'react';
+import * as React from "react";
+import {Subtract} from "utility-types";
+
+interface Props {
+  filmsLength: number;
+  onTitleClick: () => void;
+  onCardClick: () => void;
+  onCardMouseEnter: () => void;
+  onCardMouseLeave: () => void;
+  onShowMoreClick: () => void;
+}
+
+interface State {
+  activeCard: string;
+}
 
 const withMoviesList = (Component) => {
-  class WithMoviesList extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, {}>;
+
+  class WithMoviesList extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 

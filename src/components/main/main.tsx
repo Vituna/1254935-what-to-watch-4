@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer";
 
@@ -8,10 +7,31 @@ import GenresList from "../genres-list/genres-list";
 import ShowMore from "../show-more/show-more";
 import withMoviesList from '../../hocs/with-movies-list';
 
+interface Props {
+  movies: [{
+    title: string,
+    filmCover: string,
+    genre: string,
+    year: number,
+    movieDurationTime: number,
+    bigPoster: string,
+    rating: number,
+    numberVotes: number,
+    descriptionOne: string,
+    descriptionTwo: string,
+    director: string,
+    starring: string,
+    previewVideo: string,
+   }];
+  filmsLength: number;
+  onTitleClick: () => void;
+  onCardClick: () => void;
+  onShowMoreClick: () => void;
+}
+
 const MoviesListWrapped = withMoviesList(MoviesList);
 
-
-const Main = ({movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick}) => {
+const Main: React.FunctionComponent<Props> = ({movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick}) => {
   const movie = movies[0];
   const {title, genre, year} = movie;
 
@@ -111,14 +131,6 @@ const Main = ({movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick})
       </div>
     </>
   );
-};
-
-Main.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape()),
-  onTitleClick: PropTypes.func,
-  onCardClick: PropTypes.func,
-  filmsLength: PropTypes.number,
-  onShowMoreClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

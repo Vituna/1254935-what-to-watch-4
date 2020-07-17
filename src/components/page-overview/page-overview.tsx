@@ -1,8 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from "react";
 
+interface Props {
+  rating: number,
+  numberVotes: number,
+  descriptionOne: string,
+  descriptionTwo: string,
+  director: string,
+  starring: string,
+};
 
-const PageOverview = ({rating, numberVotes, descriptionOne, descriptionTwo, director, starring}) => {
+const PageOverview: React.FunctionComponent<Props> = ({rating, numberVotes, descriptionOne, descriptionTwo, director, starring}) => {
   return (
     <>
       <div className="movie-rating">
@@ -21,15 +28,6 @@ const PageOverview = ({rating, numberVotes, descriptionOne, descriptionTwo, dire
       </div>
     </>
   );
-};
-
-PageOverview.propTypes = {
-  rating: PropTypes.number.isRequired,
-  numberVotes: PropTypes.number.isRequired,
-  descriptionOne: PropTypes.string.isRequired,
-  descriptionTwo: PropTypes.string.isRequired,
-  director: PropTypes.string.isRequired,
-  starring: PropTypes.string.isRequired,
 };
 
 export default PageOverview;

@@ -1,7 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from "react";
 
-const Review = ({review}) => {
+interface Props {
+  review: {
+    author: string,
+    date: string,
+    rating: number,
+    text: string,
+  },
+};
+
+const Review: React.FunctionComponent<Props> = ({review}) => {
   const {author, date, rating, text} = review;
   return (
     <div className="review">
@@ -15,15 +23,6 @@ const Review = ({review}) => {
       <div className="review__rating">{rating}</div>
     </div>
   );
-};
-
-Review.propTypes = {
-  review: PropTypes.shape({
-    author: PropTypes.string.isRequired,
-    date: PropTypes.string,
-    rating: PropTypes.string.number,
-    text: PropTypes.string.isRequired,
-  }),
 };
 
 export default Review;

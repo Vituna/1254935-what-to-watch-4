@@ -1,13 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
+
+interface Props {
+  genres: [{
+    genre: string,
+  }];
+  activeGenre: string,
+  onGenreItemClick: (genre) => void;
+}
+
 import {ActionCreator} from "../../reducer/reducer";
 
 const activeClass = (activeGenre, genre) => {
   return activeGenre === genre ? `catalog__genres-item--active` : ``;
 };
 
-const GenresList = (props) => {
+const GenresList: React.FunctionComponent<Props>  = (props: Props) => {
   const {genres, onGenreItemClick, activeGenre} = props;
 
   const handleGenreClick = (genre) => {
@@ -38,13 +46,6 @@ const GenresList = (props) => {
       {renderGenres()}
     </ul>
   );
-};
-
-
-GenresList.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string),
-  activeGenre: PropTypes.string,
-  onGenreItemClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -1,21 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from "react";
 
 import Review from '../review/review';
 
-const PageReviews = ({movie}) => {
-  const {comments} = movie;
+interface Props {
+  movie: [{
+    text: string,
+    author: string,
+    date: number,
+    rating: number,
+  }],
+};
+
+const PageReviews: React.FunctionComponent<Props> = ({movie}) => {
 
   const getReview = (review, i) => {
     return (
       <Review
-        key={`${i}` + `${review}`}
+        key={`${i}` + `${review.author}`}
         review={review}
       />
     );
   };
 
-  const renderReviews = () => comments.map(getReview);
+  const renderReviews = () => movie.map(getReview);
 
   return (
     <div className="movie-card__reviews movie-card__row">
@@ -27,12 +34,6 @@ const PageReviews = ({movie}) => {
       </div>
     </div>
   );
-};
-
-PageReviews.propTypes = {
-  movie: PropTypes.shape({
-    comments: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
-  }),
 };
 
 export default PageReviews;

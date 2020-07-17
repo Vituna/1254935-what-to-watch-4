@@ -1,8 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from "react";
 import {connect} from "react-redux";
 
-const PageDetails = ({movieDetail}) => {
+interface Props {
+  movieDetail: [{
+    name: string,
+    value: any,
+  }]
+};
+
+const PageDetails: React.FunctionComponent<Props> = ({movieDetail}) => {
 
   const getDetails = (info, i) => {
     const {name, value} = info;
@@ -28,14 +34,6 @@ const PageDetails = ({movieDetail}) => {
       </div>
     </div>
   );
-};
-
-PageDetails.propTypes = {
-  movieDetail: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        value: PropTypes.string.number,
-      })),
 };
 
 const mapStateToProps = (state) => ({

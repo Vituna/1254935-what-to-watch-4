@@ -1,10 +1,24 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 
 import VideoPlayer from '../video-player/video-player';
 import {VIDEO_DELAY} from "../../consts";
 
-class MovieCard extends PureComponent {
+interface Props {
+  title: string;
+  filmCover: string;
+  previewVideo: string;
+  onCardMouseEnter: (title) => void;
+  onCardMouseLeave: () => void;
+  onTitleClick: (title) => void;
+  onCardClick: (title) => void;
+};
+
+interface State {
+  isPlaying: boolean,
+}
+
+class MovieCard extends React.PureComponent<Props, State> {
+  _timer: any;
   constructor(props) {
     super(props);
 
@@ -27,7 +41,8 @@ class MovieCard extends PureComponent {
   }
 
   _handleCardMouseEnter() {
-    this.props.onCardMouseEnter(this.props.title);
+    const {title} = this.props;
+    this.props.onCardMouseEnter(title);
     this._timer = setTimeout(this._startPlaying, VIDEO_DELAY);
   }
 
@@ -48,7 +63,6 @@ class MovieCard extends PureComponent {
 
   render() {
     const {title, filmCover, previewVideo} = this.props;
-
     return (
       <article className="small-movie-card catalog__movies-card"
         onMouseEnter={this._handleCardMouseEnter}
@@ -71,15 +85,5 @@ class MovieCard extends PureComponent {
     );
   }
 }
-
-MovieCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  filmCover: PropTypes.string.isRequired,
-  previewVideo: PropTypes.string.isRequired,
-  onCardMouseEnter: PropTypes.func,
-  onCardMouseLeave: PropTypes.func,
-  onTitleClick: PropTypes.func,
-  onCardClick: PropTypes.func,
-};
 
 export default MovieCard;

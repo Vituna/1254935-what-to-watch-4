@@ -1,15 +1,42 @@
-import React, {PureComponent} from 'react';
+import * as React from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 
 import Main from "../main/main";
 import MoviePage from '../movie-page/movie-page';
 import withTabs from '../../hocs/with-tabs';
 
+interface Props {
+  movies: [{
+    title: string,
+    filmCover: string,
+    genre: string,
+    year: number,
+    movieDurationTime: number,
+    bigPoster: string,
+    rating: number,
+    numberVotes: number,
+    descriptionOne: string,
+    descriptionTwo: string,
+    director: string,
+    starring: string,
+    previewVideo: string,
+    comments: [{
+      author: string,
+      date: string,
+      rating: number,
+      text: string,
+    }]
+  }];
+}
+
+interface State {
+  activeCard: string,
+}
+
 const MoviePageWrapped = withTabs(MoviePage);
 
-class App extends PureComponent {
+class App extends React.PureComponent<Props, State> {
   constructor(props) {
     super(props);
 
@@ -42,9 +69,9 @@ class App extends PureComponent {
 
     return (
       <MoviePageWrapped
-        movie={movies.find((movie) => movie.title === activeCard)}
-        onTitleClick={this._handleCardTitleClick}
-        onCardClick={this._handleCardTitleClick}
+        movie={movies.find((film) => film.title === activeCard)}
+        onTitleClick={this._handleMovieCardClick}
+        onCardClick={this._handleMovieCardClick}
       />
     );
   }
@@ -71,10 +98,6 @@ class App extends PureComponent {
     );
   }
 }
-
-App.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
 
 const mapStateToProps = (state) => ({
   movies: state.movies,

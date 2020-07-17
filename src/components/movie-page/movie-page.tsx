@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from "react";
 import {connect} from "react-redux";
 
 import MoviesList from '../movie-list/movie-list';
@@ -9,13 +8,64 @@ import PageReviews from '../page-reviews/page-reviews';
 import withMoviesList from '../../hocs/with-movies-list';
 import {MaxSimilarCards} from '../../consts';
 
+interface Props {
+  movies: [{
+    title: string,
+    filmCover: string,
+    genre: string,
+    year: number,
+    movieDurationTime: number,
+    bigPoster: string,
+    rating: number,
+    numberVotes: number,
+    descriptionOne: string,
+    descriptionTwo: string,
+    director: string,
+    starring: string,
+    previewVideo: string,
+    comments: {
+      author: string,
+      date: string,
+      rating: number,
+      text: string,
+    }
+   }];
+  movie: {
+    title: string,
+    filmCover: string,
+    genre: string,
+    year: number,
+    bigPoster: string,
+    rating: number,
+    numberVotes: number,
+    descriptionOne: string,
+    descriptionTwo: string,
+    director: string,
+    starring: string,
+    comments: [{
+      author: string,
+      date: number,
+      rating: number,
+      text: string,
+    }]
+  };
+  filmsLength: number;
+  activeTab: string;
+  onTitleClick: () => void;
+  onCardClick: () => void;
+  renderTabs: () => void;
+  onCardMouseLeave: () => void;
+  onShowMoreClick: () => void;
+}
+
 const MoviesListWrapped = withMoviesList(MoviesList);
 
 const getSimilarCards = (movies, genre) => {
-  return movies.filter((movie) => movie.genre === genre).slice(0, MaxSimilarCards);
+  return movies.filter((film) => film.genre === genre).slice(0, MaxSimilarCards);
 };
 
-const MoviePage = ({movies, movie, onTitleClick, onCardClick, renderTabs, activeTab}) => {
+const MoviePage: React.FunctionComponent<Props> = ({movies, movie, onTitleClick, onCardClick, renderTabs, activeTab}) => {
+  const movieComments = movie.comments
 
   const {
     title,
@@ -49,7 +99,7 @@ const MoviePage = ({movies, movie, onTitleClick, onCardClick, renderTabs, active
         />;
       case `Reviews`:
         return <PageReviews
-          movie={movie}
+          movie={movieComments}
         />;
       default:
         return ``;
@@ -57,7 +107,7 @@ const MoviePage = ({movies, movie, onTitleClick, onCardClick, renderTabs, active
   };
 
   return (
-    <>
+    <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
@@ -150,17 +200,8 @@ const MoviePage = ({movies, movie, onTitleClick, onCardClick, renderTabs, active
         </footer>
       </div>
 
-    </>
+    </React.Fragment>
   );
-};
-
-MoviePage.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
-  movie: PropTypes.shape(),
-  onTitleClick: PropTypes.func,
-  onCardClick: PropTypes.func,
-  renderTabs: PropTypes.func.isRequired,
-  activeTab: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

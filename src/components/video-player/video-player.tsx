@@ -1,7 +1,19 @@
-import React, {PureComponent, Fragment, createRef} from "react";
-import PropTypes from 'prop-types';
+import * as React from "react";
 
-class VideoPlayer extends PureComponent {
+interface Props {
+  isPlaying: boolean;
+  muted: boolean;
+  src: string;
+  poster: string;
+}
+
+interface State {
+  isPlaying: boolean;
+}
+
+class VideoPlayer extends React.PureComponent<Props, State> {
+  private videoRef: React.RefObject<HTMLVideoElement>;
+
   constructor(props) {
     super(props);
 
@@ -9,11 +21,11 @@ class VideoPlayer extends PureComponent {
       isPlaying: props.isPlaying
     };
 
-    this._videoRef = createRef();
+    this.videoRef = React.createRef();
   }
 
   componentDidUpdate() {
-    const video = this._videoRef.current;
+    const video = this.videoRef.current;
 
     if (video) {
       if (this.props.isPlaying) {
@@ -37,7 +49,7 @@ class VideoPlayer extends PureComponent {
   }
 
   componentWillUnmount() {
-    const video = this._videoRef.current;
+    const video = this.videoRef.current;
 
     if (video) {
       video.onplay = null;
@@ -48,7 +60,7 @@ class VideoPlayer extends PureComponent {
   }
 
   componentDidMount() {
-    const video = this._videoRef.current;
+    const video = this.videoRef.current;
 
     if (video) {
       video.onplay = () => this._handlePlay();
@@ -60,24 +72,17 @@ class VideoPlayer extends PureComponent {
     const {src, poster, muted} = this.props;
 
     return (
-      <Fragment>
+      <React.Fragment>
         <video
-          ref={this._videoRef}
+          ref={this.videoRef}
           className="player__video"
           src={src}
           poster={poster}
           muted={muted}
         ></video>
-      </Fragment>
+      </React.Fragment>
     );
   }
 }
-
-VideoPlayer.propTypes = {
-  src: PropTypes.string,
-  poster: PropTypes.string,
-  isPlaying: PropTypes.bool,
-  muted: PropTypes.bool,
-};
 
 export default VideoPlayer;
