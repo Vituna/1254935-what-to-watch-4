@@ -1,11 +1,11 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 
 const mockStore = configureStore([]);
 
-import {PageDetails} from './page-details.jsx';
+import {PageDetails} from './page-details';
 
 const movieDetail = [
   {

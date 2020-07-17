@@ -1,7 +1,7 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 
-import PageReviews from './page-reviews.jsx';
+import PageReviews from './page-reviews';
 
 const comments = [
   {
