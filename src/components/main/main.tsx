@@ -2,27 +2,14 @@ import * as React from "react";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer";
 
-import MoviesList from '../movie-list/movie-list';
+import MoviesList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMore from "../show-more/show-more";
-import withMoviesList from '../../hocs/with-movies-list';
+import withMoviesList from "../../hocs/with-movies-list";
+import {Move} from "../../types";
 
 interface Props {
-  movies: [{
-    title: string,
-    filmCover: string,
-    genre: string,
-    year: number,
-    movieDurationTime: number,
-    bigPoster: string,
-    rating: number,
-    numberVotes: number,
-    descriptionOne: string,
-    descriptionTwo: string,
-    director: string,
-    starring: string,
-    previewVideo: string,
-   }];
+  movies: Move[];
   filmsLength: number;
   onTitleClick: () => void;
   onCardClick: () => void;

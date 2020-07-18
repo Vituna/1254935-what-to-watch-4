@@ -1,13 +1,14 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
+import configureStore from "redux-mock-store";
+import {Provider} from "react-redux";
 
-import App from './app';
+import App from "./app";
+import {Move} from "../../types"
 
 const mockStore = configureStore([]);
 
-const movie = {
+const movie: Move = {
   title: `The Grand Budapest Hotel`,
   genre: `Drama`,
   year: 2014,
@@ -23,7 +24,7 @@ const movie = {
   previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
 };
 
-const movies = [
+const movies: Move[] = [
   {
     title: `The Grand Budapest Hotel`,
     genre: `Drama`,

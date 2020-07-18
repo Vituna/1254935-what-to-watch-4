@@ -1,54 +1,17 @@
 import * as React from "react";
 import {connect} from "react-redux";
 
-import MoviesList from '../movie-list/movie-list';
-import PageOverview from '../page-overview/page-overview';
-import PageDetails from '../page-details/page-details';
-import PageReviews from '../page-reviews/page-reviews';
-import withMoviesList from '../../hocs/with-movies-list';
-import {MaxSimilarCards} from '../../consts';
+import MoviesList from "../movie-list/movie-list";
+import PageOverview from "../page-overview/page-overview";
+import PageDetails from "../page-details/page-details";
+import PageReviews from "../page-reviews/page-reviews";
+import withMoviesList from "../../hocs/with-movies-list";
+import {MaxSimilarCards} from "../../consts";
+import {Move, fullMove} from "../../types"
 
 interface Props {
-  movies: [{
-    title: string,
-    filmCover: string,
-    genre: string,
-    year: number,
-    movieDurationTime: number,
-    bigPoster: string,
-    rating: number,
-    numberVotes: number,
-    descriptionOne: string,
-    descriptionTwo: string,
-    director: string,
-    starring: string,
-    previewVideo: string,
-    comments: {
-      author: string,
-      date: string,
-      rating: number,
-      text: string,
-    }
-   }];
-  movie: {
-    title: string,
-    filmCover: string,
-    genre: string,
-    year: number,
-    bigPoster: string,
-    rating: number,
-    numberVotes: number,
-    descriptionOne: string,
-    descriptionTwo: string,
-    director: string,
-    starring: string,
-    comments: [{
-      author: string,
-      date: number,
-      rating: number,
-      text: string,
-    }]
-  };
+  movies: Move[];
+  movie: fullMove;
   filmsLength: number;
   activeTab: string;
   onTitleClick: () => void;

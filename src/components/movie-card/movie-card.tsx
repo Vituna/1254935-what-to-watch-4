@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import VideoPlayer from '../video-player/video-player';
+import VideoPlayer from "../video-player/video-player";
 import {VIDEO_DELAY} from "../../consts";
 
 interface Props {

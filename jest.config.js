@@ -1,4 +1,5 @@
 module.exports = {
+  rootDir: `./src`,
   transform: {
     "^.+\\.tsx?$": `ts-jest`,
     "^.+\\.js?$": `babel-jest`,
@@ -10,6 +11,6 @@ module.exports = {
     `js`,
     `jsx`,
     `json`,
-    `node`
+    `node`,
   ],
 };

@@ -11,23 +11,24 @@ const createNodeMock = () => {
   return {};
 };
 
-const mock = {
-  activeGenre: `All genres`,
-  genres: [`All genres`, `Drama`, `Documentary`, `Horror`]
+export const noop = () => {
 };
 
+const activeGenre: string = `All genres`;
+
+const genres: string[] = [`All genres`, `Drama`, `Documentary`, `Horror`];
+
 it(`Should GenresList render correctly`, () => {
-  const {activeGenre, genres} = mock;
   const store = mockStore({
   });
   const tree = renderer
   .create(
       <Provider store={store}>
-        <GenresList
-          genres={genres}
-          activeGenre={activeGenre}
-          onGenreItemClick={() => {}}
-        />
+          <GenresList
+            genres={genres}
+            activeGenre={activeGenre}
+            onGenreItemClick={noop}
+          />
       </Provider>, {createNodeMock})
   .toJSON();
 

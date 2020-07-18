@@ -1,14 +1,10 @@
 import * as React from "react";
 
-import MovieCard from '../movie-card/movie-card';
+import MovieCard from "../movie-card/movie-card";
+import {Move} from "../../types"
 
 interface Props {
-  movies: [{
-    title: string,
-    filmCover: string,
-    previewVideo: string,
-  }];
-  filmsLength: number;
+  movies: Move[];
   onTitleClick: () => void;
   onCardClick: () => void;
   onCardMouseEnter: () => void;

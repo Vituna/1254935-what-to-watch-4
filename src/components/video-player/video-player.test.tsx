@@ -3,9 +3,14 @@ import * as renderer from "react-test-renderer";
 
 import VideoPlayer from "./video-player";
 
-const mock = {
+interface mock {
+  image: string;
+  previewVideo: string;
+}
+
+const mock: mock = {
   image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-  preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
 };
 
 const createNodeMock = () => {
@@ -13,11 +18,11 @@ const createNodeMock = () => {
 };
 
 it(`VideoPlayer is rendered correctly`, () => {
-  const {preview, image} = mock;
+  const {previewVideo, image} = mock;
 
   const tree = renderer.create(<VideoPlayer
     isPlaying={false}
-    src={preview}
+    src={previewVideo}
     poster={image}
     muted={true}
   />, {createNodeMock})

@@ -1,16 +1,20 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
 
-import MovieCard from './movie-card';
+import MovieCard from "./movie-card";
+
+export const noop = () => {
+};
 
 const Settings = {
-  MOVIE_CARDS:
-    {
-      name: `Avatar`,
-      filmCover: `img/avatar.jpg`,
-      previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    },
+  title: `Avatar`,
+  filmCover: `img/avatar.jpg`,
+  previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
 };
+
+const title: string = Settings.title;
+const filmCover: string = Settings.filmCover;
+const previewVideo: string = Settings.previewVideo;
 
 const createNodeMock = () => {
   return {};
@@ -19,10 +23,13 @@ const createNodeMock = () => {
 it(`Renders cards correctly`, () => {
   const tree = renderer
     .create(<MovieCard
-      movieSetting={Settings.MOVIE_CARDS}
-      onCardClick={() => {}}
-      onTitleClick={() => {}}
-      onHover={() => {}}
+      title={title}
+      filmCover={filmCover}
+      previewVideo={previewVideo}
+      onCardClick={noop}
+      onTitleClick={noop}
+      onCardMouseEnter={noop}
+      onCardMouseLeave={noop}
     />, {createNodeMock})
       .toJSON();
 

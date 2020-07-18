@@ -49,6 +49,10 @@ exports[`Should PageDetails render correctly 1`] = `
         Wes Andreson
       </span>
     </p>
+  </div>
+  <div
+    className="movie-card__text-col"
+  >
     <p
       className="movie-card__details-item"
     >
@@ -78,8 +82,5 @@ exports[`Should PageDetails render correctly 1`] = `
       </span>
     </p>
   </div>
-  <div
-    className="movie-card__text-col"
-  />
 </div>
 `;

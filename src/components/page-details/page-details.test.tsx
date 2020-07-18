@@ -3,11 +3,12 @@ import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 
+import {PageDetails} from "./page-details";
+import {movieDetail} from "../../types"
+
 const mockStore = configureStore([]);
 
-import {PageDetails} from './page-details';
-
-const movieDetail = [
+const movieDetail: movieDetail[] = [
   {
     name: `Genre`,
     value: `Drama`,

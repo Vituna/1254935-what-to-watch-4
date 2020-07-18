@@ -1,9 +1,18 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
 
-import PageOverview from './page-overview';
+import PageOverview from "./page-overview";
 
-const movieDetails = {
+interface MoveDetail {
+  rating: number,
+  numberVotes: number,
+  descriptionOne: string,
+  descriptionTwo: string,
+  director: string,
+  starring: string,
+};
+
+const movieDetails: MoveDetail = {
   rating: 8.9,
   numberVotes: 240,
   descriptionOne: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,

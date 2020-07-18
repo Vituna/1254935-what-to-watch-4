@@ -196,7 +196,9 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
               onClick={[Function]}
-            />
+            >
+              The Grand Budapest Hotel
+            </a>
           </h3>
         </article>
       </div>

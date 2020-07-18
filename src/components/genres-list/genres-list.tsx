@@ -1,22 +1,19 @@
 import * as React from "react";
 import {connect} from "react-redux";
 
-interface Props {
-  genres: [{
-    genre: string,
-  }];
-  activeGenre: string,
-  onGenreItemClick: (genre) => void;
-}
-
 import {ActionCreator} from "../../reducer/reducer";
+
+interface Props {
+  genres: string[];
+  activeGenre: string,
+  onGenreItemClick: ({genre: string}) => void;
+}
 
 const activeClass = (activeGenre, genre) => {
   return activeGenre === genre ? `catalog__genres-item--active` : ``;
 };
 
-const GenresList: React.FunctionComponent<Props>  = (props: Props) => {
-  const {genres, onGenreItemClick, activeGenre} = props;
+const GenresList: React.FunctionComponent<Props>  = ({genres, onGenreItemClick, activeGenre}) => {
 
   const handleGenreClick = (genre) => {
     return (evt) => {
@@ -62,4 +59,3 @@ const mapDispatchToProps = (dispatch) => ({
 
 export {GenresList};
 export default connect(mapStateToProps, mapDispatchToProps)(GenresList);
-

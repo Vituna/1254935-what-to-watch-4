@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should WTW render correctly 1`] = `
+exports[`Render App 1`] = `
 Array [
   <section
     className="movie-card"
@@ -213,7 +213,9 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
               onClick={[Function]}
-            />
+            >
+              The Grand Budapest Hotel
+            </a>
           </h3>
         </article>
         <article
@@ -239,7 +241,9 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
               onClick={[Function]}
-            />
+            >
+              Fantastic Beasts: The Crimes of Grindelwald
+            </a>
           </h3>
         </article>
       </div>

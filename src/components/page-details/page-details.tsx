@@ -1,11 +1,10 @@
 import * as React from "react";
 import {connect} from "react-redux";
 
+import {movieDetail} from "../../types"
+
 interface Props {
-  movieDetail: [{
-    name: string,
-    value: any,
-  }]
+  movieDetail: movieDetail[];
 };
 
 const PageDetails: React.FunctionComponent<Props> = ({movieDetail}) => {

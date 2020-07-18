@@ -5,29 +5,10 @@ import {connect} from "react-redux";
 import Main from "../main/main";
 import MoviePage from '../movie-page/movie-page';
 import withTabs from '../../hocs/with-tabs';
+import {fullMoves} from "../../types"
 
 interface Props {
-  movies: [{
-    title: string,
-    filmCover: string,
-    genre: string,
-    year: number,
-    movieDurationTime: number,
-    bigPoster: string,
-    rating: number,
-    numberVotes: number,
-    descriptionOne: string,
-    descriptionTwo: string,
-    director: string,
-    starring: string,
-    previewVideo: string,
-    comments: [{
-      author: string,
-      date: string,
-      rating: number,
-      text: string,
-    }]
-  }];
+  movies: fullMoves[];
 }
 
 interface State {
