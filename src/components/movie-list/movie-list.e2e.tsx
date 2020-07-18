@@ -3,9 +3,10 @@ import {configure, shallow} from "enzyme";
 import * as Adapter from "enzyme-adapter-react-16";
 
 import MoviesList from "./movie-list";
-import {Move} from "../../types"
+import {Move} from "../../types";
 
 const noop = () => {
+  return;
 };
 
 configure({adapter: new Adapter()});
@@ -25,7 +26,7 @@ const movies: Move[] = [
     director: `Wes Andreson`,
     starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  } ,
+  },
   {
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     filmCover: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -40,7 +41,8 @@ const movies: Move[] = [
     director: `Wes Andreson`,
     starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
     previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-}];
+  }
+];
 
 
 it(`MovieList is correctly handled click on title`, () => {
@@ -54,7 +56,7 @@ it(`MovieList is correctly handled click on title`, () => {
     onCardMouseEnter={noop}
     onCardMouseLeave={noop}
     onShowMoreClick={noop}
-/>);
+  />);
 
   const movieList = main.find(`.small-movie-card__link`);
 

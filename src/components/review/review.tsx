@@ -1,13 +1,15 @@
 import * as React from "react";
 
-import {movieComments} from "../../types";
+import {MovieComments} from "../../types";
 
 interface Props {
-  review: movieComments;
-};
+  review: MovieComments;
+}
 
-const Review: React.FunctionComponent<Props> = ({review}) => {
+const Review: React.FunctionComponent<Props> = (props: Props) => {
+  const {review} = props;
   const {author, date, rating, text} = review;
+
   return (
     <div className="review">
       <blockquote className="review__quote">

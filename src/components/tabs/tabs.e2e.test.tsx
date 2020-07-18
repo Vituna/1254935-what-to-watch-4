@@ -3,6 +3,9 @@ import {configure, shallow} from "enzyme";
 import * as Adapter from "enzyme-adapter-react-16";
 
 import Tabs from "./tabs";
+import {nameTab} from "../../consts";
+
+const activeTab: string = nameTab;
 
 configure({adapter: new Adapter()});
 
@@ -10,12 +13,14 @@ it(`Check pressed tab`, () => {
   const onTabClick = jest.fn();
 
   const mockEvent = {
-    preventDefault() {}
+    preventDefault() {
+      return;
+    }
   };
 
   const tabs = shallow(
       <Tabs
-        activeTab={`Overview`}
+        activeTab={activeTab}
         onTabClick={onTabClick}
       />
   );

@@ -1,10 +1,11 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
-import {nameTab} from "../../consts"
+import {nameTab} from "../../consts";
 
 import Tabs from "./tabs";
 
 export const noop = () => {
+  return;
 };
 
 const activeTab: string = nameTab;

@@ -4,13 +4,13 @@ import * as renderer from "react-test-renderer";
 import PageOverview from "./page-overview";
 
 interface MoveDetail {
-  rating: number,
-  numberVotes: number,
-  descriptionOne: string,
-  descriptionTwo: string,
-  director: string,
-  starring: string,
-};
+  rating: number;
+  numberVotes: number;
+  descriptionOne: string;
+  descriptionTwo: string;
+  director: string;
+  starring: string;
+}
 
 const movieDetails: MoveDetail = {
   rating: 8.9,

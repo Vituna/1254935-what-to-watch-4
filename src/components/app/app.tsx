@@ -5,14 +5,14 @@ import {connect} from "react-redux";
 import Main from "../main/main";
 import MoviePage from '../movie-page/movie-page';
 import withTabs from '../../hocs/with-tabs';
-import {fullMoves} from "../../types"
+import {FullMoves} from "../../types";
 
 interface Props {
-  movies: fullMoves[];
+  movies: FullMoves[];
 }
 
 interface State {
-  activeCard: string,
+  activeCard: string;
 }
 
 const MoviePageWrapped = withTabs(MoviePage);

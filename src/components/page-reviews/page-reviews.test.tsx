@@ -2,9 +2,9 @@ import * as React from "react";
 import * as renderer from "react-test-renderer";
 
 import PageReviews from "./page-reviews";
-import {movieComments} from "../../types"
+import {MovieComments} from "../../types";
 
-const movie: movieComments[] = [
+const movie: MovieComments[] = [
   {
     text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director&apos;s funniest and most exquisitely designed movies in years.`,
     author: `Kate Muir`,

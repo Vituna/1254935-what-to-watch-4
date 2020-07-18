@@ -2,9 +2,10 @@ import * as React from "react";
 import * as renderer from "react-test-renderer";
 
 import MovieList from "./movie-list";
-import {Move} from "../../types"
+import {Move} from "../../types";
 
 const noop = () => {
+  return;
 };
 
 const movies: Move[] = [
@@ -22,7 +23,7 @@ const movies: Move[] = [
     director: `Wes Andreson`,
     starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  } ,
+  },
   {
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     filmCover: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -37,7 +38,8 @@ const movies: Move[] = [
     director: `Wes Andreson`,
     starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
     previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-}];
+  }
+];
 
 const createNodeMock = () => {
   return {};

@@ -11,10 +11,10 @@ interface Props {
   onCardMouseLeave: () => void;
   onTitleClick: (title) => void;
   onCardClick: (title) => void;
-};
+}
 
 interface State {
-  isPlaying: boolean,
+  isPlaying: boolean;
 }
 
 class MovieCard extends React.PureComponent<Props, State> {

@@ -18,7 +18,9 @@ interface Props {
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
-const Main: React.FunctionComponent<Props> = ({movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick}) => {
+const Main: React.FunctionComponent<Props> = (props: Props) => {
+  const {movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick} = props;
+
   const movie = movies[0];
   const {title, genre, year} = movie;
 

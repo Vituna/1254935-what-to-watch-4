@@ -4,15 +4,16 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 
 import {Main} from "./main";
-import {Move} from  "../../types"
+import {Move} from "../../types";
 
 const mockStore = configureStore([]);
 
 export const noop = () => {
+  return;
 };
 
-interface filmsLength {
-  filmsLength: number,
+interface FilmsLength {
+  filmsLength: number;
 }
 
 const movies: Move[] = [

@@ -1,15 +1,17 @@
 import * as React from "react";
 
 interface Props {
-  rating: number,
-  numberVotes: number,
-  descriptionOne: string,
-  descriptionTwo: string,
-  director: string,
-  starring: string,
-};
+  rating: number;
+  numberVotes: number;
+  descriptionOne: string;
+  descriptionTwo: string;
+  director: string;
+  starring: string;
+}
 
-const PageOverview: React.FunctionComponent<Props> = ({rating, numberVotes, descriptionOne, descriptionTwo, director, starring}) => {
+const PageOverview: React.FunctionComponent<Props> = (props: Props) => {
+  const {rating, numberVotes, descriptionOne, descriptionTwo, director, starring} = props;
+
   return (
     <>
       <div className="movie-rating">

@@ -5,7 +5,7 @@ import {ActionCreator} from "../../reducer/reducer";
 
 interface Props {
   genres: string[];
-  activeGenre: string,
+  activeGenre: string;
   onGenreItemClick: ({genre: string}) => void;
 }
 
@@ -13,7 +13,8 @@ const activeClass = (activeGenre, genre) => {
   return activeGenre === genre ? `catalog__genres-item--active` : ``;
 };
 
-const GenresList: React.FunctionComponent<Props>  = ({genres, onGenreItemClick, activeGenre}) => {
+const GenresList: React.FunctionComponent<Props> = (props: Props) => {
+  const {genres, onGenreItemClick, activeGenre} = props;
 
   const handleGenreClick = (genre) => {
     return (evt) => {

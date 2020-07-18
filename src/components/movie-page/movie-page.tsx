@@ -7,11 +7,11 @@ import PageDetails from "../page-details/page-details";
 import PageReviews from "../page-reviews/page-reviews";
 import withMoviesList from "../../hocs/with-movies-list";
 import {MaxSimilarCards} from "../../consts";
-import {Move, fullMove} from "../../types"
+import {Move, FullMove} from "../../types";
 
 interface Props {
   movies: Move[];
-  movie: fullMove;
+  movie: FullMove;
   filmsLength: number;
   activeTab: string;
   onTitleClick: () => void;
@@ -27,8 +27,10 @@ const getSimilarCards = (movies, genre) => {
   return movies.filter((film) => film.genre === genre).slice(0, MaxSimilarCards);
 };
 
-const MoviePage: React.FunctionComponent<Props> = ({movies, movie, onTitleClick, onCardClick, renderTabs, activeTab}) => {
-  const movieComments = movie.comments
+const MoviePage: React.FunctionComponent<Props> = (props: Props) => {
+  const {movies, movie, onTitleClick, onCardClick, renderTabs, activeTab} = props;
+
+  const movieComments = movie.comments;
 
   const {
     title,

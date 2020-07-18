@@ -2,12 +2,13 @@ import * as React from "react";
 import * as renderer from "react-test-renderer";
 
 import {MoviePage} from "./movie-page";
-import {fullMove, fullMoves} from "../../types"
+import {FullMove, FullMoves} from "../../types";
 
 export const noop = () => {
+  return;
 };
 
-const movies: fullMoves[] = [
+const movies: FullMoves[] = [
   {
     title: `The Grand Budapest Hotel`,
     genre: `Drama`,
@@ -27,7 +28,7 @@ const movies: fullMoves[] = [
       author: `Amanda Greever`,
       date: `2015-11-18`,
       rating: `8,0`,
-      }
+    }
   },
   {
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -48,11 +49,11 @@ const movies: fullMoves[] = [
       author: `Amanda Greever`,
       date: `2015-11-18`,
       rating: `8,0`,
-      }
+    }
   },
 ];
 
-const movie: fullMove =
+const movie: FullMove =
   {
     title: `The Grand Budapest Hotel`,
     genre: `Drama`,
@@ -72,12 +73,13 @@ const movie: fullMove =
       author: `Amanda Greever`,
       date: `2015-11-18`,
       rating: `8,0`,
-      }]
+    }]
   };
 
-interface filmsLength {
-  filmsLength: number,
+interface FilmsLength {
+  filmsLength: number;
 }
+
 const filmsLength = 2;
 
 const createNodeMock = () => {

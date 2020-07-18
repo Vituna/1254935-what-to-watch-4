@@ -4,7 +4,7 @@ import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 
 import App from "./app";
-import {Move} from "../../types"
+import {Move} from "../../types";
 
 const mockStore = configureStore([]);
 

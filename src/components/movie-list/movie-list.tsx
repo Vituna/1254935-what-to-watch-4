@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import MovieCard from "../movie-card/movie-card";
-import {Move} from "../../types"
+import {Move} from "../../types";
 
 interface Props {
   movies: Move[];
@@ -12,7 +12,8 @@ interface Props {
   onShowMoreClick: () => void;
 }
 
-const MovieList: React.FunctionComponent<Props> = ({movies, onTitleClick, onCardClick, onCardMouseEnter, onCardMouseLeave}) => {
+const MovieList: React.FunctionComponent<Props> = (props: Props) => {
+  const {movies, onTitleClick, onCardClick, onCardMouseEnter, onCardMouseLeave} = props;
 
   const getMovie = (it, i) => {
     return (
@@ -29,6 +30,7 @@ const MovieList: React.FunctionComponent<Props> = ({movies, onTitleClick, onCard
       </React.Fragment>
     );
   };
+
   const renderMovies = () => movies.map(getMovie);
 
   return (

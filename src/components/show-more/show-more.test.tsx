@@ -4,6 +4,7 @@ import * as renderer from "react-test-renderer";
 import ShowMore from "./show-more";
 
 export const noop = () => {
+  return;
 };
 
 it(`Render ShowMore`, () => {

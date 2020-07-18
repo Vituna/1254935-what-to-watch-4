@@ -4,7 +4,8 @@ import * as Adapter from "enzyme-adapter-react-16";
 
 import MovieCard from './movie-card';
 
-export const noop = () => {
+const noop = () => {
+  return;
 };
 
 configure({adapter: new Adapter()});
@@ -24,13 +25,13 @@ it(`Should there be a click on the title card`, () => {
 
   const main = shallow(
       <MovieCard
-      title={title}
-      filmCover={filmCover}
-      previewVideo={previewVideo}
-      onCardClick={noop}
-      onTitleClick={noop}
-      onCardMouseEnter={noop}
-      onCardMouseLeave={noop}
+        title={title}
+        filmCover={filmCover}
+        previewVideo={previewVideo}
+        onCardClick={noop}
+        onTitleClick={noop}
+        onCardMouseEnter={noop}
+        onCardMouseLeave={noop}
       />
   );
 

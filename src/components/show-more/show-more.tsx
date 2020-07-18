@@ -2,9 +2,11 @@ import * as React from "react";
 
 interface Props {
   onShowMoreClick: () => void;
-};
+}
 
-const ShowMore: React.FunctionComponent<Props> = ({onShowMoreClick}) => {
+const ShowMore: React.FunctionComponent<Props> = (props: Props) => {
+
+  const {onShowMoreClick} = props;
 
   return (
     <div className="catalog__more">
