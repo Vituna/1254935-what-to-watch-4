@@ -72,7 +72,7 @@ class App extends React.PureComponent<AppProps, AppState> {
   }
 }
 
-const mapStateToProps = (state: { movies: string }) => ({
+const mapStateToProps: object = (state: { movies: string }) => ({
   movies: state.movies,
 });
 

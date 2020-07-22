@@ -157,7 +157,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
   );
 };
 
-const mapStateToProps = (state: { movies: string }) => ({
+const mapStateToProps: object = (state: { movies: string }) => ({
   movies: state.movies,
 });
 

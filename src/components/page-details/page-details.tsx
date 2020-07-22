@@ -32,7 +32,7 @@ const PageDetails: React.FunctionComponent<PageDetailsProps> = (props: PageDetai
   );
 };
 
-const mapStateToProps = (state: { movieDetail: string }) => ({
+const mapStateToProps: object = (state: { movieDetail: string }) => ({
   movieDetail: state.movieDetail,
 });
 

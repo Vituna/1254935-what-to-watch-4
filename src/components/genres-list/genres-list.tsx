@@ -40,7 +40,7 @@ const GenresList: React.FC<GenresListProps> = (props: GenresListProps) => {
   );
 };
 
-const mapStateToProps: any = (state: { activeGenre: string; genres: string }) => ({
+const mapStateToProps: object = (state: { activeGenre: string; genres: string }) => ({
   activeGenre: state.activeGenre,
   genres: state.genres,
 });

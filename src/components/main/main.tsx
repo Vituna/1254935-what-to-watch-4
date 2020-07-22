@@ -114,7 +114,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   );
 };
 
-const mapStateToProps = (state: { filmsLength: number; movies: string }) => ({
+const mapStateToProps: object = (state: { filmsLength: number; movies: string }) => ({
   filmsLength: state.filmsLength,
   movies: state.movies,
 });
