@@ -3,7 +3,7 @@ import * as React from "react";
 import Review from "../review/review";
 import {PageReviewsProps} from "./types";
 
-const PageReviews: React.FunctionComponent<PageReviewsProps> = (props: PageReviewsProps) => {
+const PageReviews: React.FC<PageReviewsProps> = (props: PageReviewsProps) => {
   const {movie} = props;
 
   const getReview = (review, i) => {

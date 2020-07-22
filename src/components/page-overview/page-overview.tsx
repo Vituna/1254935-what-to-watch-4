@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {PageOverviewProps} from "./types";
 
-const PageOverview: React.FunctionComponent<PageOverviewProps> = (props: PageOverviewProps) => {
+const PageOverview: React.FC<PageOverviewProps> = (props: PageOverviewProps) => {
   const {rating, numberVotes, descriptionOne, descriptionTwo, director, starring} = props;
 
   return (

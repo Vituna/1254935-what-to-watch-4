@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {ShowMoreProps} from "./types";
 
-const ShowMore: React.FunctionComponent<ShowMoreProps> = (props: ShowMoreProps) => {
+const ShowMore: React.FC<ShowMoreProps> = (props: ShowMoreProps) => {
 
   const {onShowMoreClick} = props;
 

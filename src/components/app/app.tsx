@@ -26,7 +26,7 @@ class App extends React.PureComponent<AppProps, AppState> {
     });
   }
 
-  _renderMain() {
+  _renderMain(): React.ReactNode {
 
     return (
       <Main
@@ -36,7 +36,7 @@ class App extends React.PureComponent<AppProps, AppState> {
     );
   }
 
-  _renderMoviePage() {
+  _renderMoviePage(): React.ReactNode {
     const {movies} = this.props;
     const {activeCard} = this.state;
 
@@ -49,7 +49,7 @@ class App extends React.PureComponent<AppProps, AppState> {
     );
   }
 
-  _renderApp() {
+  _renderApp(): React.ReactNode {
     const {activeCard} = this.state;
 
     const isActiveCard = activeCard ? this._renderMoviePage() : this._renderMain();
@@ -72,9 +72,9 @@ class App extends React.PureComponent<AppProps, AppState> {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: { movies: string }) => ({
   movies: state.movies,
 });
 
 export {App};
-export default connect(mapStateToProps, {})(App);
+export default connect(mapStateToProps)(App);

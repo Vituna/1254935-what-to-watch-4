@@ -10,7 +10,7 @@ import {MainProps} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
-const Main: React.FunctionComponent<MainProps> = (props: MainProps) => {
+const Main: React.FC<MainProps> = (props: MainProps) => {
   const {movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick} = props;
 
   const movie = movies[0];
@@ -114,7 +114,7 @@ const Main: React.FunctionComponent<MainProps> = (props: MainProps) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: { filmsLength: number; movies: string }) => ({
   filmsLength: state.filmsLength,
   movies: state.movies,
 });

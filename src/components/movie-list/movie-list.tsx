@@ -3,7 +3,7 @@ import * as React from "react";
 import MovieCard from "../movie-card/movie-card";
 import {MovieListProps} from "./types";
 
-const MovieList: React.FunctionComponent<MovieListProps> = (props: MovieListProps) => {
+const MovieList: React.FC<MovieListProps> = (props: MovieListProps) => {
   const {movies, onTitleClick, onCardClick, onCardMouseEnter, onCardMouseLeave} = props;
 
   const getMovie = (it, i) => {

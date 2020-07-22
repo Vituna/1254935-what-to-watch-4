@@ -32,9 +32,9 @@ const PageDetails: React.FunctionComponent<PageDetailsProps> = (props: PageDetai
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: { movieDetail: string }) => ({
   movieDetail: state.movieDetail,
 });
 
 export {PageDetails};
-export default connect(mapStateToProps, {})(PageDetails);
+export default connect(mapStateToProps)(PageDetails);

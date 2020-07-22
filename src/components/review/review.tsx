@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {ReviewProps} from "./types";
 
-const Review: React.FunctionComponent<ReviewProps> = (props: ReviewProps) => {
+const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
   const {review} = props;
   const {author, date, rating, text} = review;
 

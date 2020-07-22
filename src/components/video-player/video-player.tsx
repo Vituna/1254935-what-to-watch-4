@@ -15,7 +15,7 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
     this.videoRef = React.createRef();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): void {
     const video = this.videoRef.current;
 
     if (video) {
@@ -27,19 +27,19 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
     }
   }
 
-  _handlePlay() {
+  _handlePlay(): void {
     this.setState({
       isPlaying: true,
     });
   }
 
-  _handlePause() {
+  _handlePause(): void {
     this.setState({
       isPlaying: false,
     });
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     const video = this.videoRef.current;
 
     if (video) {
@@ -50,7 +50,7 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
     }
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const video = this.videoRef.current;
 
     if (video) {
@@ -59,7 +59,7 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
     }
   }
 
-  render() {
+  render(): React.ReactNode {
     const {src, poster, muted} = this.props;
 
     return (

@@ -15,7 +15,7 @@ const getSimilarCards = (movies, genre) => {
   return movies.filter((film) => film.genre === genre).slice(0, MaxSimilarCards);
 };
 
-const MoviePage: React.FunctionComponent<MoviesPageProps> = (props: MoviesPageProps) => {
+const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
   const {movies, movie, onTitleClick, onCardClick, renderTabs, activeTab} = props;
 
   const movieComments = movie.comments;
@@ -157,9 +157,9 @@ const MoviePage: React.FunctionComponent<MoviesPageProps> = (props: MoviesPagePr
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: { movies: string }) => ({
   movies: state.movies,
 });
 
 export {MoviePage};
-export default connect(mapStateToProps, {})(MoviePage);
+export default connect(mapStateToProps)(MoviePage);

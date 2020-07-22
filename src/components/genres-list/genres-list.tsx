@@ -4,14 +4,13 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer";
 import {GenresListProps} from "./types";
 
-const activeClass = (activeGenre, genre) => {
-  return activeGenre === genre ? `catalog__genres-item--active` : ``;
-};
+const activeClass = (activeGenre, genre) => activeGenre === genre ? `catalog__genres-item--active` : ``;
 
-const GenresList: React.FunctionComponent<GenresListProps> = (props: GenresListProps) => {
+
+const GenresList: React.FC<GenresListProps> = (props: GenresListProps) => {
   const {genres, onGenreItemClick, activeGenre} = props;
 
-  const handleGenreClick = (genre) => {
+  const handleGenreClick: any = (genre: { genre: string }) => {
     return (evt) => {
       evt.preventDefault();
       onGenreItemClick(genre);
@@ -41,7 +40,7 @@ const GenresList: React.FunctionComponent<GenresListProps> = (props: GenresListP
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps: any = (state: { activeGenre: string; genres: string }) => ({
   activeGenre: state.activeGenre,
   genres: state.genres,
 });

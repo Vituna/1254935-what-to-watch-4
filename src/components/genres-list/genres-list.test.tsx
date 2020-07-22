@@ -3,7 +3,8 @@ import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 
-import {GenresList} from './genres-list';
+import {GenresList} from "./genres-list";
+import {DefaultGenre} from "../../consts";
 
 const mockStore = configureStore([]);
 
@@ -15,9 +16,7 @@ const noop = () => {
   return;
 };
 
-const allGenres = `All genres`;
-
-const activeGenre: string = allGenres;
+// const activeGenre: string = DefaultGenre;
 
 const genres: string[] = [`All genres`, `Drama`, `Documentary`, `Horror`];
 
@@ -29,7 +28,7 @@ it(`Should GenresList render correctly`, () => {
       <Provider store={store}>
         <GenresList
           genres={genres}
-          activeGenre={activeGenre}
+          activeGenre={DefaultGenre}
           onGenreItemClick={noop}
         />
       </Provider>, {createNodeMock})
