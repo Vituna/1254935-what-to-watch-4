@@ -1,12 +1,8 @@
 import * as React from "react";
 
-import {MovieComments} from "../../types";
+import {ReviewProps} from "./types";
 
-interface Props {
-  review: MovieComments;
-}
-
-const Review: React.FunctionComponent<Props> = (props: Props) => {
+const Review: React.FunctionComponent<ReviewProps> = (props: ReviewProps) => {
   const {review} = props;
   const {author, date, rating, text} = review;
 

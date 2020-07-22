@@ -3,21 +3,13 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
 
 import Main from "../main/main";
-import MoviePage from '../movie-page/movie-page';
-import withTabs from '../../hocs/with-tabs';
-import {FullMoves} from "../../types";
-
-interface Props {
-  movies: FullMoves[];
-}
-
-interface State {
-  activeCard: string;
-}
+import MoviePage from "../movie-page/movie-page";
+import withTabs from "../../hocs/with-tabs";
+import {AppProps, AppState} from "./types";
 
 const MoviePageWrapped = withTabs(MoviePage);
 
-class App extends React.PureComponent<Props, State> {
+class App extends React.PureComponent<AppProps, AppState> {
   constructor(props) {
     super(props);
 

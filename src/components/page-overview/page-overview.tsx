@@ -1,15 +1,8 @@
 import * as React from "react";
 
-interface Props {
-  rating: number;
-  numberVotes: number;
-  descriptionOne: string;
-  descriptionTwo: string;
-  director: string;
-  starring: string;
-}
+import {PageOverviewProps} from "./types";
 
-const PageOverview: React.FunctionComponent<Props> = (props: Props) => {
+const PageOverview: React.FunctionComponent<PageOverviewProps> = (props: PageOverviewProps) => {
   const {rating, numberVotes, descriptionOne, descriptionTwo, director, starring} = props;
 
   return (

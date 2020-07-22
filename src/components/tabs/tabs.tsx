@@ -1,11 +1,8 @@
 import * as React from "react";
 
-interface Props {
-  activeTab: string;
-  onTabClick: (tab: string) => void;
-}
+import {TabsProps} from "./types";
 
-const Tabs: React.FunctionComponent<Props> = (props: Props) => {
+const Tabs: React.FunctionComponent<TabsProps> = (props: TabsProps) => {
   const {activeTab, onTabClick} = props;
 
   const activeClass = (tab) => activeTab === tab ? `movie-nav__item--active` : ``;

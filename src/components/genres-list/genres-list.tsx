@@ -2,18 +2,13 @@ import * as React from "react";
 import {connect} from "react-redux";
 
 import {ActionCreator} from "../../reducer/reducer";
-
-interface Props {
-  genres: string[];
-  activeGenre: string;
-  onGenreItemClick: ({genre: string}) => void;
-}
+import {GenresListProps} from "./types";
 
 const activeClass = (activeGenre, genre) => {
   return activeGenre === genre ? `catalog__genres-item--active` : ``;
 };
 
-const GenresList: React.FunctionComponent<Props> = (props: Props) => {
+const GenresList: React.FunctionComponent<GenresListProps> = (props: GenresListProps) => {
   const {genres, onGenreItemClick, activeGenre} = props;
 
   const handleGenreClick = (genre) => {

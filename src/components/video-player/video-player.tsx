@@ -1,17 +1,8 @@
 import * as React from "react";
 
-interface Props {
-  isPlaying: boolean;
-  muted: boolean;
-  src: string;
-  poster: string;
-}
+import {VideoPlayerProps, VideoPlayerState} from "./types";
 
-interface State {
-  isPlaying: boolean;
-}
-
-class VideoPlayer extends React.PureComponent<Props, State> {
+class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState> {
   private videoRef: React.RefObject<HTMLVideoElement>;
 
   constructor(props) {

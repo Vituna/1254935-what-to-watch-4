@@ -7,19 +7,7 @@ import PageDetails from "../page-details/page-details";
 import PageReviews from "../page-reviews/page-reviews";
 import withMoviesList from "../../hocs/with-movies-list";
 import {MaxSimilarCards} from "../../consts";
-import {Move, FullMove} from "../../types";
-
-interface Props {
-  movies: Move[];
-  movie: FullMove;
-  filmsLength: number;
-  activeTab: string;
-  onTitleClick: () => void;
-  onCardClick: () => void;
-  renderTabs: () => void;
-  onCardMouseLeave: () => void;
-  onShowMoreClick: () => void;
-}
+import {MoviesPageProps} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
@@ -27,7 +15,7 @@ const getSimilarCards = (movies, genre) => {
   return movies.filter((film) => film.genre === genre).slice(0, MaxSimilarCards);
 };
 
-const MoviePage: React.FunctionComponent<Props> = (props: Props) => {
+const MoviePage: React.FunctionComponent<MoviesPageProps> = (props: MoviesPageProps) => {
   const {movies, movie, onTitleClick, onCardClick, renderTabs, activeTab} = props;
 
   const movieComments = movie.comments;

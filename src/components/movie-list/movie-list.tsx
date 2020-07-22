@@ -1,18 +1,9 @@
 import * as React from "react";
 
 import MovieCard from "../movie-card/movie-card";
-import {Move} from "../../types";
+import {MovieListProps} from "./types";
 
-interface Props {
-  movies: Move[];
-  onTitleClick: () => void;
-  onCardClick: () => void;
-  onCardMouseEnter: () => void;
-  onCardMouseLeave: () => void;
-  onShowMoreClick: () => void;
-}
-
-const MovieList: React.FunctionComponent<Props> = (props: Props) => {
+const MovieList: React.FunctionComponent<MovieListProps> = (props: MovieListProps) => {
   const {movies, onTitleClick, onCardClick, onCardMouseEnter, onCardMouseLeave} = props;
 
   const getMovie = (it, i) => {

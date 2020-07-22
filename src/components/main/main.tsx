@@ -6,19 +6,11 @@ import MoviesList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMore from "../show-more/show-more";
 import withMoviesList from "../../hocs/with-movies-list";
-import {Move} from "../../types";
-
-interface Props {
-  movies: Move[];
-  filmsLength: number;
-  onTitleClick: () => void;
-  onCardClick: () => void;
-  onShowMoreClick: () => void;
-}
+import {MainProps} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
-const Main: React.FunctionComponent<Props> = (props: Props) => {
+const Main: React.FunctionComponent<MainProps> = (props: MainProps) => {
   const {movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick} = props;
 
   const movie = movies[0];

@@ -2,22 +2,9 @@ import * as React from "react";
 
 import VideoPlayer from "../video-player/video-player";
 import {VIDEO_DELAY} from "../../consts";
+import {MovieCardProps, MovieCardState} from "./types";
 
-interface Props {
-  title: string;
-  filmCover: string;
-  previewVideo: string;
-  onCardMouseEnter: (title) => void;
-  onCardMouseLeave: () => void;
-  onTitleClick: (title) => void;
-  onCardClick: (title) => void;
-}
-
-interface State {
-  isPlaying: boolean;
-}
-
-class MovieCard extends React.PureComponent<Props, State> {
+class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
   _timer: any;
   constructor(props) {
     super(props);
