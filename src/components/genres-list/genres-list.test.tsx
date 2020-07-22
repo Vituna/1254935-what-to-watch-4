@@ -16,8 +16,6 @@ const noop = () => {
   return;
 };
 
-// const activeGenre: string = DefaultGenre;
-
 const genres: string[] = [`All genres`, `Drama`, `Documentary`, `Horror`];
 
 it(`Should GenresList render correctly`, () => {
