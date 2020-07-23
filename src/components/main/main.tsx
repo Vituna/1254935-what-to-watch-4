@@ -11,10 +11,14 @@ import {MainProps} from "./types";
 const MoviesListWrapped = withMoviesList(MoviesList);
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
-  const {movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick} = props;
+  const {movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick, onPlayButtonClick} = props;
 
   const movie = movies[0];
   const {title, genre, year} = movie;
+
+  const handlePlayButtonClick = () => {
+    onPlayButtonClick();
+  };
 
   return (
     <>
@@ -55,7 +59,10 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button
+                  onClick={handlePlayButtonClick}
+                  className="btn btn--play movie-card__button"
+                  type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -122,7 +129,11 @@ const mapStateToProps: object = (state: { filmsLength: number; movies: string })
 const mapDispatchToProps = (dispatch) => ({
   onShowMoreClick() {
     dispatch(ActionCreator.changeFilmsLength());
-  }
+  },
+
+  onPlayButtonClick() {
+    dispatch(ActionCreator.activatePlayingFilm());
+  },
 });
 
 export {Main};

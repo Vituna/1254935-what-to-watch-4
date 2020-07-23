@@ -13,12 +13,16 @@ const initialState = {
   genres,
   activeCard: null,
   filmsLength: FILMS_LENGTH,
+  isPlayingMovie: false,
 };
 
 const ActionType = {
   CHANGE_GENRE_FILTER: `CHANGE_GENRE_FILTER`,
   GET_FILMS_BY_GENRE: `GET_FILMS_BY_GENRE`,
   SET_FILMS_LENGTH: `SET_FILMS_LENGTH`,
+  SET_ACTIVE_FILM: `SET_ACTIVE_FILM`,
+  IS_PLAYING_FILM: `IS_PLAYING_FILM`,
+  ACTIVATE_PLAYING_FILM: `ACTIVATE_PLAYING_FILM`,
 };
 
 const getFilmsByGenre = (films, genre) => {
@@ -50,7 +54,22 @@ const ActionCreator = {
   changeFilmsLength: () => ({
     type: ActionType.SET_FILMS_LENGTH,
     payload: FILMS_LENGTH,
-  })
+  }),
+
+  changeActiveFilm: (filmTitle) => ({
+    type: ActionType.SET_ACTIVE_FILM,
+    payload: filmTitle,
+  }),
+
+  dropIsPlayingFilm: () => ({
+    type: ActionType.IS_PLAYING_FILM,
+    payload: false,
+  }),
+
+  activatePlayingFilm: () => ({
+    type: ActionType.ACTIVATE_PLAYING_FILM,
+    payload: true,
+  }),
 };
 
 const reducer = (state = extend(initialState), action) => {
@@ -73,6 +92,21 @@ const reducer = (state = extend(initialState), action) => {
     case ActionType.SET_FILMS_LENGTH:
       return extend(state, {
         filmsLength: state.filmsLength + action.payload,
+      });
+
+    case ActionType.SET_ACTIVE_FILM:
+      return extend(state, {
+        activeCard: action.payload,
+      });
+
+    case ActionType.IS_PLAYING_FILM:
+      return extend(state, {
+        isPlayingMovie: action.payload,
+      });
+
+    case ActionType.ACTIVATE_PLAYING_FILM:
+      return extend(state, {
+        isPlayingMovie: action.payload,
       });
   }
 

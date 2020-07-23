@@ -1,5 +1,6 @@
 import * as React from "react";
 import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/reducer";
 
 import MoviesList from "../movie-list/movie-list";
 import PageOverview from "../page-overview/page-overview";
@@ -16,7 +17,7 @@ const getSimilarCards = (movies, genre) => {
 };
 
 const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
-  const {movies, movie, onTitleClick, onCardClick, renderTabs, activeTab} = props;
+  const {movies, movie, onTitleClick, onCardClick, onPlayButtonClick, renderTabs, activeTab} = props;
 
   const movieComments = movie.comments;
 
@@ -35,6 +36,11 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
   } = movie;
 
   const similarCards = getSimilarCards(movies, genre);
+
+  const handlePlayButtonClick = () => {
+    onPlayButtonClick();
+  };
+
 
   const renderActiveTab = () => {
     switch (activeTab) {
@@ -94,7 +100,10 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button
+                  onClick={handlePlayButtonClick}
+                  className="btn btn--play movie-card__button"
+                  type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -161,5 +170,11 @@ const mapStateToProps: object = (state: { movies: string }) => ({
   movies: state.movies,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onPlayButtonClick() {
+    dispatch(ActionCreator.activatePlayingFilm());
+  },
+});
+
 export {MoviePage};
-export default connect(mapStateToProps)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

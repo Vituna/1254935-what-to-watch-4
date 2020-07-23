@@ -3,8 +3,8 @@ import * as renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 
-import App from "./app";
-import {Move} from "../../types";
+import {App} from "./app";
+import {Move, FullMoves} from "../../types";
 
 const mockStore = configureStore([]);
 
@@ -24,7 +24,7 @@ const movie: Move = {
   previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
 };
 
-const movies: Move[] = [
+const movies: FullMoves[] = [
   {
     title: `The Grand Budapest Hotel`,
     genre: `Drama`,
@@ -39,11 +39,16 @@ const movies: Move[] = [
     director: `Wes Andreson`,
     starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    comments: {
+      text: `I didn&apos;t find it amusing, and while I can appreciate the creativity, it&apos;s an hour and 40 minutes I wish I could take back.`,
+      author: `Amanda Greever`,
+      date: `2015-11-18`,
+      rating: `8,0`,
+    }
   },
   {
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     filmCover: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-
     genre: `Sci-Fi`,
     year: 2014,
     movieDurationTime: `1h 39m`,
@@ -55,11 +60,21 @@ const movies: Move[] = [
     director: `Wes Andreson`,
     starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
     previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    comments: {
+      text: `I didn&apos;t find it amusing, and while I can appreciate the creativity, it&apos;s an hour and 40 minutes I wish I could take back.`,
+      author: `Amanda Greever`,
+      date: `2015-11-18`,
+      rating: `8,0`,
+    }
   },
 ];
 
 const createNodeMock = () => {
   return {};
+};
+
+const noop = () => {
+  return;
 };
 
 const FILMS_LENGTH = 8;
@@ -83,7 +98,13 @@ it(`Render App`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <App/>
+          <App
+            movies={movies}
+            activeCard={null}
+            isPlayingMovie={true}
+            onFilmTitleClick={noop}
+            onPlayerExitClick={noop}
+          />
         </Provider>, {createNodeMock})
   .toJSON();
 

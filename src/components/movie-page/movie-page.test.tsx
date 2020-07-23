@@ -97,6 +97,7 @@ it(`Should MovieCard render correctly`, () => {
       onCardMouseLeave={noop}
       onShowMoreClick={noop}
       renderTabs={noop}
+      onPlayButtonClick={noop}
       activeTab={``}
     />, {createNodeMock})
     .toJSON();

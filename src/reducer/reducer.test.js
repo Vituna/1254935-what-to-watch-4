@@ -244,6 +244,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     filmsLength: FILMS_LENGTH,
     movies,
     genres,
+    isPlayingMovie: false,
   });
 });
 
@@ -253,6 +254,7 @@ it(`Reducer should change the genre to a given value`, () => {
     activeCard: null,
     movies,
     genres,
+    isPlayingMovie: false,
   }, {
     type: ActionType.CHANGE_GENRE_FILTER,
     payload: `Drama`,
@@ -261,17 +263,18 @@ it(`Reducer should change the genre to a given value`, () => {
     activeCard: null,
     movies,
     genres,
+    isPlayingMovie: false,
   });
 });
 
-it(`Action creator for getFilmsByGenre returns films filtered by default genre`, () => {
+it(`Action creator for getFilmsByGenre returns movies filtered by default genre`, () => {
   expect(ActionCreator.getFilmsByGenre(DefaultGenre)).toEqual({
     type: ActionType.GET_FILMS_BY_GENRE,
     payload: movies,
   });
 });
 
-it(`Action creator for getFilmsByGenre returns films filtered by genre`, () => {
+it(`Action creator for getFilmsByGenre returns movies filtered by genre`, () => {
   expect(ActionCreator.getFilmsByGenre(`Crime`)).toEqual({
     type: ActionType.GET_FILMS_BY_GENRE,
     payload: [{
@@ -312,20 +315,63 @@ it(`Action creator for getFilmsByGenre returns films filtered by genre`, () => {
 it(`Reducer should change the length of the movie list to a given value`, () => {
   expect(reducer({
     currentGenre: DefaultGenre,
-    activeFilm: null,
+    activeCard: null,
     filmsLength: FILMS_LENGTH,
     movies,
     genres,
+    isPlayingMovie: false,
   }, {
     type: ActionType.SET_FILMS_LENGTH,
     payload: FILMS_LENGTH,
   })).toEqual({
     currentGenre: DefaultGenre,
-    activeFilm: null,
+    activeCard: null,
     filmsLength: 16,
+    movies,
+    genres,
+    isPlayingMovie: false,
+  });
+});
+
+it(`Reducer should change  the playback to a false`, () => {
+  expect(reducer({
+    currentGenre: DefaultGenre,
+    activeCard: true,
+    filmsLength: FILMS_LENGTH,
+    isPlayingMovie: false,
+    movies,
+    genres,
+  }, {
+    type: ActionType.DROP_IS_PLAYING_FILM,
+    payload: false,
+  })).toEqual({
+    currentGenre: DefaultGenre,
+    activeCard: false,
+    filmsLength: FILMS_LENGTH,
+    isPlayingMovie: false,
     movies,
     genres,
   });
 });
 
+it(`Reducer should change  the playback to a true`, () => {
+  expect(reducer({
+    currentGenre: DefaultGenre,
+    activeCard: null,
+    filmsLength: FILMS_LENGTH,
+    isPlayingMovie: false,
+    movies,
+    genres,
+  }, {
+    type: ActionType.ACTIVATE_PLAYING_FILM,
+    payload: true,
+  })).toEqual({
+    currentGenre: DefaultGenre,
+    activeCard: null,
+    filmsLength: FILMS_LENGTH,
+    isPlayingMovie: true,
+    movies,
+    genres,
+  });
+});
 

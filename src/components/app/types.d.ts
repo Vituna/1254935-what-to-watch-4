@@ -2,9 +2,8 @@ import {FullMoves} from "../../types";
 
 export interface AppProps {
   movies: FullMoves[];
-  title: string;
-}
-
-export interface AppState {
   activeCard: string;
+  isPlayingMovie: boolean;
+  onFilmTitleClick: () => void;
+  onPlayerExitClick: () => void;
 }

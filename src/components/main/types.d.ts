@@ -6,4 +6,5 @@ export interface MainProps {
   onTitleClick: () => void;
   onCardClick: () => void;
   onShowMoreClick: () => void;
+  onPlayButtonClick: () => void;
 }

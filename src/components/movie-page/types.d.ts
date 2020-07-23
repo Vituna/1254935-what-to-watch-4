@@ -10,4 +10,5 @@ export interface MoviesPageProps {
   renderTabs: () => void;
   onCardMouseLeave: () => void;
   onShowMoreClick: () => void;
+  onPlayButtonClick: () => void;
 }
