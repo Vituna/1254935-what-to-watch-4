@@ -4,9 +4,9 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer";
 
 import Main from "../main/main";
-import MoviePage from '../movie-page/movie-page';
+import MoviePage from "../movie-page/movie-page";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
-import withTabs from '../../hocs/with-tabs';
+import withTabs from "../../hocs/with-tabs";
 import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player";
 import {AppProps} from "./types";
 
