@@ -1,10 +1,10 @@
 import * as React from "react";
 
 import {FullScreenVideoPlayerProps} from "./types";
-import {сlockClculations, сalculatingMinutes, сalculatingSeconds} from "../../consts";
+import {сlockCalculations, сalculatingMinutes, сalculatingSeconds} from "../../consts";
 
 const formatTime = (time) => {
-  const hours = сlockClculations(time);
+  const hours = сlockCalculations(time);
   const minutes = сalculatingMinutes(time, hours);
   const seconds = сalculatingSeconds(time);
 

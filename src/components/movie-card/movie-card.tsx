@@ -76,7 +76,6 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
   onFilmTitleClick(filmTitle) {
     dispatch(ActionCreator.changeActiveFilm(filmTitle));
   },

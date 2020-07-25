@@ -27,7 +27,7 @@ const withFullScreenVideoPlayer = (Component) => {
       this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
     }
 
-    private timeUpdare(video) {
+    private timeUpdate(video) {
       this.setState({
         timeElapsed: Math.floor(video.duration - video.currentTime),
         progress: Math.floor(video.currentTime),
@@ -41,7 +41,7 @@ const withFullScreenVideoPlayer = (Component) => {
 
       video.src = preview;
 
-      video.ontimeupdate = () => this.timeUpdare(video);
+      video.ontimeupdate = () => this.timeUpdate(video);
     }
 
     public componentWillUnmount() {
