@@ -23,8 +23,8 @@ const withFullScreenVideoPlayer = (Component) => {
 
       this.videoRef = React.createRef();
 
-      this.handlePlayPauseButtonClick = this.handlePlayPauseButtonClick.bind(this);
-      this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
+      this._handlePlayPauseButtonClick = this._handlePlayPauseButtonClick.bind(this);
+      this._handleFullScreenClick = this._handleFullScreenClick.bind(this);
     }
 
     private timeUpdate(video) {
@@ -77,7 +77,7 @@ const withFullScreenVideoPlayer = (Component) => {
       }
     }
 
-    private handlePlayPauseButtonClick() {
+    private _handlePlayPauseButtonClick() {
       const {isPlay} = this.state;
 
       this.setState({
@@ -85,7 +85,7 @@ const withFullScreenVideoPlayer = (Component) => {
       });
     }
 
-    private handleFullScreenClick() {
+    private _handleFullScreenClick() {
       const {isFullscreen} = this.state;
 
       this.setState({
@@ -101,8 +101,8 @@ const withFullScreenVideoPlayer = (Component) => {
         isPlay={this.state.isPlay}
         timeElapsed={this.state.timeElapsed}
         currentProgress={Math.floor(this.state.progress * 100 / this.state.duration).toString()}
-        onPlayPauseButtonClick={this.handlePlayPauseButtonClick}
-        onFullScreenClick={this.handleFullScreenClick}
+        onPlayPauseButtonClick={this._handlePlayPauseButtonClick}
+        onFullScreenClick={this._handleFullScreenClick}
         onPlayerExitClick={onPlayerExitClick}
       >
         <video

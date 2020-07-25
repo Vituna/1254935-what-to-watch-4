@@ -23,34 +23,34 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
     this._startPlaying = this._startPlaying.bind(this);
   }
 
-  _startPlaying(): void {
+  private _startPlaying(): void {
     this.setState({
       isPlaying: true
     });
   }
 
-  _handleCardMouseEnter(): void {
+  private _handleCardMouseEnter(): void {
     const {title} = this.props;
     this.props.onCardMouseEnter(title);
     this._timer = setTimeout(this._startPlaying, VIDEO_DELAY);
   }
 
-  _handleCardMouseRemove(): void {
+  private _handleCardMouseRemove(): void {
     clearTimeout(this._timer);
     this.setState({isPlaying: false});
     this.props.onCardMouseLeave();
   }
 
-  _handleCartTitleClick(evt: { preventDefault: () => void }) {
+  private _handleCartTitleClick(evt: { preventDefault: () => void }) {
     evt.preventDefault();
     this.props.onFilmTitleClick(this.props.title);
   }
 
-  _handleCardClick(): void {
+  private _handleCardClick(): void {
     this.props.onFilmTitleClick(this.props.title);
   }
 
-  render(): React.ReactNode {
+  public render(): React.ReactNode {
     const {title, filmCover, previewVideo} = this.props;
     return (
       <article className="small-movie-card catalog__movies-card"
