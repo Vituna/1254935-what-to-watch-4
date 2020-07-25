@@ -4,7 +4,7 @@ import MovieCard from "../movie-card/movie-card";
 import {MovieListProps} from "./types";
 
 const MovieList: React.FC<MovieListProps> = (props: MovieListProps) => {
-  const {movies, onTitleClick, onCardClick, onCardMouseEnter, onCardMouseLeave} = props;
+  const {movies, onCardMouseEnter, onCardMouseLeave} = props;
 
   const getMovie = (it, i) => {
     return (
@@ -13,8 +13,6 @@ const MovieList: React.FC<MovieListProps> = (props: MovieListProps) => {
           title={it.title}
           filmCover={it.filmCover}
           previewVideo={it.previewVideo}
-          onTitleClick={onTitleClick}
-          onCardClick={onCardClick}
           onCardMouseEnter={onCardMouseEnter}
           onCardMouseLeave={onCardMouseLeave}
         />

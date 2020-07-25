@@ -11,14 +11,10 @@ import {MainProps} from "./types";
 const MoviesListWrapped = withMoviesList(MoviesList);
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
-  const {movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick, onPlayButtonClick} = props;
+  const {movies, filmsLength, onShowMoreClick, onPlayButtonClick} = props;
 
-  const movie = movies[0];
-  const {title, genre, year} = movie;
-
-  const handlePlayButtonClick = () => {
-    onPlayButtonClick();
-  };
+  const [firstMovie] = movies;
+  const {title, genre, year} = firstMovie;
 
   return (
     <>
@@ -60,7 +56,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
 
               <div className="movie-card__buttons">
                 <button
-                  onClick={handlePlayButtonClick}
+                  onClick={onPlayButtonClick}
                   className="btn btn--play movie-card__button"
                   type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -90,8 +86,6 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
           <div className="catalog__movies-list">
             <MoviesListWrapped
               movies={movies.slice(0, filmsLength)}
-              onTitleClick={onTitleClick}
-              onCardClick={onCardClick}
             />
           </div>
 

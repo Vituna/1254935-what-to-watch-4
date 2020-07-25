@@ -7,21 +7,19 @@ import Main from "../main/main";
 import MoviePage from "../movie-page/movie-page";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
 import withTabs from "../../hocs/with-tabs";
-import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player";
+import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player/with-full-screen-video-player";
 import {AppProps} from "./types";
 
 const MoviePageWrapped = withTabs(MoviePage);
 const FullScreenVideoPlayerWrapped = withFullScreenVideoPlayer(FullScreenVideoPlayer);
 
 const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
-  const {movies, activeCard, isPlayingMovie, onFilmTitleClick, onPlayerExitClick} = props;
+  const {movies, activeCard, isPlayingMovie, onPlayerExitClick} = props;
 
   const renderMain = () => {
 
     return (
       <Main
-        onTitleClick={onFilmTitleClick}
-        onCardClick={onFilmTitleClick}
       />
     );
   };
@@ -31,17 +29,15 @@ const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
     return (
       <MoviePageWrapped
         movie={movies.find((film) => film.title === activeCard)}
-        onTitleClick={onFilmTitleClick}
-        onCardClick={onFilmTitleClick}
       />
     );
   };
 
   const renderFullScreenVideoPlayer = () => {
-    const movie = movies[0];
+    const [firstMovie] = movies;
 
     const currentFilm = activeCard === null
-      ? movie : movies.find((film) => film.title === activeCard);
+      ? firstMovie : movies.find((film) => film.title === activeCard);
 
     return (
       <FullScreenVideoPlayerWrapped
@@ -52,7 +48,6 @@ const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   };
 
   const renderApp = () => {
-
     if (activeCard === null && !isPlayingMovie) {
       return (renderMain());
     }
@@ -98,10 +93,6 @@ const mapStateToProps = (state: { movies: string; activeCard: string; isPlayingM
 const mapDispatchToProps = (dispatch) => ({
   onPlayerExitClick() {
     dispatch(ActionCreator.dropIsPlayingFilm());
-  },
-
-  onFilmTitleClick(filmTitle) {
-    dispatch(ActionCreator.changeActiveFilm(filmTitle));
   },
 });
 

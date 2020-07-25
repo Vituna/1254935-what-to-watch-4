@@ -25,17 +25,17 @@ const withMoviesList = (Component) => {
       this.state = {
         activeCard: null,
       };
-      this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
-      this._handleCardMouseLeave = this._handleCardMouseLeave.bind(this);
+      this.handleCardMouseEnter = this.handleCardMouseEnter.bind(this);
+      this.handleCardMouseLeave = this.handleCardMouseLeave.bind(this);
     }
 
-    _handleCardMouseEnter(id) {
+    private handleCardMouseEnter(id) {
       this.setState({
         activeCard: id,
       });
     }
 
-    _handleCardMouseLeave() {
+    private handleCardMouseLeave() {
       this.setState({
         activeCard: null,
       });
@@ -47,8 +47,8 @@ const withMoviesList = (Component) => {
       return (<Component
         {...this.props}
         activeCard={activeCard}
-        onCardMouseEnter={this._handleCardMouseEnter}
-        onCardMouseLeave={this._handleCardMouseLeave}
+        onCardMouseEnter={this.handleCardMouseEnter}
+        onCardMouseLeave={this.handleCardMouseLeave}
       />);
     }
   }

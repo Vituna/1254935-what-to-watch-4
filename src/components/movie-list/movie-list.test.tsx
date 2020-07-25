@@ -1,8 +1,12 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 
 import MovieList from "./movie-list";
 import {Move} from "../../types";
+
+const mockStore = configureStore([]);
 
 const noop = () => {
   return;
@@ -46,16 +50,21 @@ const createNodeMock = () => {
 };
 
 it(`Should WTW render correctly`, () => {
+  const store = mockStore({
+    movies,
+  });
+
   const tree = renderer
-    .create(<MovieList
-      movies={movies}
-      onCardClick={noop}
-      onTitleClick={noop}
-      onCardMouseEnter={noop}
-      onCardMouseLeave={noop}
-      onShowMoreClick={noop}
-    />, {createNodeMock})
-    .toJSON();
+    .create(
+      <Provider store={store}>
+        <MovieList
+          movies={movies}
+          onCardMouseEnter={noop}
+          onCardMouseLeave={noop}
+          onShowMoreClick={noop}
+        />
+      </Provider>, {createNodeMock})
+  .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

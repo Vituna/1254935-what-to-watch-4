@@ -51,8 +51,6 @@ it(`MovieList is correctly handled click on title`, () => {
 
   const main = shallow(<MoviesList
     movies={movies}
-    onCardClick={noop}
-    onTitleClick={noop}
     onCardMouseEnter={noop}
     onCardMouseLeave={noop}
     onShowMoreClick={noop}

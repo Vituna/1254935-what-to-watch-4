@@ -1,11 +1,12 @@
 import * as React from "react";
 
 import {FullScreenVideoPlayerProps} from "./types";
+import {сlockClculations, сalculatingMinutes, сalculatingSeconds} from "../../consts";
 
 const formatTime = (time) => {
-  const hours = Math.floor(time / 60 / 60);
-  const minutes = Math.floor(time / 60) - (hours * 60);
-  const seconds = time % 60;
+  const hours = сlockClculations(time);
+  const minutes = сalculatingMinutes(time, hours);
+  const seconds = сalculatingSeconds(time);
 
   return `${hours}:${minutes}:${seconds}`;
 };
@@ -13,23 +14,11 @@ const formatTime = (time) => {
 const FullScreenVideoPlayer: React.FunctionComponent<FullScreenVideoPlayerProps> = (props: FullScreenVideoPlayerProps) => {
   const {isPlay, timeElapsed, currentProgress, onPlayPauseButtonClick, onFullScreenClick, onPlayerExitClick, children} = props;
 
-  const handlePlayerExitClick = () => {
-    onPlayerExitClick();
-  };
-
-  const handlePlayPauseButtonClick = () => {
-    onPlayPauseButtonClick();
-  };
-
-  const handleFullScreenClick = () => {
-    onFullScreenClick();
-  };
-
   return (
     <div className="player">
       {children}
 
-      <button onClick={handlePlayerExitClick} type="button" className="player__exit">Exit</button>
+      <button onClick={onPlayerExitClick} type="button" className="player__exit">Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -50,7 +39,7 @@ const FullScreenVideoPlayer: React.FunctionComponent<FullScreenVideoPlayerProps>
 
         <div className="player__controls-row">
           <button
-            onClick={handlePlayPauseButtonClick}
+            onClick={onPlayPauseButtonClick}
             type="button"
             className="player__play">
             <svg viewBox="0 0 19 19" width="19" height="19">
@@ -63,7 +52,7 @@ const FullScreenVideoPlayer: React.FunctionComponent<FullScreenVideoPlayerProps>
           <div className="player__name">Transpotting</div>
 
           <button
-            onClick={handleFullScreenClick}
+            onClick={onFullScreenClick}
             type="button"
             className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">

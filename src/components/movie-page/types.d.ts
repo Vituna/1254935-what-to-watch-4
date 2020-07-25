@@ -5,8 +5,6 @@ export interface MoviesPageProps {
   movie: FullMove;
   filmsLength: number;
   activeTab: string;
-  onTitleClick: () => void;
-  onCardClick: () => void;
   renderTabs: () => void;
   onCardMouseLeave: () => void;
   onShowMoreClick: () => void;

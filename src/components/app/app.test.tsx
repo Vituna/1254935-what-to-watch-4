@@ -102,7 +102,6 @@ it(`Render App`, () => {
             movies={movies}
             activeCard={null}
             isPlayingMovie={true}
-            onFilmTitleClick={noop}
             onPlayerExitClick={noop}
           />
         </Provider>, {createNodeMock})

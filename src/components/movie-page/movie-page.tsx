@@ -17,7 +17,7 @@ const getSimilarCards = (movies, genre) => {
 };
 
 const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
-  const {movies, movie, onTitleClick, onCardClick, onPlayButtonClick, renderTabs, activeTab} = props;
+  const {movies, movie, onPlayButtonClick, renderTabs, activeTab} = props;
 
   const movieComments = movie.comments;
 
@@ -36,11 +36,6 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
   } = movie;
 
   const similarCards = getSimilarCards(movies, genre);
-
-  const handlePlayButtonClick = () => {
-    onPlayButtonClick();
-  };
-
 
   const renderActiveTab = () => {
     switch (activeTab) {
@@ -101,7 +96,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
 
               <div className="movie-card__buttons">
                 <button
-                  onClick={handlePlayButtonClick}
+                  onClick={onPlayButtonClick}
                   className="btn btn--play movie-card__button"
                   type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -141,8 +136,6 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
           <div className="catalog__movies-list">
             <MoviesListWrapped
               movies={similarCards}
-              onTitleClick={onTitleClick}
-              onCardClick={onCardClick}
             />
           </div>
         </section>

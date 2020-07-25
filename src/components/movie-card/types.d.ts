@@ -4,8 +4,7 @@ export interface MovieCardProps {
   previewVideo: string;
   onCardMouseEnter: (title) => void;
   onCardMouseLeave: () => void;
-  onTitleClick: (title) => void;
-  onCardClick: (title) => void;
+  onFilmTitleClick: (title) => void;
 }
 
 export interface MovieCardState {

@@ -75,8 +75,6 @@ it(`Should WTW render correctly`, () => {
         <Main
           movies={movies}
           filmsLength={filmsLength}
-          onCardClick={noop}
-          onTitleClick={noop}
           onShowMoreClick={noop}
           onPlayButtonClick={noop}
         />

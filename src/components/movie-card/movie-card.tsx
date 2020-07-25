@@ -1,4 +1,6 @@
 import * as React from "react";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/reducer";
 
 import VideoPlayer from "../video-player/video-player";
 import {VIDEO_DELAY} from "../../consts";
@@ -41,11 +43,11 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
 
   _handleCartTitleClick(evt: { preventDefault: () => void }) {
     evt.preventDefault();
-    this.props.onTitleClick(this.props.title);
+    this.props.onFilmTitleClick(this.props.title);
   }
 
   _handleCardClick(): void {
-    this.props.onCardClick(this.props.title);
+    this.props.onFilmTitleClick(this.props.title);
   }
 
   render(): React.ReactNode {
@@ -73,4 +75,12 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
   }
 }
 
-export default MovieCard;
+const mapDispatchToProps = (dispatch) => ({
+
+  onFilmTitleClick(filmTitle) {
+    dispatch(ActionCreator.changeActiveFilm(filmTitle));
+  },
+});
+
+export {MovieCard};
+export default connect(null, mapDispatchToProps)(MovieCard);
