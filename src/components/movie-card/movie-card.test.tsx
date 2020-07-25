@@ -34,16 +34,16 @@ it(`Renders cards correctly`, () => {
 
   const tree = renderer
     .create(
-      <Provider store={store}>
-        <MovieCard
-          title={title}
-          filmCover={filmCover}
-          previewVideo={previewVideo}
-          onFilmTitleClick={noop}
-          onCardMouseEnter={noop}
-          onCardMouseLeave={noop}
-        />
-      </Provider>, {createNodeMock})
+        <Provider store={store}>
+          <MovieCard
+            title={title}
+            filmCover={filmCover}
+            previewVideo={previewVideo}
+            onFilmTitleClick={noop}
+            onCardMouseEnter={noop}
+            onCardMouseLeave={noop}
+          />
+        </Provider>, {createNodeMock})
   .toJSON();
 
   expect(tree).toMatchSnapshot();

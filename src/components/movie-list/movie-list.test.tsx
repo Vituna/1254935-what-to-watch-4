@@ -56,14 +56,14 @@ it(`Should WTW render correctly`, () => {
 
   const tree = renderer
     .create(
-      <Provider store={store}>
-        <MovieList
-          movies={movies}
-          onCardMouseEnter={noop}
-          onCardMouseLeave={noop}
-          onShowMoreClick={noop}
-        />
-      </Provider>, {createNodeMock})
+        <Provider store={store}>
+          <MovieList
+            movies={movies}
+            onCardMouseEnter={noop}
+            onCardMouseLeave={noop}
+            onShowMoreClick={noop}
+          />
+        </Provider>, {createNodeMock})
   .toJSON();
 
   expect(tree).toMatchSnapshot();

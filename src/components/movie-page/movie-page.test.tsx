@@ -98,18 +98,18 @@ it(`Should MovieCard render correctly`, () => {
 
   const tree = renderer
     .create(
-      <Provider store={store}>
-        <MoviePage
-          movies={movies}
-          movie={movie}
-          filmsLength={filmsLength}
-          onCardMouseLeave={noop}
-          onShowMoreClick={noop}
-          renderTabs={noop}
-          onPlayButtonClick={noop}
-          activeTab={``}
-        />
-      </Provider>, {createNodeMock})
+        <Provider store={store}>
+          <MoviePage
+            movies={movies}
+            movie={movie}
+            filmsLength={filmsLength}
+            onCardMouseLeave={noop}
+            onShowMoreClick={noop}
+            renderTabs={noop}
+            onPlayButtonClick={noop}
+            activeTab={``}
+          />
+        </Provider>, {createNodeMock})
       .toJSON();
 
   expect(tree).toMatchSnapshot();
