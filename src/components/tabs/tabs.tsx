@@ -5,9 +5,9 @@ import {TabsProps} from "./types";
 const Tabs: React.FC<TabsProps> = (props: TabsProps) => {
   const {activeTab, onTabClick} = props;
 
-  const activeClass = (tab) => activeTab === tab ? `movie-nav__item--active` : ``;
+  const activeClass = (tab: string): string => activeTab === tab ? `movie-nav__item--active` : ``;
 
-  const handleTabClick = (tab) => {
+  const handleTabClick = (tab: string) => {
     return (evt) => {
       evt.preventDefault();
       onTabClick(tab);

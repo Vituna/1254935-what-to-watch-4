@@ -1,15 +1,6 @@
 import * as React from "react";
 import {Subtract} from "utility-types";
 
-interface Props {
-  filmsLength: number;
-  onTitleClick: () => void;
-  onCardClick: () => void;
-  onCardMouseEnter: () => void;
-  onCardMouseLeave: () => void;
-  onShowMoreClick: () => void;
-}
-
 interface State {
   activeCard: string;
 }
@@ -19,7 +10,7 @@ const withMoviesList = (Component) => {
   type T = Subtract<P, {}>;
 
   class WithMoviesList extends React.PureComponent<T, State> {
-    constructor(props) {
+    constructor(props: Readonly<Pick<any, string | number | symbol>>) {
       super(props);
 
       this.state = {
@@ -29,19 +20,19 @@ const withMoviesList = (Component) => {
       this.handleCardMouseLeave = this.handleCardMouseLeave.bind(this);
     }
 
-    private handleCardMouseEnter(id) {
+    private handleCardMouseEnter(id: string): void {
       this.setState({
         activeCard: id,
       });
     }
 
-    private handleCardMouseLeave() {
+    private handleCardMouseLeave(): void {
       this.setState({
         activeCard: null,
       });
     }
 
-    render() {
+    public render(): React.ReactNode {
       const {activeCard} = this.state;
 
       return (<Component

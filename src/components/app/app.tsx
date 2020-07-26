@@ -6,17 +6,17 @@ import {ActionCreator} from "../../reducer/reducer";
 import Main from "../main/main";
 import MoviePage from "../movie-page/movie-page";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
-import withTabs from "../../hocs/with-tabs";
+import withTabs from "../../hocs/with-tabs/with-tabs";
 import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player/with-full-screen-video-player";
 import {AppProps} from "./types";
 
 const MoviePageWrapped = withTabs(MoviePage);
 const FullScreenVideoPlayerWrapped = withFullScreenVideoPlayer(FullScreenVideoPlayer);
 
-const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
+const App: React.FC<AppProps> = (props: AppProps) => {
   const {movies, activeCard, isPlayingMovie, onPlayerExitClick} = props;
 
-  const renderMain = () => {
+  const renderMain = (): React.ReactNode => {
 
     return (
       <Main
@@ -24,7 +24,7 @@ const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
     );
   };
 
-  const renderMoviePage = () => {
+  const renderMoviePage = (): React.ReactNode => {
 
     return (
       <MoviePageWrapped
@@ -33,7 +33,7 @@ const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
     );
   };
 
-  const renderFullScreenVideoPlayer = () => {
+  const renderFullScreenVideoPlayer = (): React.ReactNode => {
     const [firstMovie] = movies;
 
     const currentFilm = activeCard === null
@@ -47,7 +47,7 @@ const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
     );
   };
 
-  const renderApp = () => {
+  const renderApp = (): React.ReactNode => {
     if (activeCard === null && !isPlayingMovie) {
       return (renderMain());
     }
@@ -63,7 +63,7 @@ const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
     return null;
   };
 
-  const render = () => {
+  const render = (): React.ReactElement => {
 
     return (
       <BrowserRouter>
@@ -84,7 +84,7 @@ const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   return (render());
 };
 
-const mapStateToProps = (state: { movies: string; activeCard: string; isPlayingMovie: boolean }) => ({
+const mapStateToProps: object = (state: { movies: string; activeCard: string; isPlayingMovie: boolean }) => ({
   movies: state.movies,
   activeCard: state.activeCard,
   isPlayingMovie: state.isPlayingMovie,

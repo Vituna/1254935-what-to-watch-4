@@ -12,7 +12,7 @@ import {MoviesPageProps} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
-const getSimilarCards = (movies, genre) => {
+const getSimilarCards = (movies, genre: string): React.ReactElement => {
   return movies.filter((film) => film.genre === genre).slice(0, MaxSimilarCards);
 };
 
@@ -37,7 +37,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
 
   const similarCards = getSimilarCards(movies, genre);
 
-  const renderActiveTab = () => {
+  const renderActiveTab = (): React.ReactNode => {
     switch (activeTab) {
       case `Overview`:
         return <PageOverview

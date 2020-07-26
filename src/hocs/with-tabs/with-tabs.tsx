@@ -1,22 +1,15 @@
 import * as React from "react";
 import {Subtract} from "utility-types";
 
-import Tabs from '../components/tabs/tabs';
-
-interface State {
-  activeTab: string;
-}
-
-interface InjectingProps {
-  renderTabs: () => React.ReactNode;
-}
+import Tabs from "../../components/tabs/tabs";
+import {WithTabsState, WithTabsInjectingProps} from "./types";
 
 const withTabs = (Component) => {
   type P = React.ComponentProps<typeof Component>;
-  type T = Subtract<P, InjectingProps>;
+  type T = Subtract<P, WithTabsInjectingProps>;
 
-  class WithTabs extends React.PureComponent<T, State> {
-    constructor(props) {
+  class WithTabs extends React.PureComponent<T, WithTabsState> {
+    constructor(props: Readonly<Pick<any, string | number | symbol>>) {
       super(props);
 
       this.state = {
@@ -27,7 +20,7 @@ const withTabs = (Component) => {
       this._handleTabClick = this._handleTabClick.bind(this);
     }
 
-    _getTabs() {
+    private _getTabs(): React.ReactNode {
       const {activeTab} = this.state;
 
       return (
@@ -38,13 +31,13 @@ const withTabs = (Component) => {
       );
     }
 
-    _handleTabClick(currentTab) {
+    private _handleTabClick(currentTab: string): void {
       this.setState({
         activeTab: currentTab
       });
     }
 
-    render() {
+    public render(): React.ReactNode {
       const {activeTab} = this.state;
 
       return <Component

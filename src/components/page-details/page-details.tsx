@@ -2,11 +2,12 @@ import * as React from "react";
 import {connect} from "react-redux";
 
 import {PageDetailsProps} from "./types";
+import { mixed } from "utility-types/dist/utility-types";
 
 const PageDetails: React.FunctionComponent<PageDetailsProps> = (props: PageDetailsProps) => {
   const {movieDetail} = props;
 
-  const getDetails = (info, i) => {
+  const getDetails = (info: { name: string; value: string; }, i: number): React.ReactNode => {
     const {name, value} = info;
     const key = `${name} + ${i}`;
 
@@ -17,8 +18,7 @@ const PageDetails: React.FunctionComponent<PageDetailsProps> = (props: PageDetai
       </p>
     );
   };
-
-  const renderDetails = () => movieDetail.map(getDetails);
+  const renderDetails = (): Array<mixed> => movieDetail.map(getDetails);
 
   return (
     <div className="movie-card__text movie-card__row">

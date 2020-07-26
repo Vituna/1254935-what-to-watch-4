@@ -5,7 +5,7 @@ import {VideoPlayerProps, VideoPlayerState} from "./types";
 class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState> {
   private videoRef: React.RefObject<HTMLVideoElement>;
 
-  constructor(props) {
+  constructor(props: Readonly<VideoPlayerProps>) {
     super(props);
 
     this.state = {

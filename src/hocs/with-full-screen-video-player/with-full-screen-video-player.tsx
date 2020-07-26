@@ -10,7 +10,7 @@ const withFullScreenVideoPlayer = (Component) => {
   class WithFullScreenVideoPlayer extends React.PureComponent<T, WithFullScreenVideoPlayerState> {
     private videoRef: React.RefObject<HTMLVideoElement>;
 
-    constructor(props) {
+    constructor(props: Readonly<WithFullScreenVideoPlayerProps & Pick<any, string | number | symbol>>) {
       super(props);
 
       this.state = {
@@ -27,7 +27,7 @@ const withFullScreenVideoPlayer = (Component) => {
       this._handleFullScreenClick = this._handleFullScreenClick.bind(this);
     }
 
-    private timeUpdate(video) {
+    private _timeUpdate(video: HTMLVideoElement): void {
       this.setState({
         timeElapsed: Math.floor(video.duration - video.currentTime),
         progress: Math.floor(video.currentTime),
@@ -35,16 +35,16 @@ const withFullScreenVideoPlayer = (Component) => {
       });
     }
 
-    public componentDidMount() {
+    public componentDidMount(): void {
       const {preview} = this.props;
       const video = this.videoRef.current;
 
       video.src = preview;
 
-      video.ontimeupdate = () => this.timeUpdate(video);
+      video.ontimeupdate = () => this._timeUpdate(video);
     }
 
-    public componentWillUnmount() {
+    public componentWillUnmount(): void {
 
       const video = this.videoRef.current;
       if (video) {
@@ -54,7 +54,7 @@ const withFullScreenVideoPlayer = (Component) => {
       }
     }
 
-    public componentDidUpdate() {
+    public componentDidUpdate(): void {
       const {isPlay, isFullscreen} = this.state;
       const video = this.videoRef.current;
 
@@ -77,7 +77,7 @@ const withFullScreenVideoPlayer = (Component) => {
       }
     }
 
-    private _handlePlayPauseButtonClick() {
+    private _handlePlayPauseButtonClick(): void {
       const {isPlay} = this.state;
 
       this.setState({
@@ -85,7 +85,7 @@ const withFullScreenVideoPlayer = (Component) => {
       });
     }
 
-    private _handleFullScreenClick() {
+    private _handleFullScreenClick(): void {
       const {isFullscreen} = this.state;
 
       this.setState({
@@ -93,7 +93,7 @@ const withFullScreenVideoPlayer = (Component) => {
       });
     }
 
-    public render() {
+    public render(): React.ReactNode {
       const {onPlayerExitClick} = this.props;
 
       return (<Component

@@ -5,10 +5,11 @@ import {ActionCreator} from "../../reducer/reducer";
 import VideoPlayer from "../video-player/video-player";
 import {VIDEO_DELAY} from "../../consts";
 import {MovieCardProps, MovieCardState} from "./types";
+import { ValuesType } from "utility-types";
 
 class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
   _timer: any;
-  constructor(props) {
+  constructor(props: Readonly<MovieCardProps>) {
     super(props);
 
     this.state = {
@@ -41,7 +42,7 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
     this.props.onCardMouseLeave();
   }
 
-  private _handleCartTitleClick(evt: { preventDefault: () => void }) {
+  private _handleCartTitleClick(evt: { preventDefault: () => void }): void {
     evt.preventDefault();
     this.props.onFilmTitleClick(this.props.title);
   }
@@ -50,7 +51,7 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
     this.props.onFilmTitleClick(this.props.title);
   }
 
-  public render(): React.ReactNode {
+  public render(): React.ReactElement {
     const {title, filmCover, previewVideo} = this.props;
     return (
       <article className="small-movie-card catalog__movies-card"
