@@ -1,9 +1,8 @@
 import * as React from "react";
+import {mixed} from "utility-types/dist/utility-types";
 
 import Review from "../review/review";
 import {PageReviewsProps} from "./types";
-import { match } from "react-router";
-import { mixed } from "utility-types/dist/utility-types";
 
 const PageReviews: React.FC<PageReviewsProps> = (props: PageReviewsProps) => {
   const {movie} = props;

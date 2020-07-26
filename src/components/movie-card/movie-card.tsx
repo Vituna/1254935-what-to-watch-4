@@ -5,7 +5,6 @@ import {ActionCreator} from "../../reducer/reducer";
 import VideoPlayer from "../video-player/video-player";
 import {VIDEO_DELAY} from "../../consts";
 import {MovieCardProps, MovieCardState} from "./types";
-import { ValuesType } from "utility-types";
 
 class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
   _timer: any;

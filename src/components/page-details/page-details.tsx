@@ -1,13 +1,13 @@
 import * as React from "react";
 import {connect} from "react-redux";
+import {mixed} from "utility-types/dist/utility-types";
 
 import {PageDetailsProps} from "./types";
-import { mixed } from "utility-types/dist/utility-types";
 
 const PageDetails: React.FunctionComponent<PageDetailsProps> = (props: PageDetailsProps) => {
   const {movieDetail} = props;
 
-  const getDetails = (info: { name: string; value: string; }, i: number): React.ReactNode => {
+  const getDetails = (info: { name: string; value: string }, i: number): React.ReactNode => {
     const {name, value} = info;
     const key = `${name} + ${i}`;
 
