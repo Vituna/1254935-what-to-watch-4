@@ -2,7 +2,7 @@ import * as React from "react";
 import {connect} from "react-redux";
 
 import {ActionCreator} from "../../reducer/reducer";
-import {GenresListProps} from "./types";
+import {GenresListProps, StateReducerGenresList} from "./types";
 
 const activeClass = (activeGenre: string, genre: string): string => activeGenre === genre ? `catalog__genres-item--active` : ``;
 
@@ -10,8 +10,8 @@ const activeClass = (activeGenre: string, genre: string): string => activeGenre 
 const GenresList: React.FC<GenresListProps> = (props: GenresListProps) => {
   const {genres, onGenreItemClick, activeGenre} = props;
 
-  const handleGenreClick = (genre) => {
-    return (evt: { preventDefault: () => void }) => {
+  const handleGenreClick = (genre: string) => {
+    return (evt: React.MouseEvent) => {
       evt.preventDefault();
       onGenreItemClick(genre);
     };
@@ -40,13 +40,13 @@ const GenresList: React.FC<GenresListProps> = (props: GenresListProps) => {
   );
 };
 
-const mapStateToProps: object = (state: { activeGenre: string; genres: string }) => ({
+const mapStateToProps = (state: StateReducerGenresList) => ({
   activeGenre: state.activeGenre,
   genres: state.genres,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onGenreItemClick(genre) {
+const mapDispatchToProps: object = (dispatch: any) => ({
+  onGenreItemClick(genre: string): void {
     dispatch(ActionCreator.getFilmsByGenre(genre));
     dispatch(ActionCreator.changeFilter(genre));
   },

@@ -1,6 +1,6 @@
 export interface FullScreenVideoPlayerProps {
   isPlay: boolean;
-  timeElapsed: any;
+  timeElapsed: number;
   currentProgress: string;
   onPlayPauseButtonClick: () => void;
   onFullScreenClick: () => void;

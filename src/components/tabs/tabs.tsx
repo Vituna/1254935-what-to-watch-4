@@ -8,7 +8,7 @@ const Tabs: React.FC<TabsProps> = (props: TabsProps) => {
   const activeClass = (tab: string): string => activeTab === tab ? `movie-nav__item--active` : ``;
 
   const handleTabClick = (tab: string) => {
-    return (evt) => {
+    return (evt: React.MouseEvent) => {
       evt.preventDefault();
       onTabClick(tab);
     };

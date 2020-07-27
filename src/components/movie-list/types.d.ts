@@ -6,3 +6,10 @@ export interface MovieListProps {
   onCardMouseLeave: () => void;
   onShowMoreClick: () => void;
 }
+
+export interface ItMovieList {
+  title: string;
+  filmCover: string;
+  previewVideo: string;
+
+}

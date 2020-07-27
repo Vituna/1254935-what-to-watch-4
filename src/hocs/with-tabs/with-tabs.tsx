@@ -9,7 +9,7 @@ const withTabs = (Component) => {
   type T = Subtract<P, WithTabsInjectingProps>;
 
   class WithTabs extends React.PureComponent<T, WithTabsState> {
-    constructor(props: Readonly<Pick<any, string | number | symbol>>) {
+    constructor(props: Readonly<T>) {
       super(props);
 
       this.state = {

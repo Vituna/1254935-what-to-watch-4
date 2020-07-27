@@ -7,14 +7,13 @@ import {VIDEO_DELAY} from "../../consts";
 import {MovieCardProps, MovieCardState} from "./types";
 
 class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
-  _timer: any;
+  _timer: number ;
   constructor(props: Readonly<MovieCardProps>) {
     super(props);
 
     this.state = {
       isPlaying: false,
     };
-
     this._timer = null;
     this._handleCartTitleClick = this._handleCartTitleClick.bind(this);
     this._handleCardClick = this._handleCardClick.bind(this);
@@ -32,7 +31,7 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
   private _handleCardMouseEnter(): void {
     const {title} = this.props;
     this.props.onCardMouseEnter(title);
-    this._timer = setTimeout(this._startPlaying, VIDEO_DELAY);
+    this._timer = window.setTimeout(this._startPlaying, VIDEO_DELAY);
   }
 
   private _handleCardMouseRemove(): void {
@@ -41,7 +40,7 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
     this.props.onCardMouseLeave();
   }
 
-  private _handleCartTitleClick(evt: { preventDefault: () => void }): void {
+  private _handleCartTitleClick(evt: React.MouseEvent): void {
     evt.preventDefault();
     this.props.onFilmTitleClick(this.props.title);
   }
@@ -52,6 +51,7 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
 
   public render(): React.ReactElement {
     const {title, filmCover, previewVideo} = this.props;
+
     return (
       <article className="small-movie-card catalog__movies-card"
         onMouseEnter={this._handleCardMouseEnter}
@@ -75,8 +75,8 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onFilmTitleClick(filmTitle) {
+const mapDispatchToProps: object = (dispatch: any) => ({
+  onFilmTitleClick(filmTitle: string): void {
     dispatch(ActionCreator.changeActiveFilm(filmTitle));
   },
 });

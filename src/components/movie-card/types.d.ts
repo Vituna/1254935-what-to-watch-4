@@ -1,3 +1,4 @@
+
 export interface MovieCardProps {
   title: string;
   filmCover: string;

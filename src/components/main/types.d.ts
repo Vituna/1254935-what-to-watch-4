@@ -6,3 +6,8 @@ export interface MainProps {
   onShowMoreClick: () => void;
   onPlayButtonClick: () => void;
 }
+
+export interface StateReducerMain {
+  filmsLength: number;
+  movies: string;
+}

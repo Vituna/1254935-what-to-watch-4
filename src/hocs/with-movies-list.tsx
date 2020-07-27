@@ -10,23 +10,23 @@ const withMoviesList = (Component) => {
   type T = Subtract<P, {}>;
 
   class WithMoviesList extends React.PureComponent<T, State> {
-    constructor(props: Readonly<Pick<any, string | number | symbol>>) {
+    constructor(props: Readonly<T>) {
       super(props);
 
       this.state = {
         activeCard: null,
       };
-      this.handleCardMouseEnter = this.handleCardMouseEnter.bind(this);
-      this.handleCardMouseLeave = this.handleCardMouseLeave.bind(this);
+      this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
+      this._handleCardMouseLeave = this._handleCardMouseLeave.bind(this);
     }
 
-    private handleCardMouseEnter(id: string): void {
+    private _handleCardMouseEnter(id: string): void {
       this.setState({
         activeCard: id,
       });
     }
 
-    private handleCardMouseLeave(): void {
+    private _handleCardMouseLeave(): void {
       this.setState({
         activeCard: null,
       });
@@ -38,8 +38,8 @@ const withMoviesList = (Component) => {
       return (<Component
         {...this.props}
         activeCard={activeCard}
-        onCardMouseEnter={this.handleCardMouseEnter}
-        onCardMouseLeave={this.handleCardMouseLeave}
+        onCardMouseEnter={this._handleCardMouseEnter}
+        onCardMouseLeave={this._handleCardMouseLeave}
       />);
     }
   }

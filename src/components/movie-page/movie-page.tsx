@@ -8,13 +8,15 @@ import PageDetails from "../page-details/page-details";
 import PageReviews from "../page-reviews/page-reviews";
 import withMoviesList from "../../hocs/with-movies-list";
 import {MaxSimilarCards} from "../../consts";
+import {Move} from "../../types";
 import {MoviesPageProps} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
-const getSimilarCards = (movies, genre: string): React.ReactElement => {
+const getSimilarCards = (movies: Move[], genre: string): React.ReactNode => {
   return movies.filter((film) => film.genre === genre).slice(0, MaxSimilarCards);
 };
+
 
 const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
   const {movies, movie, onPlayButtonClick, renderTabs, activeTab} = props;
@@ -35,7 +37,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
     starring,
   } = movie;
 
-  const similarCards = getSimilarCards(movies, genre);
+  const similarCards: React.ReactNode = getSimilarCards(movies, genre);
 
   const renderActiveTab = (): React.ReactNode => {
     switch (activeTab) {
@@ -159,12 +161,12 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
   );
 };
 
-const mapStateToProps: object = (state: { movies: string }) => ({
+const mapStateToProps = (state: { movies: string }) => ({
   movies: state.movies,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onPlayButtonClick() {
+const mapDispatchToProps: object = (dispatch: any) => ({
+  onPlayButtonClick(): void {
     dispatch(ActionCreator.activatePlayingFilm());
   },
 });

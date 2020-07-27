@@ -1,12 +1,12 @@
 import * as React from "react";
 
 import MovieCard from "../movie-card/movie-card";
-import {MovieListProps} from "./types";
+import {MovieListProps, ItMovieList} from "./types";
 
 const MovieList: React.FC<MovieListProps> = (props: MovieListProps) => {
   const {movies, onCardMouseEnter, onCardMouseLeave} = props;
 
-  const getMovie = (it: { title: string; filmCover: string; previewVideo: string }, i: React.ReactText): React.ReactNode => {
+  const getMovie = (it: ItMovieList, i: React.ReactText): React.ReactNode => {
     return (
       <React.Fragment key={`${it.title + i}`}>
         <MovieCard

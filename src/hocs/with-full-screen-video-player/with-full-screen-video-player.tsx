@@ -1,6 +1,7 @@
 import * as React from "react";
 import {Subtract} from "utility-types";
 
+import {INTEREST} from "../../consts";
 import {WithFullScreenVideoPlayerProps, WithFullScreenVideoPlayerState} from "./types";
 
 const withFullScreenVideoPlayer = (Component) => {
@@ -10,7 +11,7 @@ const withFullScreenVideoPlayer = (Component) => {
   class WithFullScreenVideoPlayer extends React.PureComponent<T, WithFullScreenVideoPlayerState> {
     private videoRef: React.RefObject<HTMLVideoElement>;
 
-    constructor(props: Readonly<WithFullScreenVideoPlayerProps & Pick<any, string | number | symbol>>) {
+    constructor(props: Readonly<T>) {
       super(props);
 
       this.state = {
@@ -25,14 +26,6 @@ const withFullScreenVideoPlayer = (Component) => {
 
       this._handlePlayPauseButtonClick = this._handlePlayPauseButtonClick.bind(this);
       this._handleFullScreenClick = this._handleFullScreenClick.bind(this);
-    }
-
-    private _timeUpdate(video: HTMLVideoElement): void {
-      this.setState({
-        timeElapsed: Math.floor(video.duration - video.currentTime),
-        progress: Math.floor(video.currentTime),
-        duration: Math.floor(video.duration),
-      });
     }
 
     public componentDidMount(): void {
@@ -77,11 +70,27 @@ const withFullScreenVideoPlayer = (Component) => {
       }
     }
 
-    private _handlePlayPauseButtonClick(): void {
-      const {isPlay} = this.state;
-
+    private _timeUpdate(video: HTMLVideoElement): void {
       this.setState({
-        isPlay: !isPlay
+        timeElapsed: Math.floor(video.duration - video.currentTime),
+        progress: Math.floor(video.currentTime),
+        duration: Math.floor(video.duration),
+      });
+    }
+
+    private _handlePlayPauseButtonClick(): void {
+      // const {isPlay} = this.state;
+
+      // this.setState({
+      //   isPlay: !isPlay
+      // });
+
+      this.setState((prevState) => {
+        return {
+          isPlay: !prevState.isPlay,
+          duration: prevState.duration,
+          progress: prevState.progress,
+        };
       });
     }
 
@@ -100,7 +109,7 @@ const withFullScreenVideoPlayer = (Component) => {
         {...this.props}
         isPlay={this.state.isPlay}
         timeElapsed={this.state.timeElapsed}
-        currentProgress={Math.floor(this.state.progress * 100 / this.state.duration).toString()}
+        currentProgress={Math.floor(this.state.progress * INTEREST / this.state.duration).toString()}
         onPlayPauseButtonClick={this._handlePlayPauseButtonClick}
         onFullScreenClick={this._handleFullScreenClick}
         onPlayerExitClick={onPlayerExitClick}

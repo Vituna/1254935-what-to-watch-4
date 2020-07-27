@@ -60,7 +60,7 @@ export interface FullMove {
 
 export interface MovieDetail {
     name: string;
-    value: any;
+    value: string | number;
 }
 
 export interface MovieComments {
@@ -69,5 +69,3 @@ export interface MovieComments {
   date: string;
   rating: string;
 }
-
-

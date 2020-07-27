@@ -6,3 +6,9 @@ export interface AppProps {
   isPlayingMovie: boolean;
   onPlayerExitClick: () => void;
 }
+
+export interface StateReducerApp {
+  movies: string;
+  activeCard: string;
+  isPlayingMovie: boolean
+}

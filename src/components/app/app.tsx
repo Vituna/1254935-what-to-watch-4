@@ -8,7 +8,8 @@ import MoviePage from "../movie-page/movie-page";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
 import withTabs from "../../hocs/with-tabs/with-tabs";
 import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player/with-full-screen-video-player";
-import {AppProps} from "./types";
+import {AppProps, StateReducerApp} from "./types";
+import {FullMoves} from "../../types";
 
 const MoviePageWrapped = withTabs(MoviePage);
 const FullScreenVideoPlayerWrapped = withFullScreenVideoPlayer(FullScreenVideoPlayer);
@@ -36,7 +37,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   const renderFullScreenVideoPlayer = (): React.ReactNode => {
     const [firstMovie] = movies;
 
-    const currentFilm = activeCard === null
+    const currentFilm: FullMoves = activeCard === null
       ? firstMovie : movies.find((film) => film.title === activeCard);
 
     return (
@@ -84,14 +85,14 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   return (render());
 };
 
-const mapStateToProps: object = (state: { movies: string; activeCard: string; isPlayingMovie: boolean }) => ({
+const mapStateToProps = (state: StateReducerApp) => ({
   movies: state.movies,
   activeCard: state.activeCard,
   isPlayingMovie: state.isPlayingMovie,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onPlayerExitClick() {
+const mapDispatchToProps: object = (dispatch: any) => ({
+  onPlayerExitClick(): void {
     dispatch(ActionCreator.dropIsPlayingFilm());
   },
 });
