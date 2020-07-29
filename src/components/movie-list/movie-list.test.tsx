@@ -61,7 +61,6 @@ it(`Should WTW render correctly`, () => {
             movies={movies}
             onCardMouseEnter={noop}
             onCardMouseLeave={noop}
-            onShowMoreClick={noop}
           />
         </Provider>, {createNodeMock})
   .toJSON();

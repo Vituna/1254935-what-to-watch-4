@@ -80,12 +80,6 @@ const movie: FullMove =
     }]
   };
 
-interface FilmsLength {
-  filmsLength: number;
-}
-
-const filmsLength = 2;
-
 const createNodeMock = () => {
   return {};
 };
@@ -102,9 +96,6 @@ it(`Should MovieCard render correctly`, () => {
           <MoviePage
             movies={movies}
             movie={movie}
-            filmsLength={filmsLength}
-            onCardMouseLeave={noop}
-            onShowMoreClick={noop}
             renderTabs={noop}
             onPlayButtonClick={noop}
             activeTab={``}
