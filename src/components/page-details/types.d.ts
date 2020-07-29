@@ -1,6 +1,6 @@
 import {MovieDetail} from "../../types";
 
-export interface PageDetailsFromProps {
+export interface PageDetailsProps {
   movieDetail: MovieDetail[];
 }
 
