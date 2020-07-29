@@ -9,7 +9,7 @@ import PageReviews from "../page-reviews/page-reviews";
 import withMoviesList from "../../hocs/with-movies-list";
 import {MaxSimilarCards} from "../../consts";
 import {Move} from "../../types";
-import {MoviesPageProps} from "./types";
+import {MoviesPageProps, MoviesPageFromState, MoviesPageFromStore, MoviesPageDispatchFromStore} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
@@ -161,11 +161,11 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
   );
 };
 
-const mapStateToProps = (state: { movies: string }) => ({
+const mapStateToProps = (state: MoviesPageFromState): MoviesPageFromStore => ({
   movies: state.movies,
 });
 
-const mapDispatchToProps: object = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: any): MoviesPageDispatchFromStore => ({
   onPlayButtonClick(): void {
     dispatch(ActionCreator.activatePlayingFilm());
   },

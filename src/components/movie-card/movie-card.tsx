@@ -4,9 +4,9 @@ import {ActionCreator} from "../../reducer/reducer";
 
 import VideoPlayer from "../video-player/video-player";
 import {VIDEO_DELAY} from "../../consts";
-import {MovieCardProps, MovieCardState} from "./types";
+import {MovieCardProps, MovieCardFromState, MovieCardDispatchFromStore} from "./types";
 
-class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
+class MovieCard extends React.PureComponent<MovieCardProps, MovieCardFromState> {
   _timer: number ;
   constructor(props: Readonly<MovieCardProps>) {
     super(props);
@@ -49,7 +49,7 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
     this.props.onFilmTitleClick(this.props.title);
   }
 
-  public render(): React.ReactElement {
+  public render(): React.ReactNode {
     const {title, filmCover, previewVideo} = this.props;
 
     return (
@@ -75,7 +75,7 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardState> {
   }
 }
 
-const mapDispatchToProps: object = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: any): MovieCardDispatchFromStore => ({
   onFilmTitleClick(filmTitle: string): void {
     dispatch(ActionCreator.changeActiveFilm(filmTitle));
   },

@@ -1,13 +1,17 @@
-
-export interface MovieCardProps {
+interface MovieCardFromProps {
   title: string;
   filmCover: string;
   previewVideo: string;
-  onCardMouseEnter: (title) => void;
+  onCardMouseEnter: (title: string) => void;
   onCardMouseLeave: () => void;
-  onFilmTitleClick: (title) => void;
 }
 
-export interface MovieCardState {
+interface MovieCardDispatchFromStore {
+  onFilmTitleClick: (title: string) => void;
+}
+
+export interface MovieCardFromState {
   isPlaying: boolean;
 }
+
+export type MovieCardProps = MovieCardFromProps & MovieCardDispatchFromStore;

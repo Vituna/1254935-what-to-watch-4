@@ -79,11 +79,6 @@ const withFullScreenVideoPlayer = (Component) => {
     }
 
     private _handlePlayPauseButtonClick(): void {
-      // const {isPlay} = this.state;
-
-      // this.setState({
-      //   isPlay: !isPlay
-      // });
 
       this.setState((prevState) => {
         return {

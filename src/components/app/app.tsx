@@ -8,7 +8,7 @@ import MoviePage from "../movie-page/movie-page";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
 import withTabs from "../../hocs/with-tabs/with-tabs";
 import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player/with-full-screen-video-player";
-import {AppProps, StateReducerApp} from "./types";
+import {AppProps, AppDispatchFromStore, AppStateFromStore, AppFromState} from "./types";
 import {FullMoves} from "../../types";
 
 const MoviePageWrapped = withTabs(MoviePage);
@@ -64,7 +64,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     return null;
   };
 
-  const render = (): React.ReactElement => {
+  const render = () => {
 
     return (
       <BrowserRouter>
@@ -85,13 +85,13 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   return (render());
 };
 
-const mapStateToProps = (state: StateReducerApp) => ({
+const mapStateToProps = (state: AppFromState): AppStateFromStore => ({
   movies: state.movies,
   activeCard: state.activeCard,
   isPlayingMovie: state.isPlayingMovie,
 });
 
-const mapDispatchToProps: object = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: any): AppDispatchFromStore => ({
   onPlayerExitClick(): void {
     dispatch(ActionCreator.dropIsPlayingFilm());
   },
@@ -99,3 +99,5 @@ const mapDispatchToProps: object = (dispatch: any) => ({
 
 export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+

@@ -1,10 +1,9 @@
 import {Move} from "../../types";
 
-export interface MovieListProps {
+export interface MovieListFromProps {
   movies: Move[];
   onCardMouseEnter: () => void;
   onCardMouseLeave: () => void;
-  onShowMoreClick: () => void;
 }
 
 export interface ItMovieList {

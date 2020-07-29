@@ -2,9 +2,9 @@ import * as React from "react";
 import {connect} from "react-redux";
 import {mixed} from "utility-types/dist/utility-types";
 
-import {PageDetailsProps} from "./types";
+import {PageDetailsFromProps, PageDetailsFromState, PageDetailsStateFromStore} from "./types";
 
-const PageDetails: React.FunctionComponent<PageDetailsProps> = (props: PageDetailsProps) => {
+const PageDetails: React.FunctionComponent<PageDetailsFromProps> = (props: PageDetailsFromProps) => {
   const {movieDetail} = props;
 
   const getDetails = (info: { name: string; value: string }, i: number): React.ReactNode => {
@@ -32,7 +32,7 @@ const PageDetails: React.FunctionComponent<PageDetailsProps> = (props: PageDetai
   );
 };
 
-const mapStateToProps: object = (state: { movieDetail: string | number }) => ({
+const mapStateToProps = (state: PageDetailsFromState): PageDetailsStateFromStore => ({
   movieDetail: state.movieDetail,
 });
 

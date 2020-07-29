@@ -1,4 +1,4 @@
-export interface FullScreenVideoPlayerProps {
+export interface FullScreenVideoPlayerFromProps {
   isPlay: boolean;
   timeElapsed: number;
   currentProgress: string;

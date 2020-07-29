@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {FullScreenVideoPlayerProps} from "./types";
+import {FullScreenVideoPlayerFromProps} from "./types";
 import {сlockCalculations, сalculatingMinutes, сalculatingSeconds} from "../../consts";
 
 const formatTime = (time: number): string => {
@@ -11,7 +11,7 @@ const formatTime = (time: number): string => {
   return `${hours}:${minutes}:${seconds}`;
 };
 
-const FullScreenVideoPlayer: React.FC<FullScreenVideoPlayerProps> = (props: FullScreenVideoPlayerProps) => {
+const FullScreenVideoPlayer: React.FC<FullScreenVideoPlayerFromProps> = (props: FullScreenVideoPlayerFromProps) => {
   const {isPlay, timeElapsed, currentProgress, onPlayPauseButtonClick, onFullScreenClick, onPlayerExitClick, children} = props;
 
   return (

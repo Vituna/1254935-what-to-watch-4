@@ -2,7 +2,7 @@ import * as React from "react";
 import {connect} from "react-redux";
 
 import {ActionCreator} from "../../reducer/reducer";
-import {GenresListProps, StateReducerGenresList} from "./types";
+import {GenresListProps, GenresListFromStore, GenresListDispatchFromStore, GenresListFromState} from "./types";
 
 const activeClass = (activeGenre: string, genre: string): string => activeGenre === genre ? `catalog__genres-item--active` : ``;
 
@@ -40,12 +40,12 @@ const GenresList: React.FC<GenresListProps> = (props: GenresListProps) => {
   );
 };
 
-const mapStateToProps = (state: StateReducerGenresList) => ({
+const mapStateToProps = (state: GenresListFromState): GenresListFromStore => ({
   activeGenre: state.activeGenre,
   genres: state.genres,
 });
 
-const mapDispatchToProps: object = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: any): GenresListDispatchFromStore => ({
   onGenreItemClick(genre: string): void {
     dispatch(ActionCreator.getFilmsByGenre(genre));
     dispatch(ActionCreator.changeFilter(genre));

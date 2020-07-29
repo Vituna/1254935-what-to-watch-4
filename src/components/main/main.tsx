@@ -6,7 +6,7 @@ import MoviesList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMore from "../show-more/show-more";
 import withMoviesList from "../../hocs/with-movies-list";
-import {MainProps, StateReducerMain} from "./types";
+import {MainProps, MainFromStore, MainDispatchFromStore, MainFromState} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
@@ -115,12 +115,12 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   );
 };
 
-const mapStateToProps = (state: StateReducerMain) => ({
+const mapStateToProps = (state: MainFromState): MainFromStore => ({
   filmsLength: state.filmsLength,
   movies: state.movies,
 });
 
-const mapDispatchToProps: object = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: any): MainDispatchFromStore => ({
   onShowMoreClick(): void {
     dispatch(ActionCreator.changeFilmsLength());
   },
