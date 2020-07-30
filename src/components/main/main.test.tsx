@@ -8,7 +8,7 @@ import {Move} from "../../types";
 
 const mockStore = configureStore([]);
 
-export const noop = () => {
+const noop = () => {
   return;
 };
 
@@ -75,9 +75,8 @@ it(`Should WTW render correctly`, () => {
         <Main
           movies={movies}
           filmsLength={filmsLength}
-          onCardClick={noop}
-          onTitleClick={noop}
           onShowMoreClick={noop}
+          onPlayButtonClick={noop}
         />
       </Provider>, {createNodeMock})
   .toJSON();

@@ -6,15 +6,15 @@ import MoviesList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMore from "../show-more/show-more";
 import withMoviesList from "../../hocs/with-movies-list";
-import {MainProps} from "./types";
+import {MainProps, MainFromStore, MainDispatchFromStore, MainFromState} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
-  const {movies, onTitleClick, onCardClick, filmsLength, onShowMoreClick} = props;
+  const {movies, filmsLength, onShowMoreClick, onPlayButtonClick} = props;
 
-  const movie = movies[0];
-  const {title, genre, year} = movie;
+  const [firstMovie] = movies;
+  const {title, genre, year} = firstMovie;
 
   return (
     <>
@@ -55,7 +55,10 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button
+                  onClick={onPlayButtonClick}
+                  className="btn btn--play movie-card__button"
+                  type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -83,8 +86,6 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
           <div className="catalog__movies-list">
             <MoviesListWrapped
               movies={movies.slice(0, filmsLength)}
-              onTitleClick={onTitleClick}
-              onCardClick={onCardClick}
             />
           </div>
 
@@ -114,15 +115,19 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   );
 };
 
-const mapStateToProps: object = (state: { filmsLength: number; movies: string }) => ({
+const mapStateToProps = (state: MainFromState): MainFromStore => ({
   filmsLength: state.filmsLength,
   movies: state.movies,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onShowMoreClick() {
+const mapDispatchToProps = (dispatch: any): MainDispatchFromStore => ({
+  onShowMoreClick(): void {
     dispatch(ActionCreator.changeFilmsLength());
-  }
+  },
+
+  onPlayButtonClick(): void {
+    dispatch(ActionCreator.activatePlayingFilm());
+  },
 });
 
 export {Main};

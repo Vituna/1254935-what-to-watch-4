@@ -1,12 +1,14 @@
 import * as React from "react";
+import {mixed} from "utility-types/dist/utility-types";
 
 import Review from "../review/review";
 import {PageReviewsProps} from "./types";
+import {MovieComments} from "../../types";
 
 const PageReviews: React.FC<PageReviewsProps> = (props: PageReviewsProps) => {
   const {movie} = props;
 
-  const getReview = (review, i) => {
+  const getReview = (review: MovieComments, i: number): React.ReactNode => {
     return (
       <Review
         key={`${i}` + `${review.author}`}
@@ -15,7 +17,7 @@ const PageReviews: React.FC<PageReviewsProps> = (props: PageReviewsProps) => {
     );
   };
 
-  const renderReviews = () => movie.map(getReview);
+  const renderReviews = (): Array<mixed> => movie.map(getReview);
 
   return (
     <div className="movie-card__reviews movie-card__row">

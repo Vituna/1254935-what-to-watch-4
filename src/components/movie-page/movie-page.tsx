@@ -1,5 +1,6 @@
 import * as React from "react";
 import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/reducer";
 
 import MoviesList from "../movie-list/movie-list";
 import PageOverview from "../page-overview/page-overview";
@@ -7,16 +8,18 @@ import PageDetails from "../page-details/page-details";
 import PageReviews from "../page-reviews/page-reviews";
 import withMoviesList from "../../hocs/with-movies-list";
 import {MaxSimilarCards} from "../../consts";
-import {MoviesPageProps} from "./types";
+import {Move} from "../../types";
+import {MoviesPageProps, MoviesPageFromState, MoviesPageFromStore, MoviesPageDispatchFromStore} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
-const getSimilarCards = (movies, genre) => {
+const getSimilarCards = (movies: Move[], genre: string): React.ReactNode => {
   return movies.filter((film) => film.genre === genre).slice(0, MaxSimilarCards);
 };
 
+
 const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
-  const {movies, movie, onTitleClick, onCardClick, renderTabs, activeTab} = props;
+  const {movies, movie, onPlayButtonClick, renderTabs, activeTab} = props;
 
   const movieComments = movie.comments;
 
@@ -34,9 +37,9 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
     starring,
   } = movie;
 
-  const similarCards = getSimilarCards(movies, genre);
+  const similarCards: React.ReactNode = getSimilarCards(movies, genre);
 
-  const renderActiveTab = () => {
+  const renderActiveTab = (): React.ReactNode => {
     switch (activeTab) {
       case `Overview`:
         return <PageOverview
@@ -94,7 +97,10 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button
+                  onClick={onPlayButtonClick}
+                  className="btn btn--play movie-card__button"
+                  type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -132,8 +138,6 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
           <div className="catalog__movies-list">
             <MoviesListWrapped
               movies={similarCards}
-              onTitleClick={onTitleClick}
-              onCardClick={onCardClick}
             />
           </div>
         </section>
@@ -157,9 +161,15 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
   );
 };
 
-const mapStateToProps: object = (state: { movies: string }) => ({
+const mapStateToProps = (state: MoviesPageFromState): MoviesPageFromStore => ({
   movies: state.movies,
 });
 
+const mapDispatchToProps = (dispatch: any): MoviesPageDispatchFromStore => ({
+  onPlayButtonClick(): void {
+    dispatch(ActionCreator.activatePlayingFilm());
+  },
+});
+
 export {MoviePage};
-export default connect(mapStateToProps)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

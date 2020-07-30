@@ -2,22 +2,22 @@ import * as React from "react";
 import {connect} from "react-redux";
 
 import {ActionCreator} from "../../reducer/reducer";
-import {GenresListProps} from "./types";
+import {GenresListProps, GenresListFromStore, GenresListDispatchFromStore, GenresListFromState} from "./types";
 
-const activeClass = (activeGenre, genre) => activeGenre === genre ? `catalog__genres-item--active` : ``;
+const activeClass = (activeGenre: string, genre: string): string => activeGenre === genre ? `catalog__genres-item--active` : ``;
 
 
 const GenresList: React.FC<GenresListProps> = (props: GenresListProps) => {
   const {genres, onGenreItemClick, activeGenre} = props;
 
-  const handleGenreClick: any = (genre: { genre: string }) => {
-    return (evt) => {
+  const handleGenreClick = (genre: string) => {
+    return (evt: React.MouseEvent) => {
       evt.preventDefault();
       onGenreItemClick(genre);
     };
   };
 
-  const getGenre = (genre, i) => {
+  const getGenre = (genre: string, i: number): React.ReactNode => {
     const genreClass = `catalog__genres-item ${activeClass(activeGenre, genre)}`;
     const key = `${genre} + ${i}`;
 
@@ -31,7 +31,7 @@ const GenresList: React.FC<GenresListProps> = (props: GenresListProps) => {
     );
   };
 
-  const renderGenres = () => genres.map(getGenre);
+  const renderGenres = (): React.ReactNode => genres.map(getGenre);
 
   return (
     <ul className="catalog__genres-list">
@@ -40,13 +40,13 @@ const GenresList: React.FC<GenresListProps> = (props: GenresListProps) => {
   );
 };
 
-const mapStateToProps: object = (state: { activeGenre: string; genres: string }) => ({
+const mapStateToProps = (state: GenresListFromState): GenresListFromStore => ({
   activeGenre: state.activeGenre,
   genres: state.genres,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onGenreItemClick(genre) {
+const mapDispatchToProps = (dispatch: any): GenresListDispatchFromStore => ({
+  onGenreItemClick(genre: string): void {
     dispatch(ActionCreator.getFilmsByGenre(genre));
     dispatch(ActionCreator.changeFilter(genre));
   },

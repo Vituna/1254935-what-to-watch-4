@@ -1,80 +1,103 @@
 import * as React from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/reducer";
 
 import Main from "../main/main";
 import MoviePage from "../movie-page/movie-page";
-import withTabs from "../../hocs/with-tabs";
-import {AppProps, AppState} from "./types";
+import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
+import withTabs from "../../hocs/with-tabs/with-tabs";
+import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player/with-full-screen-video-player";
+import {AppProps, AppDispatchFromStore, AppStateFromStore, AppFromState} from "./types";
+import {FullMoves} from "../../types";
 
 const MoviePageWrapped = withTabs(MoviePage);
+const FullScreenVideoPlayerWrapped = withFullScreenVideoPlayer(FullScreenVideoPlayer);
 
-class App extends React.PureComponent<AppProps, AppState> {
-  constructor(props) {
-    super(props);
+const App: React.FC<AppProps> = (props: AppProps) => {
+  const {movies, activeCard, isPlayingMovie, onPlayerExitClick} = props;
 
-    this.state = {
-      activeCard: null,
-    };
-
-    this._handleMovieCardClick = this._handleMovieCardClick.bind(this);
-  }
-
-  _handleMovieCardClick(title) {
-    this.setState({
-      activeCard: title,
-    });
-  }
-
-  _renderMain(): React.ReactNode {
+  const renderMain = (): React.ReactNode => {
 
     return (
       <Main
-        onTitleClick={this._handleMovieCardClick}
-        onCardClick={this._handleMovieCardClick}
       />
     );
-  }
+  };
 
-  _renderMoviePage(): React.ReactNode {
-    const {movies} = this.props;
-    const {activeCard} = this.state;
+  const renderMoviePage = (): React.ReactNode => {
 
     return (
       <MoviePageWrapped
         movie={movies.find((film) => film.title === activeCard)}
-        onTitleClick={this._handleMovieCardClick}
-        onCardClick={this._handleMovieCardClick}
       />
     );
-  }
+  };
 
-  _renderApp(): React.ReactNode {
-    const {activeCard} = this.state;
+  const renderFullScreenVideoPlayer = (): React.ReactNode => {
+    const [firstMovie] = movies;
 
-    const isActiveCard = activeCard ? this._renderMoviePage() : this._renderMain();
-    return isActiveCard;
-  }
+    const currentFilm: FullMoves = activeCard === null
+      ? firstMovie : movies.find((film) => film.title === activeCard);
 
-  render() {
+    return (
+      <FullScreenVideoPlayerWrapped
+        preview={currentFilm.previewVideo}
+        onPlayerExitClick={onPlayerExitClick}
+      />
+    );
+  };
+
+  const renderApp = (): React.ReactNode => {
+    if (activeCard === null && !isPlayingMovie) {
+      return (renderMain());
+    }
+
+    if (activeCard && !isPlayingMovie) {
+      return (renderMoviePage());
+    }
+
+    if (isPlayingMovie) {
+      return (renderFullScreenVideoPlayer());
+    }
+
+    return null;
+  };
+
+  const render = () => {
+
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {this._renderApp()}
+            {renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            {this._renderMoviePage()}
+            {renderMoviePage()}
+          </Route>
+          <Route exact path="/dev-player">
+            {renderFullScreenVideoPlayer()}
           </Route>
         </Switch>
       </BrowserRouter>
     );
-  }
-}
+  };
+  return (render());
+};
 
-const mapStateToProps: object = (state: { movies: string }) => ({
+const mapStateToProps = (state: AppFromState): AppStateFromStore => ({
   movies: state.movies,
+  activeCard: state.activeCard,
+  isPlayingMovie: state.isPlayingMovie,
+});
+
+const mapDispatchToProps = (dispatch: any): AppDispatchFromStore => ({
+  onPlayerExitClick(): void {
+    dispatch(ActionCreator.dropIsPlayingFilm());
+  },
 });
 
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+

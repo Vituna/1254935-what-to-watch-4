@@ -1,7 +1,11 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 
 import MovieCard from "./movie-card";
+
+const mockStore = configureStore([]);
 
 export const noop = () => {
   return;
@@ -22,17 +26,25 @@ const createNodeMock = () => {
 };
 
 it(`Renders cards correctly`, () => {
+  const store = mockStore({
+    title,
+    filmCover,
+    previewVideo
+  });
+
   const tree = renderer
-    .create(<MovieCard
-      title={title}
-      filmCover={filmCover}
-      previewVideo={previewVideo}
-      onCardClick={noop}
-      onTitleClick={noop}
-      onCardMouseEnter={noop}
-      onCardMouseLeave={noop}
-    />, {createNodeMock})
-      .toJSON();
+    .create(
+        <Provider store={store}>
+          <MovieCard
+            title={title}
+            filmCover={filmCover}
+            previewVideo={previewVideo}
+            onFilmTitleClick={noop}
+            onCardMouseEnter={noop}
+            onCardMouseLeave={noop}
+          />
+        </Provider>, {createNodeMock})
+  .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

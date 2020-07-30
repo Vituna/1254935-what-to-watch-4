@@ -1,5 +1,15 @@
-export interface GenresListProps {
-  genres: string[];
+interface GenresListFromStore {
   activeGenre: string;
-  onGenreItemClick: ({genre: string}) => void;
+  genres: string[];
 }
+
+interface GenresListDispatchFromStore {
+  onGenreItemClick: (genre: string) => void;
+  }
+
+  export type GenresListProps = GenresListFromStore & GenresListDispatchFromStore
+
+  export interface GenresListFromState {
+    activeGenre: string;
+    genres: string[];
+  }

@@ -1,10 +1,19 @@
 import {FullMoves} from "../../types";
 
-export interface AppProps {
+interface AppStateFromStore {
   movies: FullMoves[];
-  title: string;
+  activeCard: string;
+  isPlayingMovie: boolean;
 }
 
-export interface AppState {
+interface AppDispatchFromStore {
+  onPlayerExitClick: () => void;
+  }
+
+export type AppProps = AppStateFromStore & AppDispatchFromStore;
+
+export interface AppFromState {
+  movies: FullMoves[];
   activeCard: string;
+  isPlayingMovie: boolean
 }

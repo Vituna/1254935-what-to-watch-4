@@ -1,9 +1,18 @@
 import {Move} from "../../types";
 
-export interface MainProps {
+interface MainFromStore {
   movies: Move[];
   filmsLength: number;
-  onTitleClick: () => void;
-  onCardClick: () => void;
+}
+
+interface MainDispatchFromStore {
   onShowMoreClick: () => void;
+  onPlayButtonClick: () => void;
+}
+
+export type MainProps = MainFromStore & MainDispatchFromStore
+
+export interface MainFromState {
+  movies: Move[];
+  filmsLength: number;
 }

@@ -1,13 +1,22 @@
 import {Move, FullMove} from "../../types";
 
-export interface MoviesPageProps {
+interface MoviesPageFromProps {
   movies: Move[];
   movie: FullMove;
-  filmsLength: number;
   activeTab: string;
-  onTitleClick: () => void;
-  onCardClick: () => void;
   renderTabs: () => void;
-  onCardMouseLeave: () => void;
-  onShowMoreClick: () => void;
+}
+
+interface MoviesPageFromStore {
+  movies: Move[];
+}
+
+interface MoviesPageDispatchFromStore {
+  onPlayButtonClick: () => void;
+}
+
+export type MoviesPageProps = MoviesPageFromProps & MoviesPageDispatchFromStore;
+
+export interface MoviesPageFromState {
+  movies: Move[];
 }

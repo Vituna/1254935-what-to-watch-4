@@ -5,7 +5,7 @@ import {VideoPlayerProps, VideoPlayerState} from "./types";
 class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState> {
   private videoRef: React.RefObject<HTMLVideoElement>;
 
-  constructor(props) {
+  constructor(props: Readonly<VideoPlayerProps>) {
     super(props);
 
     this.state = {
@@ -15,7 +15,7 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
     this.videoRef = React.createRef();
   }
 
-  componentDidUpdate(): void {
+  public componentDidUpdate(): void {
     const video = this.videoRef.current;
 
     if (video) {
@@ -27,19 +27,19 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
     }
   }
 
-  _handlePlay(): void {
+  private _handlePlay(): void {
     this.setState({
       isPlaying: true,
     });
   }
 
-  _handlePause(): void {
+  private _handlePause(): void {
     this.setState({
       isPlaying: false,
     });
   }
 
-  componentWillUnmount(): void {
+  public componentWillUnmount(): void {
     const video = this.videoRef.current;
 
     if (video) {
@@ -50,7 +50,7 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
     }
   }
 
-  componentDidMount(): void {
+  public componentDidMount(): void {
     const video = this.videoRef.current;
 
     if (video) {
@@ -59,7 +59,7 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
     }
   }
 
-  render(): React.ReactNode {
+  public render(): React.ReactNode {
     const {src, poster, muted} = this.props;
 
     return (

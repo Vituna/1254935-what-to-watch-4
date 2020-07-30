@@ -1,8 +1,12 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 
 import {MoviePage} from "./movie-page";
 import {FullMove, FullMoves} from "../../types";
+
+const mockStore = configureStore([]);
 
 export const noop = () => {
   return;
@@ -76,30 +80,28 @@ const movie: FullMove =
     }]
   };
 
-interface FilmsLength {
-  filmsLength: number;
-}
-
-const filmsLength = 2;
-
 const createNodeMock = () => {
   return {};
 };
 
 it(`Should MovieCard render correctly`, () => {
+  const store = mockStore({
+    movies,
+    movie
+  });
+
   const tree = renderer
-    .create(<MoviePage
-      movies={movies}
-      movie={movie}
-      filmsLength={filmsLength}
-      onCardClick={noop}
-      onTitleClick={noop}
-      onCardMouseLeave={noop}
-      onShowMoreClick={noop}
-      renderTabs={noop}
-      activeTab={``}
-    />, {createNodeMock})
-    .toJSON();
+    .create(
+        <Provider store={store}>
+          <MoviePage
+            movies={movies}
+            movie={movie}
+            renderTabs={noop}
+            onPlayButtonClick={noop}
+            activeTab={``}
+          />
+        </Provider>, {createNodeMock})
+      .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
