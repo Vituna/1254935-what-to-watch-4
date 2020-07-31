@@ -1,12 +1,16 @@
 import * as React from "react";
+import {connect} from 'react-redux';
 import {mixed} from "utility-types/dist/utility-types";
 
+import {getComments} from "../../reducer/data/selectors";
+import {SelectorsData} from "../../reducer/data/types";
+
 import Review from "../review/review";
-import {PageReviewsProps} from "./types";
+import {PageReviewsProps, PageReviewsFromStore, PageReviewsFromState} from "./types";
 import {MovieComments} from "../../types";
 
 const PageReviews: React.FC<PageReviewsProps> = (props: PageReviewsProps) => {
-  const {movie} = props;
+  const {comments} = props;
 
   const getReview = (review: MovieComments, i: number): React.ReactNode => {
     return (
@@ -17,7 +21,7 @@ const PageReviews: React.FC<PageReviewsProps> = (props: PageReviewsProps) => {
     );
   };
 
-  const renderReviews = (): Array<mixed> => movie.map(getReview);
+  const renderReviews = (): Array<mixed> => comments.map(getReview);
 
   return (
     <div className="movie-card__reviews movie-card__row">
@@ -31,4 +35,9 @@ const PageReviews: React.FC<PageReviewsProps> = (props: PageReviewsProps) => {
   );
 };
 
-export default PageReviews;
+const mapStateToProps = (state: PageReviewsFromState): PageReviewsFromStore => ({
+  comments: getComments(state),
+});
+
+export {PageReviews};
+export default connect(mapStateToProps)(PageReviews);

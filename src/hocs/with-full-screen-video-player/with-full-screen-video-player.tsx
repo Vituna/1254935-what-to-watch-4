@@ -29,10 +29,10 @@ const withFullScreenVideoPlayer = (Component) => {
     }
 
     public componentDidMount(): void {
-      const {preview} = this.props;
+      const {videoLink} = this.props;
       const video = this.videoRef.current;
 
-      video.src = preview;
+      video.src = videoLink;
 
       video.ontimeupdate = () => this._timeUpdate(video);
     }

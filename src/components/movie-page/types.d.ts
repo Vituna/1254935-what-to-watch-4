@@ -1,14 +1,14 @@
-import {Move, FullMove} from "../../types";
+import {FullMoves, MoviePageProp} from "../../types";
 
 interface MoviesPageFromProps {
-  movies: Move[];
-  movie: FullMove;
+  movies: FullMoves[];
+  movie: MoviePageProp;
   activeTab: string;
   renderTabs: () => void;
 }
 
 interface MoviesPageFromStore {
-  movies: Move[];
+  movies: FullMoves[];
 }
 
 interface MoviesPageDispatchFromStore {
@@ -18,5 +18,10 @@ interface MoviesPageDispatchFromStore {
 export type MoviesPageProps = MoviesPageFromProps & MoviesPageDispatchFromStore;
 
 export interface MoviesPageFromState {
-  movies: Move[];
+  movies: FullMoves[];
+  filmsLength: number;
+  movie: MoviePageProp;
+  isPlayingMovie: boolean;
+  activeGenre: string;
+  allGenres: string[];
 }

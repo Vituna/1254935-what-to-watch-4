@@ -1,6 +1,7 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer";
+
+import {ActionCreator} from "../../reducer/state/state";
 
 import VideoPlayer from "../video-player/video-player";
 import {VIDEO_DELAY} from "../../consts";
@@ -40,24 +41,28 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardFromState> 
     this.props.onCardMouseLeave();
   }
 
-  private _handleCartTitleClick(evt: React.MouseEvent): void {
-    evt.preventDefault();
-    this.props.onFilmTitleClick(this.props.title);
+  private _handleCartTitleClick(id: number) {
+    return (evt) => {
+      evt.preventDefault();
+      this.props.onFilmTitleClick(id);
+    };
   }
 
-  private _handleCardClick(): void {
-    this.props.onFilmTitleClick(this.props.title);
+  private _handleCardClick(id: number) {
+    return () => {
+      this.props.onFilmTitleClick(id);
+    };
   }
 
   public render(): React.ReactNode {
-    const {title, filmCover, previewVideo} = this.props;
+    const {id, title, filmCover, previewVideo} = this.props;
 
     return (
       <article className="small-movie-card catalog__movies-card"
         onMouseEnter={this._handleCardMouseEnter}
         onMouseLeave={this._handleCardMouseRemove}
       >
-        <div className="small-movie-card__image" onClick={this._handleCardClick}>
+        <div className="small-movie-card__image" onClick={this._handleCardClick(id)}>
           <VideoPlayer
             src={previewVideo}
             poster={filmCover}
@@ -67,7 +72,7 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardFromState> 
         </div>
         <h3 className="small-movie-card__title">
           <a className="small-movie-card__link" href="movie-page.html"
-            onClick={this._handleCartTitleClick}
+            onClick={this._handleCartTitleClick(id)}
           >{title}</a>
         </h3>
       </article>
@@ -76,8 +81,8 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardFromState> 
 }
 
 const mapDispatchToProps = (dispatch: any): MovieCardDispatchFromStore => ({
-  onFilmTitleClick(filmTitle: string): void {
-    dispatch(ActionCreator.changeActiveFilm(filmTitle));
+  onFilmTitleClick(id: number): void {
+    dispatch(ActionCreator.getActiveFilmId(id));
   },
 });
 

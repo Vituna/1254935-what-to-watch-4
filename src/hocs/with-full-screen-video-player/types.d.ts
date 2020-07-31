@@ -7,6 +7,6 @@ export interface WithFullScreenVideoPlayerState {
 }
 
 export interface WithFullScreenVideoPlayerProps {
-  preview: string;
+  videoLink: string;
   onPlayerExitClick: () => void;
 }

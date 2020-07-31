@@ -1,8 +1,10 @@
-import {Move} from "../../types";
+import {FullMoves, FilmMain} from "../../types";
 
 interface MainFromStore {
-  movies: Move[];
+  movies: FullMoves[];
   filmsLength: number;
+  movie: FilmMain;
+  isPlayingMovie: boolean;
 }
 
 interface MainDispatchFromStore {
@@ -10,9 +12,13 @@ interface MainDispatchFromStore {
   onPlayButtonClick: () => void;
 }
 
-export type MainProps = MainFromStore & MainDispatchFromStore
-
 export interface MainFromState {
-  movies: Move[];
+  movies: FullMoves[];
   filmsLength: number;
+  movie: FilmMain;
+  isPlayingMovie: boolean;
+  activeGenre: string;
+  allGenres: string[];
 }
+
+export type MainProps = MainFromStore & MainDispatchFromStore

@@ -6,13 +6,14 @@ import {MovieListProps, ItMovieList} from "./types";
 const MovieList: React.FC<MovieListProps> = (props: MovieListProps) => {
   const {movies, onCardMouseEnter, onCardMouseLeave} = props;
 
-  const getMovie = (it: ItMovieList, i: React.ReactText): React.ReactNode => {
+  const getMovie = (it: ItMovieList, i: React.ReactText): React.ReactElement => {
     return (
       <React.Fragment key={`${it.title + i}`}>
         <MovieCard
+          id={it.id}
           title={it.title}
-          filmCover={it.filmCover}
-          previewVideo={it.previewVideo}
+          filmCover={it.image}
+          previewVideo={it.preview}
           onCardMouseEnter={onCardMouseEnter}
           onCardMouseLeave={onCardMouseLeave}
         />
@@ -20,7 +21,7 @@ const MovieList: React.FC<MovieListProps> = (props: MovieListProps) => {
     );
   };
 
-  const renderMovies = (): React.ReactNode => movies.map(getMovie);
+  const renderMovies = () => movies.map(getMovie);
 
   return (
     <>

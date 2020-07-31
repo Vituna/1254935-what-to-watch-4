@@ -25,7 +25,7 @@ it(`Should GenresList render correctly`, () => {
   .create(
       <Provider store={store}>
         <GenresList
-          genres={genres}
+          allGenres={genres}
           activeGenre={DefaultGenre}
           onGenreItemClick={noop}
         />

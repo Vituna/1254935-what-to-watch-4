@@ -1,7 +1,11 @@
 import * as React from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer";
+
+import {ActionCreator} from "../../reducer/state/state";
+import {getSelectedMovie} from "../../reducer/state/selectors";
+import {getState, getActive} from "../../reducer/state/selectors";
+import {getPromoFilm} from "../../reducer/data/selectors";
 
 import Main from "../main/main";
 import MoviePage from "../movie-page/movie-page";
@@ -9,13 +13,12 @@ import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video
 import withTabs from "../../hocs/with-tabs/with-tabs";
 import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player/with-full-screen-video-player";
 import {AppProps, AppDispatchFromStore, AppStateFromStore, AppFromState} from "./types";
-import {FullMoves} from "../../types";
 
 const MoviePageWrapped = withTabs(MoviePage);
 const FullScreenVideoPlayerWrapped = withFullScreenVideoPlayer(FullScreenVideoPlayer);
 
 const App: React.FC<AppProps> = (props: AppProps) => {
-  const {movies, activeCard, isPlayingMovie, onPlayerExitClick} = props;
+  const {movies, active, activeCard, isPlayingMovie, onPlayerExitClick} = props;
 
   const renderMain = (): React.ReactNode => {
 
@@ -29,31 +32,29 @@ const App: React.FC<AppProps> = (props: AppProps) => {
 
     return (
       <MoviePageWrapped
-        movie={movies.find((film) => film.title === activeCard)}
+        movie={activeCard}
       />
     );
   };
 
   const renderFullScreenVideoPlayer = (): React.ReactNode => {
-    const [firstMovie] = movies;
-
-    const currentFilm: FullMoves = activeCard === null
-      ? firstMovie : movies.find((film) => film.title === activeCard);
+    const {backgroundPoster, src} = movies;
 
     return (
       <FullScreenVideoPlayerWrapped
-        preview={currentFilm.previewVideo}
+        poster={backgroundPoster}
+        videoLink={src}
         onPlayerExitClick={onPlayerExitClick}
       />
     );
   };
 
   const renderApp = (): React.ReactNode => {
-    if (activeCard === null && !isPlayingMovie) {
+    if (active === null && !isPlayingMovie) {
       return (renderMain());
     }
 
-    if (activeCard && !isPlayingMovie) {
+    if (active && !isPlayingMovie) {
       return (renderMoviePage());
     }
 
@@ -86,9 +87,10 @@ const App: React.FC<AppProps> = (props: AppProps) => {
 };
 
 const mapStateToProps = (state: AppFromState): AppStateFromStore => ({
-  movies: state.movies,
-  activeCard: state.activeCard,
-  isPlayingMovie: state.isPlayingMovie,
+  activeCard: getSelectedMovie(state),
+  active: getActive(state),
+  isPlayingMovie: getState(state),
+  movies: getPromoFilm(state),
 });
 
 const mapDispatchToProps = (dispatch: any): AppDispatchFromStore => ({
