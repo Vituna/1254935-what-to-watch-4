@@ -13,7 +13,7 @@ const movie: PageDetailsProps = {
   runTime: `99`,
   year: 2014,
   director: `Wes Andreson`,
-  starring: [`Bill Murray`, `Jude Law`]
+  starring: `Bill Murray`,
 };
 
 const createNodeMock = () => {

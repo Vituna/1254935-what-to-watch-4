@@ -3,8 +3,7 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
 
 import {ActionCreator} from "../../reducer/state/state";
-import {getSelectedMovie} from "../../reducer/state/selectors";
-import {getState, getActive} from "../../reducer/state/selectors";
+import {getState, getActive, getSelectedMovie} from "../../reducer/state/selectors";
 import {getPromoFilm} from "../../reducer/data/selectors";
 
 import Main from "../main/main";
