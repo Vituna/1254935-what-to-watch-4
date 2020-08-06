@@ -3,6 +3,7 @@ import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 
+import NameSpace from "../../reducer/name-space";
 import {Main} from "./main";
 import {FullMoves, FilmMain} from "../../types";
 
@@ -74,8 +75,14 @@ const createNodeMock = () => {
 it(`Should WTW render correctly`, () => {
 
   const store = mockStore({
-    movie,
-    movies
+    [NameSpace.DATA]: {
+      movie,
+      movies,
+    },
+    [NameSpace.STATE]: {
+      movies,
+      filmsLength,
+    }
   });
 
   const tree = renderer

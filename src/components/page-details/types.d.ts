@@ -1,10 +1,7 @@
-import {MovieDetailProp} from "../../types";
-
 export interface PageDetailsProps {
   genre: string;
   runTime: string;
   year: number;
   director: string;
-  starring: string;
+  starring: string | string[];
 }
-

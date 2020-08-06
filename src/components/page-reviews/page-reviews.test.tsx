@@ -3,6 +3,7 @@ import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 
+import NameSpace from "../../reducer/name-space";
 import PageReviews from "./page-reviews";
 import {MovieComments} from "../../types";
 
@@ -35,7 +36,9 @@ const createNodeMock = () => {
 
 it(`Should PageReviews render correctly`, () => {
   const store = mockStore({
-    comments,
+    [NameSpace.DATA]: {
+      comments
+    },
   });
 
   const tree = renderer

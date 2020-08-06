@@ -13,4 +13,3 @@ export const getPromoFilm = (state: MainFromState | AppFromState) => state[NameS
 export const getComments = (state: SelectorsData) => state[NameSpace.DATA].comments;
 
 export const getAllGenres = (state: GenresListFromState) => getGenresList(state[NameSpace.DATA].movies);
-// MoviesPageFromState & MainFromState
