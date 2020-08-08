@@ -1,7 +1,8 @@
 import {FullMoves} from "../../types";
 
 interface AppStateFromStore {
-  movies: FullMoves[];
+  movies: FullMoves;
+  active: FullMoves;
   activeCard: string;
   isPlayingMovie: boolean;
 }
@@ -13,7 +14,7 @@ interface AppDispatchFromStore {
 export type AppProps = AppStateFromStore & AppDispatchFromStore;
 
 export interface AppFromState {
-  movies: FullMoves[];
+  movies: FullMoves;
   activeCard: string;
-  isPlayingMovie: boolean
+  isPlayingMovie: boolean;
 }

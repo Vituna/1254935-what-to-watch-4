@@ -1,6 +1,8 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer";
+
+import {ActionCreator} from "../../reducer/state/state";
+import {getFilms} from "../../reducer/data/selectors";
 
 import MoviesList from "../movie-list/movie-list";
 import PageOverview from "../page-overview/page-overview";
@@ -8,33 +10,30 @@ import PageDetails from "../page-details/page-details";
 import PageReviews from "../page-reviews/page-reviews";
 import withMoviesList from "../../hocs/with-movies-list";
 import {MaxSimilarCards} from "../../consts";
-import {Move} from "../../types";
+import {FullMoves} from "../../types";
 import {MoviesPageProps, MoviesPageFromState, MoviesPageFromStore, MoviesPageDispatchFromStore} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
-const getSimilarCards = (movies: Move[], genre: string): React.ReactNode => {
+const getSimilarCards = (movies: FullMoves[], genre: string): React.ReactNode => {
   return movies.filter((film) => film.genre === genre).slice(0, MaxSimilarCards);
 };
-
 
 const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
   const {movies, movie, onPlayButtonClick, renderTabs, activeTab} = props;
 
-  const movieComments = movie.comments;
-
   const {
     title,
     genre,
+    runTime,
     year,
-    bigPoster,
-    filmCover,
+    backgroundPoster,
+    filmPoster,
     rating,
-    numberVotes,
-    descriptionOne,
-    descriptionTwo,
+    ratingCount,
+    description,
     director,
-    starring,
+    starring
   } = movie;
 
   const similarCards: React.ReactNode = getSimilarCards(movies, genre);
@@ -44,18 +43,22 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
       case `Overview`:
         return <PageOverview
           rating={rating}
-          numberVotes={numberVotes}
-          descriptionOne={descriptionOne}
-          descriptionTwo={descriptionTwo}
+          numberVotes={ratingCount}
+          descriptionOne={description}
+          descriptionTwo={description}
           director={director}
           starring={starring}
         />;
       case `Details`:
         return <PageDetails
+          director={director}
+          genre={genre}
+          runTime={runTime}
+          starring={starring}
+          year={year}
         />;
       case `Reviews`:
         return <PageReviews
-          movie={movieComments}
         />;
       default:
         return ``;
@@ -67,7 +70,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={bigPoster} alt={title} />
+            <img src={backgroundPoster} alt={title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -121,7 +124,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={filmCover} alt={title} width="218" height="327" />
+              <img src={filmPoster} alt={title} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
@@ -162,7 +165,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
 };
 
 const mapStateToProps = (state: MoviesPageFromState): MoviesPageFromStore => ({
-  movies: state.movies,
+  movies: getFilms(state),
 });
 
 const mapDispatchToProps = (dispatch: any): MoviesPageDispatchFromStore => ({

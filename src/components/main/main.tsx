@@ -1,6 +1,9 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer";
+
+import {ActionCreator} from "../../reducer/state/state";
+import {getPromoFilm} from "../../reducer/data/selectors";
+import {getShownMovies, getFilmsByGenre, getState} from "../../reducer/state/selectors";
 
 import MoviesList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
@@ -11,16 +14,21 @@ import {MainProps, MainFromStore, MainDispatchFromStore, MainFromState} from "./
 const MoviesListWrapped = withMoviesList(MoviesList);
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
-  const {movies, filmsLength, onShowMoreClick, onPlayButtonClick} = props;
+  const {movies, movie, filmsLength, onShowMoreClick, onPlayButtonClick} = props;
 
-  const [firstMovie] = movies;
-  const {title, genre, year} = firstMovie;
+  const {
+    title,
+    genre,
+    year,
+    backgroundPoster,
+    filmPoster
+  } = movie;
 
   return (
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundPoster} alt={title}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -44,7 +52,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={filmPoster} alt={title} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
@@ -116,8 +124,10 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
 };
 
 const mapStateToProps = (state: MainFromState): MainFromStore => ({
-  filmsLength: state.filmsLength,
-  movies: state.movies,
+  movie: getPromoFilm(state),
+  movies: getFilmsByGenre(state),
+  filmsLength: getShownMovies(state),
+  isPlayingMovie: getState(state),
 });
 
 const mapDispatchToProps = (dispatch: any): MainDispatchFromStore => ({

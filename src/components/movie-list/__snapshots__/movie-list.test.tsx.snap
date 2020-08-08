@@ -42,8 +42,8 @@ Array [
       <video
         className="player__video"
         muted={true}
-        poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+        poster="img/the-grand-budapest-hotel-poster.jpg"
+        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
       />
     </div>
     <h3
@@ -54,7 +54,7 @@ Array [
         href="movie-page.html"
         onClick={[Function]}
       >
-        Fantastic Beasts: The Crimes of Grindelwald
+        The Grand Budapest Hotel
       </a>
     </h3>
   </article>,

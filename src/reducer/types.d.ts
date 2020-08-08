@@ -1,10 +1,9 @@
 import {mixed} from "utility-types/dist/utility-types";
 
-import {FullMoves, MovieDetail} from "../types";
+import {FullMoves} from "../types";
 
 export interface InitialStateReducer {
   movies: FullMoves[];
-  movieDetail: MovieDetail;
   activeGenre: string;
   genres: Array<mixed>;
   activeCard: void;

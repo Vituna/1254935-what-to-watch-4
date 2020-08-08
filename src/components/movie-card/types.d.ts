@@ -1,4 +1,5 @@
 interface MovieCardFromProps {
+  id: number;
   title: string;
   filmCover: string;
   previewVideo: string;
@@ -7,7 +8,7 @@ interface MovieCardFromProps {
 }
 
 interface MovieCardDispatchFromStore {
-  onFilmTitleClick: (title: string) => void;
+  onFilmTitleClick: (id: number) => void;
 }
 
 export interface MovieCardFromState {

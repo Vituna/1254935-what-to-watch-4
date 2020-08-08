@@ -1,5 +1,13 @@
 import {MovieComments} from "../../types";
 
 export interface PageReviewsProps {
-  movie: MovieComments[];
+  comments: MovieComments[];
+}
+
+export interface PageReviewsFromStore {
+  comments: MovieComments[];
+}
+
+export interface PageReviewsFromState {
+  comments: MovieComments[];
 }

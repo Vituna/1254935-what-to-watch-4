@@ -1,40 +1,50 @@
 import * as React from "react";
-import {connect} from "react-redux";
-import {mixed} from "utility-types/dist/utility-types";
 
-import {PageDetailsProps, PageDetailsFromState, PageDetailsStateFromStore} from "./types";
+import {PageDetailsProps} from "./types";
 
-const PageDetails: React.FunctionComponent<PageDetailsProps> = (props: PageDetailsProps) => {
-  const {movieDetail} = props;
+const getDetails = (starringIt: string, i: number): React.ReactNode => {
+  const key = `${starringIt} + ${i}`;
 
-  const getDetails = (info: { name: string; value: string }, i: number): React.ReactNode => {
-    const {name, value} = info;
-    const key = `${name} + ${i}`;
+  return (
+    <React.Fragment key={key}>
+      {starringIt} <br />
+    </React.Fragment>
+  );
+};
 
-    return (
-      <p key={key} className="movie-card__details-item">
-        <strong className="movie-card__details-name">{name}</strong>
-        <span className="movie-card__details-value">{value}</span>
-      </p>
-    );
-  };
-  const renderDetails = (): Array<mixed> => movieDetail.map(getDetails);
+const renderDetails = (starring) => starring.map(getDetails);
+
+const PageDetails: React.FC<PageDetailsProps> = (props: PageDetailsProps) => {
+  const {director, starring, genre, runTime, year} = props;
 
   return (
     <div className="movie-card__text movie-card__row">
       <div className="movie-card__text-col">
-        {renderDetails().slice(0, 3)}
+        <p className="movie-card__details-item">
+          <strong className="movie-card__details-name">Director</strong>
+          <span className="movie-card__details-value">{director}</span>
+        </p>
+        <p className="movie-card__details-item">
+          <strong className="movie-card__details-name">Starring</strong>
+          <span className="movie-card__details-value">{renderDetails(starring)}</span>
+        </p>
       </div>
       <div className="movie-card__text-col">
-        {renderDetails().slice(3, 5)}
+        <p className="movie-card__details-item">
+          <strong className="movie-card__details-name">Run Time</strong>
+          <span className="movie-card__details-value">{runTime}</span>
+        </p>
+        <p className="movie-card__details-item">
+          <strong className="movie-card__details-name">Genre</strong>
+          <span className="movie-card__details-value">{genre}</span>
+        </p>
+        <p className="movie-card__details-item">
+          <strong className="movie-card__details-name">Released</strong>
+          <span className="movie-card__details-value">{year}</span>
+        </p>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (state: PageDetailsFromState): PageDetailsStateFromStore => ({
-  movieDetail: state.movieDetail,
-});
-
-export {PageDetails};
-export default connect(mapStateToProps)(PageDetails);
+export default PageDetails;

@@ -52,10 +52,17 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
 
   public componentDidMount(): void {
     const video = this.videoRef.current;
+    const {src, poster, muted} = this.props;
 
     if (video) {
       video.onplay = () => this._handlePlay();
       video.onpause = () => this._handlePause();
+    }
+
+    if (video) {
+      video.src = src;
+      video.poster = poster;
+      video.muted = muted;
     }
   }
 

@@ -10,7 +10,7 @@ Array [
     >
       <img
         alt="The Grand Budapest Hotel"
-        src="img/bg-the-grand-budapest-hotel.jpg"
+        src="img/the-grand-budapest-hotel-poster.jpg"
       />
     </div>
     <h1
@@ -69,9 +69,9 @@ Array [
           className="movie-card__poster"
         >
           <img
-            alt="The Grand Budapest Hotel poster"
+            alt="The Grand Budapest Hotel"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
+            src="img/bg-the-grand-budapest-hotel.jpg"
             width="218"
           />
         </div>
@@ -162,18 +162,7 @@ Array [
             href="#"
             onClick={[Function]}
           >
-            Family
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item "
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-            onClick={[Function]}
-          >
-            Comedian
+            All genres
           </a>
         </li>
         <li
@@ -231,8 +220,8 @@ Array [
             <video
               className="player__video"
               muted={true}
-              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+              poster="img/the-grand-budapest-hotel-poster.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
             />
           </div>
           <h3
@@ -243,7 +232,7 @@ Array [
               href="movie-page.html"
               onClick={[Function]}
             >
-              Fantastic Beasts: The Crimes of Grindelwald
+              The Grand Budapest Hotel
             </a>
           </h3>
         </article>

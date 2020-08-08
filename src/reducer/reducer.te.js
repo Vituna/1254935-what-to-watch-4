@@ -1,4 +1,4 @@
-import {reducer, ActionType, ActionCreator} from "./reducer";
+import {reducer, ActionType, ActionCreator} from "./reducer.js";
 
 const comments = [
   {
@@ -239,7 +239,6 @@ const FILMS_LENGTH = 8;
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    activeCard: null,
     activeGenre: DefaultGenre,
     movieDetail,
     filmsLength: FILMS_LENGTH,
@@ -337,7 +336,7 @@ it(`Reducer should change the length of the movie list to a given value`, () => 
 it(`Reducer should change  the playback to a false`, () => {
   expect(reducer({
     currentGenre: DefaultGenre,
-    activeCard: false,
+    activeCard: true,
     filmsLength: FILMS_LENGTH,
     isPlayingMovie: false,
     movies,
