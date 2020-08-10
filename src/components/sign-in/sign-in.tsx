@@ -6,7 +6,7 @@ class SignIn extends React.PureComponent <SignInProps> {
   private emailRef: React.RefObject<HTMLInputElement>;
   private passwordRef: React.RefObject<HTMLInputElement>;
 
-  constructor(props) {
+  constructor(props: Readonly<SignInProps>) {
     super(props);
 
     this.emailRef = React.createRef();
@@ -15,18 +15,18 @@ class SignIn extends React.PureComponent <SignInProps> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(evt) {
-    const {onSubmit} = this.props;
+  public handleSubmit(): React.ReactNode {
+    return (evt: React.MouseEvent) => {
+      evt.preventDefault();
 
-    evt.preventDefault();
-
-    onSubmit({
-      email: this.emailRef.current.value,
-      password: this.passwordRef.current.value,
-    });
+      this.props.onSubmit({
+        email: this.emailRef.current.value,
+        password: this.passwordRef.current.value,
+      });
+    };
   }
 
-  render() {
+  public render(): React.ReactNode {
     return (
       <div className="user-page">
         <header className="page-header user-page__head">
