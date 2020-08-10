@@ -5,19 +5,22 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/state/state";
 import {getState, getActive, getSelectedMovie} from "../../reducer/state/selectors";
 import {getPromoFilm} from "../../reducer/data/selectors";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user";
 
 import Main from "../main/main";
 import MoviePage from "../movie-page/movie-page";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
 import withTabs from "../../hocs/with-tabs/with-tabs";
 import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player/with-full-screen-video-player";
+import SignIn from "../sign-in/sign-in";
 import {AppProps, AppDispatchFromStore, AppStateFromStore, AppFromState} from "./types";
 
 const MoviePageWrapped = withTabs(MoviePage);
 const FullScreenVideoPlayerWrapped = withFullScreenVideoPlayer(FullScreenVideoPlayer);
 
 const App: React.FC<AppProps> = (props: AppProps) => {
-  const {movies, active, activeCard, isPlayingMovie, onPlayerExitClick} = props;
+  const {movies, active, activeCard, isPlayingMovie, onPlayerExitClick, login, authorizationStatus} = props;
 
   const renderMain = (): React.ReactNode => {
 
@@ -48,7 +51,20 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     );
   };
 
+  const renderSingIn = (): React.ReactNode => {
+
+    return (
+      <SignIn
+        onSubmit={login}
+      />
+    );
+  };
+
   const renderApp = (): React.ReactNode => {
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      return (renderSingIn());
+    }
+
     if (active === null && !isPlayingMovie) {
       return (renderMain());
     }
@@ -90,11 +106,16 @@ const mapStateToProps = (state: AppFromState): AppStateFromStore => ({
   active: getActive(state),
   isPlayingMovie: getState(state),
   movies: getPromoFilm(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch: any): AppDispatchFromStore => ({
   onPlayerExitClick(): void {
     dispatch(ActionCreator.dropIsPlayingFilm());
+  },
+
+  login(authData): void {
+    dispatch(UserOperation.login(authData));
   },
 });
 

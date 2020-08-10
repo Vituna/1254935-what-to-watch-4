@@ -12,11 +12,13 @@ export const noop = () => {
 };
 
 const Settings = {
+  id: 1,
   title: `Avatar`,
   filmCover: `img/avatar.jpg`,
   previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
 };
 
+const id: number = Settings.id;
 const title: string = Settings.title;
 const filmCover: string = Settings.filmCover;
 const previewVideo: string = Settings.previewVideo;
@@ -36,10 +38,11 @@ it(`Renders cards correctly`, () => {
     .create(
         <Provider store={store}>
           <MovieCard
+            id={id}
             title={title}
             filmCover={filmCover}
             previewVideo={previewVideo}
-            onFilmTitleClick={noop}
+            // onFilmTitleClick={noop}
             onCardMouseEnter={noop}
             onCardMouseLeave={noop}
           />

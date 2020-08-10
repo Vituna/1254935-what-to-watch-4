@@ -3,7 +3,8 @@ import {AxiosResponse, AxiosInstance} from "axios";
 import {extend} from "../../utils";
 import filmAdapter from "../../adapter/adapter";
 import {comments} from "../../mocks/movies";
-import {InitialStateData, ActionTypeData, TypeAndPayloadData, DataStore} from "./types";
+import {InitialStateData, ActionTypeData, TypeAndPayloadData} from "./types";
+import {FullMoves} from "../../types";
 
 const initialState: InitialStateData = {
   movies: [],
@@ -31,15 +32,14 @@ const ActionCreator = {
   }
 };
 
-// Если getState: DataStore, то в index.tsx сразу ошибка в store.dispatch
 const Operation = {
-  loadFilms: () => (dispatch: any, getState, api: AxiosInstance) => {
+  loadFilms: () => (dispatch: any, getState: FullMoves, api: AxiosInstance) => {
     return api.get(`/films`)
       .then((response: AxiosResponse) => {
         dispatch(ActionCreator.loadFilms(response.data.map((film: string) => filmAdapter(film))));
       });
   },
-  loadPromoFilm: () => (dispatch: any, getState, api: AxiosInstance) => {
+  loadPromoFilm: () => (dispatch: any, getState: FullMoves, api: AxiosInstance) => {
     return api.get(`/films/promo`)
       .then((response: AxiosResponse) => {
         dispatch(ActionCreator.loadPromoFilm(filmAdapter(response.data)));

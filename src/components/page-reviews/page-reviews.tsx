@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {mixed} from "utility-types/dist/utility-types";
 
 import {getComments} from "../../reducer/data/selectors";
-import {SelectorsData} from "../../reducer/data/types";
 
 import Review from "../review/review";
 import {PageReviewsProps, PageReviewsFromStore, PageReviewsFromState} from "./types";

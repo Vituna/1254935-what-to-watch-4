@@ -93,6 +93,7 @@ it(`Should WTW render correctly`, () => {
           movies={movies}
           filmsLength={filmsLength}
           isPlayingMovie={true}
+          authorizationStatus={`NO_AUTH`}
           onShowMoreClick={noop}
           onPlayButtonClick={noop}
         />
