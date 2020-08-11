@@ -5,10 +5,14 @@ export interface AuthorizationStatusUser {
 
 export interface InitialStateUser {
   authorizationStatus: string,
+  onReviewSuccess: boolean,
+  showSendError: boolean
 }
 
 export interface ActionTypeUser {
   REQUIRED_AUTHORIZATION: string,
+  SEND_REVIEW: string,
+  SET_SHOW_SEND_ERROR: string
 }
 
 export interface TypeAndPayloadUser {

@@ -82,5 +82,3 @@ export interface FilmMain {
   backgroundPoster: string;
   filmPoster: string;
 }
-
-

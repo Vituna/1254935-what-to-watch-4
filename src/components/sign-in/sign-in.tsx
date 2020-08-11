@@ -15,15 +15,13 @@ class SignIn extends React.PureComponent <SignInProps> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  public handleSubmit(): React.ReactNode {
-    return (evt: React.MouseEvent) => {
-      evt.preventDefault();
+  public handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
 
-      this.props.onSubmit({
-        email: this.emailRef.current.value,
-        password: this.passwordRef.current.value,
-      });
-    };
+    this.props.onSubmit({
+      email: this.emailRef.current.value,
+      password: this.passwordRef.current.value,
+    });
   }
 
   public render(): React.ReactNode {
