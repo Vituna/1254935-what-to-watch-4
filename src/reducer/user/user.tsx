@@ -87,7 +87,7 @@ const Operation = {
       });
   },
 
-  sendReview: (reviewData: { rating: number; comment: string }) => (dispatch: any, getState: FullMoves, api: AxiosInstance) => {
+  sendReview: (reviewData: { rating: string; comment: string }) => (dispatch: any, getState: FullMoves, api: AxiosInstance) => {
     return api.post(`/comments/1`, {
       rating: reviewData.rating,
       comment: reviewData.comment,

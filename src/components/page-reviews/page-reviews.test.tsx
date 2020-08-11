@@ -45,7 +45,7 @@ it(`Should PageReviews render correctly`, () => {
     .create(
         <Provider store={store}>
           <PageReviews
-            // comments={comments}
+            comments={comments}
           />
         </Provider>, {createNodeMock})
   .toJSON();

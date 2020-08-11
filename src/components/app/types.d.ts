@@ -12,7 +12,7 @@ interface AppStateFromStore {
 interface AppDispatchFromStore {
   onPlayerExitClick: () => void;
   login: (authData: { email: string; password: string }) => void;
-  sendReview: (reviewData: any) => void;
+  sendReview: (reviewData: { rating: string; comment: string }) => void;
 
 }
 
