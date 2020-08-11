@@ -9,6 +9,7 @@ const initialState: InitialStateState = {
   filmsLength: FILMS_LENGTH,
   isPlayingMovie: false,
   activeCard: null,
+  filmsAddedToWatch: new Set(),
 };
 
 const ActionType: ActionTypeState = {
@@ -19,6 +20,7 @@ const ActionType: ActionTypeState = {
   IS_PLAYING_FILM: `IS_PLAYING_FILM`,
   ACTIVATE_PLAYING_FILM: `ACTIVATE_PLAYING_FILM`,
   GET_ACTIVE_FILM_ID: `GET_ACTIVE_FILM_ID`,
+  SET_FILMS_ADDED_TO_WATCH: `SET_FILMS_ADDED_TO_WATCH`,
 };
 
 const ActionCreator = {
@@ -61,6 +63,11 @@ const ActionCreator = {
     type: ActionType.GET_ACTIVE_FILM_ID,
     payload: id
   }),
+
+  setFilmsAddedToWatch: (list) => ({
+    type: ActionType.SET_FILMS_ADDED_TO_WATCH,
+    payload: list,
+  }),
 };
 
 const reducer = (state = extend(initialState), action: TypeAndPayloadState): ReactNode => {
@@ -99,6 +106,11 @@ const reducer = (state = extend(initialState), action: TypeAndPayloadState): Rea
     case ActionType.GET_ACTIVE_FILM_ID:
       return extend(state, {
         activeCard: action.payload
+      });
+
+    case ActionType.SET_FILMS_ADDED_TO_WATCH:
+      return extend(state, {
+        filmsAddedToWatch: action.payload,
       });
   }
 

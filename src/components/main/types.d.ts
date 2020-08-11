@@ -6,12 +6,13 @@ interface MainFromStore {
   movie: FilmMain;
   isPlayingMovie: boolean;
   authorizationStatus: string;
-
+  filmsAddedToWatch: Set<string>;
 }
 
 interface MainDispatchFromStore {
   onShowMoreClick: () => void;
   onPlayButtonClick: () => void;
+  onAddButtonClick: (list: string) => void;
 }
 
 export interface MainFromState {
@@ -23,4 +24,10 @@ export interface MainFromState {
   allGenres: string[];
 }
 
-export type MainProps = MainFromStore & MainDispatchFromStore
+interface prostoProps {
+  onAddButtonClick: (newFilmsAddedToWatch: any) => any;
+  filmsAddedToWatch: any;
+
+}
+
+export type MainProps =prostoProps & MainFromStore & MainDispatchFromStore

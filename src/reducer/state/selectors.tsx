@@ -15,6 +15,8 @@ export const getShownMovies = (state) => state[NameSpace.STATE].filmsLength;
 
 export const getState = (state) => state[NameSpace.STATE].isPlayingMovie;
 
+export const getFilmsAddedToWatch = (state) => state[NameSpace.STATE].filmsAddedToWatch;
+
 export const getFilmsByGenre = createSelector(
     getFilms,
     getCurrentGenre,

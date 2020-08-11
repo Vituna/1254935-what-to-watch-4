@@ -5,6 +5,7 @@ export interface InitialStateState {
   activeCard: void;
   filmsLength: number;
   isPlayingMovie: boolean;
+  filmsAddedToWatch: Set<string>;
 }
 
 export interface ActionTypeState {
@@ -15,6 +16,7 @@ export interface ActionTypeState {
   IS_PLAYING_FILM: string;
   ACTIVATE_PLAYING_FILM: string;
   GET_ACTIVE_FILM_ID: string;
+  SET_FILMS_ADDED_TO_WATCH: string;
 }
 
 export interface TypeAndPayloadState {

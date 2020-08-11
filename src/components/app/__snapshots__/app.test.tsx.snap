@@ -2,135 +2,95 @@
 
 exports[`Render App 1`] = `
 <div
-  className="user-page"
+  className="player"
 >
-  <header
-    className="page-header user-page__head"
+  <video
+    autoPlay={true}
+    className="player__video"
+  />
+  <button
+    className="player__exit"
+    onClick={[Function]}
+    type="button"
   >
-    <div
-      className="logo"
-    >
-      <a
-        className="logo__link"
-        href="main.html"
-      >
-        <span
-          className="logo__letter logo__letter--1"
-        >
-          W
-        </span>
-        <span
-          className="logo__letter logo__letter--2"
-        >
-          T
-        </span>
-        <span
-          className="logo__letter logo__letter--3"
-        >
-          W
-        </span>
-      </a>
-    </div>
-    <h1
-      className="page-title user-page__title"
-    >
-      Sign in
-    </h1>
-  </header>
+    Exit
+  </button>
   <div
-    className="sign-in user-page__content"
+    className="player__controls"
   >
-    <form
-      action="#"
-      className="sign-in__form"
-      onSubmit={[Function]}
+    <div
+      className="player__controls-row"
     >
       <div
-        className="sign-in__fields"
+        className="player__time"
       >
+        <progress
+          className="player__progress"
+          max="100"
+          value="NaN"
+        />
         <div
-          className="sign-in__field"
+          className="player__toggler"
+          style={
+            Object {
+              "left": "NaN%",
+            }
+          }
         >
-          <input
-            className="sign-in__input"
-            id="user-email"
-            name="user-email"
-            placeholder="Email address"
-            required={true}
-            type="email"
-          />
-          <label
-            className="sign-in__label visually-hidden"
-            htmlFor="user-email"
-          >
-            Email address
-          </label>
-        </div>
-        <div
-          className="sign-in__field"
-        >
-          <input
-            className="sign-in__input"
-            id="user-password"
-            name="user-password"
-            placeholder="Password"
-            required={true}
-            type="password"
-          />
-          <label
-            className="sign-in__label visually-hidden"
-            htmlFor="user-password"
-          >
-            Password
-          </label>
+          Toggler
         </div>
       </div>
       <div
-        className="sign-in__submit"
+        className="player__time-value"
       >
-        <button
-          className="sign-in__btn"
-          type="submit"
-        >
-          Sign in
-        </button>
+        0:0:0
       </div>
-    </form>
+    </div>
+    <div
+      className="player__controls-row"
+    >
+      <button
+        className="player__play"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          height="19"
+          viewBox="0 0 19 19"
+          width="19"
+        >
+          <use
+            xlinkHref="#pause"
+          />
+        </svg>
+        <span>
+          Play
+        </span>
+      </button>
+      <div
+        className="player__name"
+      >
+        Transpotting
+      </div>
+      <button
+        className="player__full-screen"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          height="27"
+          viewBox="0 0 27 27"
+          width="27"
+        >
+          <use
+            xlinkHref="#full-screen"
+          />
+        </svg>
+        <span>
+          Full screen
+        </span>
+      </button>
+    </div>
   </div>
-  <footer
-    className="page-footer"
-  >
-    <div
-      className="logo"
-    >
-      <a
-        className="logo__link logo__link--light"
-        href="main.html"
-      >
-        <span
-          className="logo__letter logo__letter--1"
-        >
-          W
-        </span>
-        <span
-          className="logo__letter logo__letter--2"
-        >
-          T
-        </span>
-        <span
-          className="logo__letter logo__letter--3"
-        >
-          W
-        </span>
-      </a>
-    </div>
-    <div
-      className="copyright"
-    >
-      <p>
-        © 2019 What to watch Ltd.
-      </p>
-    </div>
-  </footer>
 </div>
 `;

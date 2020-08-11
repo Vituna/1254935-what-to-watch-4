@@ -7,13 +7,13 @@ interface AppStateFromStore {
   showSendError: boolean;
   activeCard: string;
   isPlayingMovie: boolean;
+
 }
 
 interface AppDispatchFromStore {
   onPlayerExitClick: () => void;
   login: (authData: { email: string; password: string }) => void;
   sendReview: (reviewData: { rating: string; comment: string }) => void;
-
 }
 
 export type AppProps = AppStateFromStore & AppDispatchFromStore;
