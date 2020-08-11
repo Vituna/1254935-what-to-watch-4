@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/state/state";
 import {getPromoFilm} from "../../reducer/data/selectors";
 import {getShownMovies, getFilmsByGenre, getState} from "../../reducer/state/selectors";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import {AuthorizationStatus} from "../../reducer/user/user";
 
 import MoviesList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
@@ -14,7 +16,7 @@ import {MainProps, MainFromStore, MainDispatchFromStore, MainFromState} from "./
 const MoviesListWrapped = withMoviesList(MoviesList);
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
-  const {movies, movie, filmsLength, onShowMoreClick, onPlayButtonClick} = props;
+  const {movies, movie, filmsLength, onShowMoreClick, onPlayButtonClick, authorizationStatus} = props;
 
   const {
     title,
@@ -23,6 +25,8 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
     backgroundPoster,
     filmPoster
   } = movie;
+
+  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
   return (
     <>
@@ -43,9 +47,16 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
           </div>
 
           <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
+            {isAuthorized
+              ? (
+                <div className="user-block__avatar">
+                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                </div>
+              )
+              : (
+                <a href="sign-in.html" className="user-block__link">Sign in</a>
+              )
+            }
           </div>
         </header>
 
@@ -127,6 +138,7 @@ const mapStateToProps = (state: MainFromState): MainFromStore => ({
   movie: getPromoFilm(state),
   movies: getFilmsByGenre(state),
   filmsLength: getShownMovies(state),
+  authorizationStatus: getAuthorizationStatus(state),
   isPlayingMovie: getState(state),
 });
 

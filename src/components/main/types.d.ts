@@ -5,6 +5,8 @@ interface MainFromStore {
   filmsLength: number;
   movie: FilmMain;
   isPlayingMovie: boolean;
+  authorizationStatus: string;
+
 }
 
 interface MainDispatchFromStore {

@@ -62,7 +62,9 @@ it(`Render App`, () => {
             activeCard={null}
             active={movies}
             isPlayingMovie={true}
+            authorizationStatus={`NO_AUTH`}
             onPlayerExitClick={noop}
+            login={noop}
           />
         </Provider>, {createNodeMock})
   .toJSON();
