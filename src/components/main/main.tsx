@@ -4,8 +4,8 @@ import {Link} from "react-router-dom";
 
 import {ActionCreator} from "../../reducer/state/state";
 import {getPromoFilm} from "../../reducer/data/selectors";
-import {getShownMovies, getFilmsByGenre, getState, getFilmsAddedToWatch} from "../../reducer/state/selectors";
-import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import {getShownMovies, getFilmsByGenre, getState} from "../../reducer/state/selectors";
+import {getAuthorizationStatus, getFavoritesFilms} from "../../reducer/user/selectors";
 import {AuthorizationStatus} from "../../reducer/user/user";
 
 import MoviesList from "../movie-list/movie-list";
@@ -18,9 +18,10 @@ import {MainProps, MainFromStore, MainDispatchFromStore, MainFromState} from "./
 const MoviesListWrapped = withMoviesList(MoviesList);
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
-  const {movies, movie, filmsLength, onShowMoreClick, onPlayButtonClick, filmsAddedToWatch, onAddButtonClick, authorizationStatus} = props;
+  const {movies, movie, filmsLength, onShowMoreClick, onPlayButtonClick, favoritesFilms, onAddButtonClick, authorizationStatus} = props;
 
   const {
+    id,
     title,
     genre,
     year,
@@ -29,6 +30,8 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   } = movie;
 
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
+  const isFavorites = !favoritesFilms.find((films) => films.id === id);
 
   const addAuthorized = (): React.ReactElement => {
     return (
@@ -50,30 +53,23 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
     );
   };
 
-  const AddMyList = (): React.ReactElement => {
+  const addMyList = (): React.ReactElement => {
     return (
       <button
         onClick={() => {
           if (!isAuthorized) {
             history.push(`/login`);
           }
-          const newFilmsAddedToWatch = new Set([...filmsAddedToWatch]);
-          if (filmsAddedToWatch.has(title)) {
-            newFilmsAddedToWatch.delete(title);
-          } else {
-            newFilmsAddedToWatch.add(title);
-          }
-          onAddButtonClick(newFilmsAddedToWatch);
+          const status = isFavorites ? 1 : 0;
+          onAddButtonClick(id, status);
         }}
         className="btn btn--list movie-card__button" type="button">
-        {filmsAddedToWatch.has(title)
-          ? (
-            <svg viewBox="0 0 18 14" width="18" height="14">
-              <use xlinkHref="#in-list"></use>
-            </svg>
-          )
-          : (<svg viewBox="0 0 19 20" width="19" height="20">
+        {isFavorites
+          ? (<svg viewBox="0 0 19 20" width="19" height="20">
             <use xlinkHref="#add"></use>
+          </svg>)
+          : (<svg viewBox="0 0 18 14" width="18" height="14">
+            <use xlinkHref="#in-list"></use>
           </svg>)
         }
         <span>My list</span>
@@ -127,7 +123,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <AddMyList/>
+                {addMyList()}
               </div>
             </div>
           </div>
@@ -178,7 +174,7 @@ const mapStateToProps = (state: MainFromState): MainFromStore => ({
   filmsLength: getShownMovies(state),
   authorizationStatus: getAuthorizationStatus(state),
   isPlayingMovie: getState(state),
-  filmsAddedToWatch: getFilmsAddedToWatch(state),
+  favoritesFilms: getFavoritesFilms(state),
 });
 
 const mapDispatchToProps = (dispatch: any): MainDispatchFromStore => ({

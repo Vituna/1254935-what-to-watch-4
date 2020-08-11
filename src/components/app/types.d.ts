@@ -7,7 +7,6 @@ interface AppStateFromStore {
   showSendError: boolean;
   activeCard: string;
   isPlayingMovie: boolean;
-
 }
 
 interface AppDispatchFromStore {

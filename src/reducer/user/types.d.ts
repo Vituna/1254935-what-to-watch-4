@@ -7,6 +7,7 @@ export interface InitialStateUser {
   authorizationStatus: string,
   onReviewSuccess: boolean,
   showSendError: boolean
+  favoritesFilms: [],
 }
 
 export interface ActionTypeUser {

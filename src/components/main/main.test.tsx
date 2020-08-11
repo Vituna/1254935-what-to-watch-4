@@ -61,6 +61,7 @@ const movies: FullMoves[] = [
 ];
 
 const movie: FilmMain = {
+  id: 2,
   title: `The Grand Budapest Hotel`,
   filmPoster: `img/bg-the-grand-budapest-hotel.jpg`,
   backgroundPoster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -101,7 +102,7 @@ it(`Should WTW render correctly`, () => {
             filmsLength={filmsLength}
             isPlayingMovie={true}
             authorizationStatus={`NO_AUTH`}
-            filmsAddedToWatch={filmsWatch}
+            favoritesFilms={[]}
             onShowMoreClick={noop}
             onPlayButtonClick={noop}
             onAddButtonClick={noop}

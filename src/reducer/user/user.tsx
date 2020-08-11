@@ -13,6 +13,7 @@ const initialState: InitialStateUser = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   onReviewSuccess: false,
   showSendError: false,
+  favoritesFilms: [],
 };
 
 const ActionType: ActionTypeUser = {
