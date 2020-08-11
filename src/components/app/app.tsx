@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/state/state";
 import {getState, getActive, getSelectedMovie} from "../../reducer/state/selectors";
 import {getPromoFilm} from "../../reducer/data/selectors";
-import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import {getAuthorizationStatus, getShowSendError} from "../../reducer/user/selectors";
 import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user";
 
 import Main from "../main/main";
@@ -14,13 +14,14 @@ import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video
 import withTabs from "../../hocs/with-tabs/with-tabs";
 import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player/with-full-screen-video-player";
 import SignIn from "../sign-in/sign-in";
+import AddReview from "../add-review/add-review";
 import {AppProps, AppDispatchFromStore, AppStateFromStore, AppFromState} from "./types";
 
 const MoviePageWrapped = withTabs(MoviePage);
 const FullScreenVideoPlayerWrapped = withFullScreenVideoPlayer(FullScreenVideoPlayer);
 
 const App: React.FC<AppProps> = (props: AppProps) => {
-  const {movies, active, activeCard, isPlayingMovie, onPlayerExitClick, login, authorizationStatus} = props;
+  const {movies, active, activeCard, isPlayingMovie, onPlayerExitClick, login, authorizationStatus, sendReview, showSendError} = props;
 
   const renderMain = (): React.ReactNode => {
 
@@ -60,6 +61,21 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     );
   };
 
+  const renderAddReview = () => {
+
+    const {title, backgroundPoster, filmPoster} = movies;
+
+    return (
+      <AddReview
+        title={title}
+        backgroundPoster={backgroundPoster}
+        filmPoster={filmPoster}
+        onSubmitReview={sendReview}
+        showSendError={showSendError}
+      />
+    );
+  };
+
   const renderApp = (): React.ReactNode => {
     if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
       return (renderSingIn());
@@ -94,6 +110,9 @@ const App: React.FC<AppProps> = (props: AppProps) => {
           <Route exact path="/dev-player">
             {renderFullScreenVideoPlayer()}
           </Route>
+          <Route exact path="/dev-form">
+            {renderAddReview()}
+          </Route>
         </Switch>
       </BrowserRouter>
     );
@@ -107,6 +126,7 @@ const mapStateToProps = (state: AppFromState): AppStateFromStore => ({
   isPlayingMovie: getState(state),
   movies: getPromoFilm(state),
   authorizationStatus: getAuthorizationStatus(state),
+  showSendError: getShowSendError(state),
 });
 
 const mapDispatchToProps = (dispatch: any): AppDispatchFromStore => ({
@@ -116,6 +136,10 @@ const mapDispatchToProps = (dispatch: any): AppDispatchFromStore => ({
 
   login(authData): void {
     dispatch(UserOperation.login(authData));
+  },
+
+  sendReview(reviewData) {
+    dispatch(UserOperation.sendReview(reviewData));
   },
 });
 

@@ -42,7 +42,7 @@ it(`Renders cards correctly`, () => {
             title={title}
             filmCover={filmCover}
             previewVideo={previewVideo}
-            // onFilmTitleClick={noop}
+            onFilmTitleClick={noop}
             onCardMouseEnter={noop}
             onCardMouseLeave={noop}
           />

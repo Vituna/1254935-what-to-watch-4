@@ -1,26 +1,90 @@
-import {mixed} from "utility-types/dist/utility-types";
-
-import {FullMoves} from "../types";
-
-export interface InitialStateReducer {
-  movies: FullMoves[];
-  activeGenre: string;
-  genres: Array<mixed>;
-  activeCard: void;
-  filmsLength: number;
-  isPlayingMovie: boolean;
+export interface MovieListProp {
+  id: number;
+  title: string;
+  image: string;
+  preview: string;
 }
 
-export interface ActionTypeReducer {
-  CHANGE_GENRE_FILTER: string;
-  GET_FILMS_BY_GENRE: string;
-  SET_FILMS_LENGTH: string;
-  SET_ACTIVE_FILM: string;
-  IS_PLAYING_FILM: string;
-  ACTIVATE_PLAYING_FILM: string;
+export interface MoviePageProp {
+  title: string;
+  genre: string;
+  runTime: string;
+  year: number;
+  backgroundPoster: string;
+  filmPoster: string;
+  rating: number;
+  ratingCount: number;
+  description: string;
+  director: string;
+  starring: string;
+}
+export interface MovieDetailProp {
+  title: string;
+  genre: string;
+  runTime: string;
+  year: number;
+  backgroundPoster: string;
+  filmPoster: string;
+  rating: number;
+  ratingCount: number;
+  description: string;
+  director: string;
+  starring: string | string[];
 }
 
-export interface TypeAndPayloadReducer {
-  type: string,
-  payload: number | string | boolean,
+export interface Move {
+  title: string;
+  image: string;
+  genre: string;
+  year: number;
+  movieDurationTime: string;
+  bigPoster: string;
+  rating: number;
+  numberVotes: number;
+  descriptionOne: string;
+  descriptionTwo: string;
+  director: string;
+  starring: string;
+  preview: string;
+}
+
+export interface FullMoves {
+  id: number;
+  title: string;
+  filmPoster: string;
+  image: string;
+  backgroundPoster: string;
+  backgroundColor: string;
+  src: string;
+  preview: string;
+  description: string;
+  rating: number;
+  ratingCount: number;
+  director: string;
+  starring: string;
+  runTime: string;
+  genre: string;
+  year: number;
+  isFavoriteFilm: string;
+}
+
+export interface MovieComments {
+  text: string;
+  author: string;
+  date: string;
+  rating: string;
+}
+
+export interface FilmMain {
+  title: string;
+  genre: string;
+  year: number;
+  backgroundPoster: string;
+  filmPoster: string;
+}
+
+export interface movieAddReview {
+  title: string;
+  backgroundPoster: string;
+  filmPoster: string
 }

@@ -38,6 +38,17 @@ it(`Reducer should change authorizationStatus by a given value`, () => {
   });
 });
 
+it(`Reducer should change onReviewSuccess by a given value`, () => {
+  expect(reducer({
+    onReviewSuccess: false,
+  }, {
+    type: ActionType.SEND_REVIEW,
+    payload: true,
+  })).toEqual({
+    onReviewSuccess: true,
+  });
+});
+
 describe(`Action creators work correctly`, () => {
   it(`Action creator for require authorization returns correct action`, () => {
     expect(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)).toEqual({
