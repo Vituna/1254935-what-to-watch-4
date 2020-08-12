@@ -6,7 +6,7 @@ import {Router} from "react-router-dom";
 
 import NameSpace from "../../reducer/name-space";
 import {Main} from "./main";
-import history from "../../utils";
+import {history} from "../../utils";
 import {FullMoves, FilmMain} from "../../types";
 
 const mockStore = configureStore([]);

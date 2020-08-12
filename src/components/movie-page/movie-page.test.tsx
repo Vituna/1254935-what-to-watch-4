@@ -5,7 +5,7 @@ import configureStore from "redux-mock-store";
 import {Router} from "react-router-dom";
 
 import {MoviePage} from "./movie-page";
-import history from "../../utils";
+import {history} from "../../utils";
 import {MoviePageProp, FullMoves} from "../../types";
 
 const mockStore = configureStore([]);

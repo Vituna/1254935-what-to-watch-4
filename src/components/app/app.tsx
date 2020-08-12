@@ -14,7 +14,7 @@ import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video
 import withTabs from "../../hocs/with-tabs/with-tabs";
 import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player/with-full-screen-video-player";
 import SignIn from "../sign-in/sign-in";
-import history from "../../utils";
+import {history} from "../../utils";
 import {AppProps, AppDispatchFromStore, AppStateFromStore, AppFromState} from "./types";
 
 const MoviePageWrapped = withTabs(MoviePage);

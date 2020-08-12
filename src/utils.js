@@ -12,6 +12,6 @@ export const getFilteredFilms = (films, genre) => {
 
 export const getGenresList = (movies) => [DefaultGenre, ...new Set(movies.map((film) => film.genre))];
 
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
 
-export default history;
+

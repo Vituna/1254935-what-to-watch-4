@@ -12,7 +12,7 @@ import MoviesList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMore from "../show-more/show-more";
 import withMoviesList from "../../hocs/with-movies-list";
-import history from "../../utils";
+import {history} from "../../utils";
 import {MainProps, MainFromStore, MainDispatchFromStore, MainFromState} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
