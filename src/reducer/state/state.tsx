@@ -9,7 +9,7 @@ const initialState: InitialStateState = {
   filmsLength: FILMS_LENGTH,
   isPlayingMovie: false,
   activeCard: null,
-  filmsAddedToWatch: new Set(),
+  filmsAddedToWatch: {},
 };
 
 const ActionType: ActionTypeState = {

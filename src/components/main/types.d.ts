@@ -24,8 +24,8 @@ export interface MainFromState {
   allGenres: string[];
 }
 
-interface additionalProps {
-  onAddButtonClick: (newFilmsAddedToWatch: any) => any;
+interface AdditionalProps {
+  onAddButtonClick: (evt: MouseEvent) => void;
 }
 
-export type MainProps = additionalProps & MainFromStore & MainDispatchFromStore
+export type MainProps = AdditionalProps & MainFromStore & MainDispatchFromStore

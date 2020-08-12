@@ -12,7 +12,7 @@ import MoviesList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMore from "../show-more/show-more";
 import withMoviesList from "../../hocs/with-movies-list";
-import history from "../../history";
+import history from "../../utils";
 import {MainProps, MainFromStore, MainDispatchFromStore, MainFromState} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
@@ -33,49 +33,37 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
 
   const isFavorites = !favoritesFilms.find((films) => films.id === id);
 
-  const addAuthorized = (): React.ReactElement => {
-    return (
-      isAuthorized
-        ? <Link
-          to={`/mylist`}
-          className="user-block__avatar"
-          style={{
-            display: `block`,
-          }}>
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-        </Link>
-        : <Link
-          to={`/login`}
-          className="user-block__link"
-        >
-          Sign in
-        </Link>
-    );
+  const handleAddButtonClick = (): void => {
+    if (!isAuthorized) {
+      history.push(`/login`);
+    }
+    const status = isFavorites ? 1 : 0;
+    onAddButtonClick(id, status);
   };
 
-  const addMyList = (): React.ReactElement => {
-    return (
-      <button
-        onClick={() => {
-          if (!isAuthorized) {
-            history.push(`/login`);
-          }
-          const status = isFavorites ? 1 : 0;
-          onAddButtonClick(id, status);
-        }}
-        className="btn btn--list movie-card__button" type="button">
-        {isFavorites
-          ? (<svg viewBox="0 0 19 20" width="19" height="20">
-            <use xlinkHref="#add"></use>
-          </svg>)
-          : (<svg viewBox="0 0 18 14" width="18" height="14">
-            <use xlinkHref="#in-list"></use>
-          </svg>)
-        }
-        <span>My list</span>
-      </button>
-    );
-  };
+  const insertsAuthorized: React.ReactElement =
+      isAuthorized
+        ? <Link to={`/mylist`}>
+          <div className="user-block__avatar">
+            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+          </div>
+        </Link>
+        : <Link to={`/login`} className="user-block__link">
+          Sign in
+        </Link>;
+
+  const insertsMyList: React.ReactElement =
+    <button onClick={handleAddButtonClick} className="btn btn--list movie-card__button" type="button">
+      {isFavorites
+        ? (<svg viewBox="0 0 19 20" width="19" height="20">
+          <use xlinkHref="#add"></use>
+        </svg>)
+        : (<svg viewBox="0 0 18 14" width="18" height="14">
+          <use xlinkHref="#in-list"></use>
+        </svg>)
+      }
+      <span>My list</span>
+    </button>;
 
   return (
     <>
@@ -96,7 +84,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
           </div>
 
           <div className="user-block">
-            {addAuthorized()}
+            {insertsAuthorized}
           </div>
         </header>
 
@@ -123,7 +111,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                {addMyList()}
+                {insertsMyList}
               </div>
             </div>
           </div>

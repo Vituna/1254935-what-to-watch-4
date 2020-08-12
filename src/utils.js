@@ -1,3 +1,5 @@
+import {createBrowserHistory} from "history";
+
 import {DefaultGenre} from "./consts";
 
 export const extend = (a, b) => {
@@ -9,3 +11,7 @@ export const getFilteredFilms = (films, genre) => {
 };
 
 export const getGenresList = (movies) => [DefaultGenre, ...new Set(movies.map((film) => film.genre))];
+
+const history = createBrowserHistory();
+
+export default history;

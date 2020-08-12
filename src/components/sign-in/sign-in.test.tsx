@@ -3,7 +3,7 @@ import * as renderer from "react-test-renderer";
 import {Router} from "react-router-dom";
 
 import SingIn from "./sign-in";
-import history from "../../history";
+import history from "../../utils";
 
 const noop = () => {
   return;
