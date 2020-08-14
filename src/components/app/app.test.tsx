@@ -72,6 +72,8 @@ it(`Render App`, () => {
             movie={movie}
             authorizationStatus={`NO_AUTH`}
             login={noop}
+            isLoadingFilms={false}
+            isLoadingPromoFilm={false}
           />
         </Provider>, {createNodeMock})
   .toJSON();

@@ -35,8 +35,6 @@ const noop = () => {
   return;
 };
 
-const genre = `Drama`;
-
 const match: {
   params: {
       id: number;

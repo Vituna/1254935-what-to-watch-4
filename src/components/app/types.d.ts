@@ -4,6 +4,8 @@ interface AppStateFromStore {
   movies: FullMoves[];
   movie: FilmMain;
   authorizationStatus: string;
+  isLoadingFilms: boolean
+  isLoadingPromoFilm: boolean
 }
 
 interface AppDispatchFromStore {

@@ -17,11 +17,13 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardFromState> 
       isPlaying: false,
     };
     this._timer = null;
-    this._handleCartTitleClick = this._handleCartTitleClick.bind(this);
-    this._handleCardClick = this._handleCardClick.bind(this);
     this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
     this._handleCardMouseRemove = this._handleCardMouseRemove.bind(this);
     this._startPlaying = this._startPlaying.bind(this);
+  }
+
+  componentWillUnmount(): void {
+    clearTimeout(this._timer = null);
   }
 
   private _startPlaying(): void {
@@ -30,15 +32,23 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardFromState> 
     });
   }
 
+  private _stopPlaying(): void {
+    clearTimeout(this._timer);
+    this._timer = null;
+
+    this.setState({
+      isPlaying: false
+    });
+  }
+
   private _handleCardMouseEnter(): void {
     const {title} = this.props;
-    this.props.onCardMouseEnter(title);
     this._timer = window.setTimeout(this._startPlaying, VIDEO_DELAY);
+    this.props.onCardMouseEnter(title);
   }
 
   private _handleCardMouseRemove(): void {
-    clearTimeout(this._timer);
-    this.setState({isPlaying: false});
+    this._stopPlaying();
     this.props.onCardMouseLeave();
   }
 

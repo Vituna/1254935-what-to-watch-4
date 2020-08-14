@@ -29,6 +29,8 @@ const ActionType: ActionTypeUser = {
   DELETE_FAVORITES_FILM: `DELETE_FAVORITES_FILM`,
   ACTIVATE_SENT: `ACTIVATE_SENT`,
   DEACTIVATE_SENT: `DEACTIVATE_SENT`,
+  LOADING_COMMENTS: `LOADING_COMMENTS`,
+
 };
 
 const ActionCreator = {
@@ -60,10 +62,10 @@ const ActionCreator = {
     };
   },
 
-  loadReview: (reviews) => {
+  loadReview: (comments) => {
     return {
       type: ActionType.LOAD_REVIEV,
-      payload: reviews,
+      payload: comments,
     };
   },
 
@@ -94,10 +96,16 @@ const ActionCreator = {
       payload: false,
     };
   },
+
+  loadingComments: (bool) => ({
+    type: ActionType.LOADING_COMMENTS,
+    payload: bool
+  }),
+
 };
 
 const Operation = {
-  checkAuth: () => (dispatch: any, getState: FullMoves, api: AxiosInstance) => {
+  checkAuth: () => (dispatch: any, getState, api: AxiosInstance) => {
     return api.get(`/login`)
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
@@ -117,17 +125,22 @@ const Operation = {
       });
   },
 
-  loadReview: (id) => (dispatch, getState, api) => {
+  loadReview: (id: number) => (dispatch: any, getState, api: AxiosInstance) => {
+    dispatch(ActionCreator.loadingComments(true));
     return api.get(`/comments/${id}`)
       .then((response) => {
         dispatch(ActionCreator.loadReview(response.data));
+        dispatch(ActionCreator.loadingComments(false));
+        dispatch(ActionCreator.setShowSendError(false));
       })
       .catch((err) => {
+        dispatch(ActionCreator.loadingComments(false));
+        dispatch(ActionCreator.setShowSendError(true));
         throw err;
       });
   },
 
-  sendReview: (id: number, reviewData: { rating: string; comment: string }) => (dispatch: any, getState: FullMoves, api: AxiosInstance) => {
+  sendReview: (id: number, reviewData: { rating: string; comment: string }) => (dispatch: any, getState, api: AxiosInstance) => {
     return api.post(`/comments/${id}`, {
       rating: reviewData.rating,
       comment: reviewData.comment,
@@ -144,14 +157,14 @@ const Operation = {
       });
   },
 
-  loadFavoritesFilms: () => (dispatch, getState, api) => {
+  loadFavoritesFilms: () => (dispatch: any, getState, api: AxiosInstance) => {
     return api.get(`/favorite`)
       .then((response) => {
         dispatch(ActionCreator.loadFavoritesFilms(response.data.map((movie) => filmAdapter(movie))));
       });
   },
 
-  addFilmsToFavorites: (id, status) => (dispatch, getState, api) => {
+  addFilmsToFavorites: (id, status) => (dispatch: any, getState, api: AxiosInstance) => {
     return api.post(`/favorite/${id}/${status}`)
       .then((response) => {
         const movie = filmAdapter(response.data);

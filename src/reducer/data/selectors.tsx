@@ -10,3 +10,7 @@ export const getFilms = (state: MoviesPageFromState) => state[NameSpace.DATA].mo
 export const getPromoFilm = (state: MainFromState | AppFromState) => state[NameSpace.DATA].promoFilm;
 
 export const getAllGenres = (state: GenresListFromState) => getGenresList(state[NameSpace.DATA].movies);
+
+export const getLoadingFilmsState = (state) => state[NameSpace.DATA].isLoadingFilms;
+
+export const getLoadingPromoFilmState = (state) => state[NameSpace.DATA].isLoadingPromoFilm;

@@ -76,6 +76,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
         />;
       case `Reviews`:
         return <PageReviews
+          movie={movie}
         />;
       default:
         return ``;

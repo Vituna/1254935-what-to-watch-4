@@ -1,42 +1,65 @@
 import * as React from "react";
 import {connect} from 'react-redux';
-import {mixed} from "utility-types/dist/utility-types";
 
+import {Operation as UserOperation} from "../../reducer/user/user";
 import {getReviews} from "../../reducer/user/selectors";
 
 import ReviewBlock from "../review/review-block";
-import {PageReviewsProps, PageReviewsFromStore, PageReviewsFromState} from "./types";
+import {PageReviewsProps, PageReviewsFromStore, PageReviewsFromState, PageReviewsFromDispatch} from "./types";
 import {Review} from "../../types";
 
-const PageReviews: React.FC<PageReviewsProps> = (props: PageReviewsProps) => {
-  const {reviews} = props;
+class PageReviews extends React.PureComponent<PageReviewsProps> {
 
-  const getReview = (comment: Review, i: number): React.ReactNode => {
+  public componentDidMount(): void {
+    const {movie, getFilmReview} = this.props;
+    getFilmReview(movie.id);
+  }
+
+  public componentDidUpdate(prevProps): void {
+    const {getFilmReview, movie} = this.props;
+
+    if (prevProps.movie.id !== movie.id) {
+      getFilmReview(movie.id);
+    }
+  }
+
+  public getReview(comment: Review, i: number): React.ReactNode {
     return (
       <ReviewBlock
         key={`${i}` + `${comment.user.name}`}
         comment={comment}
       />
     );
-  };
+  }
 
-  const renderReviews = (): Array<mixed> => reviews.map(getReview);
+  public renderReviews(): React.ReactNodeArray {
+    const {reviews} = this.props;
+    return reviews.map(this.getReview);
+  }
 
-  return (
-    <div className="movie-card__reviews movie-card__row">
-      <div className="movie-card__reviews-col">
-        {renderReviews().slice(0, 3)}
+  public render(): React.ReactElement {
+    return (
+      <div className="movie-card__reviews movie-card__row">
+        <div className="movie-card__reviews-col">
+          {this.renderReviews().slice(0, 3)}
+        </div>
+        <div className="movie-card__reviews-col">
+          {this.renderReviews().slice(3, 5)}
+        </div>
       </div>
-      <div className="movie-card__reviews-col">
-        {renderReviews().slice(3, 5)}
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapStateToProps = (state: PageReviewsFromState): PageReviewsFromStore => ({
   reviews: getReviews(state),
 });
 
+const mapDispatchToProps = (dispatch: any): PageReviewsFromDispatch => ({
+  getFilmReview(id: number) {
+    dispatch(UserOperation.loadReview(id))
+  }
+});
+
 export {PageReviews};
-export default connect(mapStateToProps)(PageReviews);
+export default connect(mapStateToProps, mapDispatchToProps)(PageReviews);

@@ -24,7 +24,7 @@ export interface ActionTypeUser {
   DELETE_FAVORITES_FILM: string,
   ACTIVATE_SENT: string,
   DEACTIVATE_SENT: string,
-
+  LOADING_COMMENTS: `LOADING_COMMENTS`,
 }
 
 export interface TypeAndPayloadUser {

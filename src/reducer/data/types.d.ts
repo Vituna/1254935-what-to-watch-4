@@ -1,27 +1,22 @@
 import {match} from "react-router";
-import {mixed} from "utility-types/dist/utility-types";
+
 import {FullMoves, MovieComments, FilmMain} from "../../types";
 
 export interface InitialStateData {
   movies: FullMoves[],
   promoFilm: object,
+  isLoadingFilms: boolean,
+  isLoadingPromoFilm: boolean,
 }
 
 export interface ActionTypeData {
   LOAD_FILMS: string,
   LOAD_PROMO_FILM: string,
+  LOADING_FILMS: `LOADING_FILMS`,
+  LOADING_PROMO_FILM: `LOADING_PROMO_FILM`,
 }
 
 export interface TypeAndPayloadData {
   type: string,
   payload: number | string | boolean,
-}
-
-export interface SelectorsData {
-  comments: MovieComments[];
-}
-
-export interface DataStore {
-  movies: FullMoves[],
-  movie: FilmMain,
 }
