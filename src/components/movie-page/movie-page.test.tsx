@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {Router} from "react-router-dom";
 
+import NameSpace from "../../reducer/name-space";
 import {MoviePage} from "./movie-page";
 import {history} from "../../utils";
 import {MoviePageProp, FullMoves} from "../../types";
@@ -32,12 +33,12 @@ const movies: FullMoves[] = [
     runTime: `1h 39m`,
     genre: `Drama`,
     year: 2014,
-    isFavoriteFilm: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   }
 ];
 
 const movie: MoviePageProp =
   {
+    id: 1,
     title: `The Grand Budapest Hotel`,
     genre: `Drama`,
     runTime: `1h 39m`,
@@ -55,10 +56,30 @@ const createNodeMock = () => {
   return {};
 };
 
+const match: {
+  params: {
+      id: number;
+  };
+} = {
+  params: {
+    id: 1,
+  }
+};
+
+const props = {
+  match,
+};
+
+
 it(`Should MovieCard render correctly`, () => {
   const store = mockStore({
-    movies,
-    movie
+    [NameSpace.DATA]: {
+      movies
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: `NO_AUTH`,
+      favoritesFilms: [],
+    }
   });
 
   const tree = renderer
@@ -68,11 +89,13 @@ it(`Should MovieCard render correctly`, () => {
             history={history}
           >
             <MoviePage
+              {...props}
               movies={movies}
-              movie={movie}
               renderTabs={noop}
-              onPlayButtonClick={noop}
               activeTab={``}
+              authorizationStatus={`NO_AUTH`}
+              favoritesFilms={[]}
+              onAddButtonClick={noop}
             />
           </Router>
         </Provider>, {createNodeMock})

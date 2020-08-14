@@ -1,11 +1,10 @@
 import {Move} from "../../types";
 
 export interface InitialStateState {
-  genre: string;
+  genre: `All genres`;
   activeCard: void;
   filmsLength: number;
   isPlayingMovie: boolean;
-  filmsAddedToWatch: {};
 }
 
 export interface ActionTypeState {

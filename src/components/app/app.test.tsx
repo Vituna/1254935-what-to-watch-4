@@ -3,14 +3,15 @@ import * as renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 
+import NameSpace from "../../reducer/name-space";
 import {App} from "./app";
-import {FullMoves} from "../../types";
+import {FullMoves, FilmMain} from "../../types";
 
 const mockStore = configureStore([]);
 
-const movies: FullMoves =
+const movies: FullMoves[] = [
   {
-    id: 1,
+    id: 3,
     title: `The Grand Budapest Hotel`,
     filmPoster: `img/bg-the-grand-budapest-hotel.jpg`,
     image: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -26,8 +27,19 @@ const movies: FullMoves =
     runTime: `1h 39m`,
     genre: `Drama`,
     year: 2014,
-    isFavoriteFilm: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  };
+  }
+];
+
+const movie: FilmMain = {
+  id: 2,
+  title: `The Grand Budapest Hotel`,
+  filmPoster: `img/bg-the-grand-budapest-hotel.jpg`,
+  backgroundPoster: `img/the-grand-budapest-hotel-poster.jpg`,
+  genre: `Drama`,
+  year: 2014,
+  isFavorites: true,
+};
+
 
 const createNodeMock = () => {
   return {};
@@ -37,21 +49,19 @@ const noop = () => {
   return;
 };
 
-const FILMS_LENGTH = 8;
-
-const mock = {
-  activeGenre: `All genres`,
-  genres: [`Family`, `Comedian`, `Drama`],
-};
-
 it(`Render App`, () => {
-  const {activeGenre, genres} = mock;
 
   const store = mockStore({
-    movies,
-    FILMS_LENGTH,
-    activeGenre,
-    genres,
+    [NameSpace.DATA]: {
+      movies,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: `NO_AUTH`,
+      favoritesFilms: [],
+    },
+    [NameSpace.STATE]: {
+      genre: movie,
+    }
   });
 
   const tree = renderer
@@ -59,14 +69,9 @@ it(`Render App`, () => {
         <Provider store={store}>
           <App
             movies={movies}
-            activeCard={null}
-            active={movies}
-            isPlayingMovie={true}
+            movie={movie}
             authorizationStatus={`NO_AUTH`}
-            showSendError={false}
-            onPlayerExitClick={noop}
             login={noop}
-            sendReview={noop}
           />
         </Provider>, {createNodeMock})
   .toJSON();

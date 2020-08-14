@@ -1,4 +1,4 @@
-const filmAdapter = (film) => {
+export const filmAdapter = (film) => {
   return {
     id: film.id,
     title: film.name,
@@ -16,8 +16,6 @@ const filmAdapter = (film) => {
     runTime: film.run_time,
     genre: film.genre,
     year: film.released,
-    isFavoriteFilm: film.is_favorite
+    isFavorite: film.is_favorite
   };
 };
-
-export default filmAdapter;

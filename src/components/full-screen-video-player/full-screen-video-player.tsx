@@ -1,7 +1,8 @@
 import * as React from "react";
 
-import {FullScreenVideoPlayerProps} from "./types";
+import {history} from "../../utils";
 import {сlockCalculations, сalculatingMinutes, сalculatingSeconds} from "../../consts";
+import {FullScreenVideoPlayerProps} from "./types";
 
 const formatTime = (time: number): string => {
   const hours = сlockCalculations(time);
@@ -12,13 +13,19 @@ const formatTime = (time: number): string => {
 };
 
 const FullScreenVideoPlayer: React.FC<FullScreenVideoPlayerProps> = (props: FullScreenVideoPlayerProps) => {
-  const {isPlay, timeElapsed, currentProgress, onPlayPauseButtonClick, onFullScreenClick, onPlayerExitClick, children} = props;
+  const {isPlay,
+    timeElapsed,
+    currentProgress,
+    onPlayPauseButtonClick,
+    onFullScreenClick,
+    children} = props;
 
   return (
     <div className="player">
       {children}
 
-      <button onClick={onPlayerExitClick} type="button" className="player__exit">Exit</button>
+      <button onClick={() => history.goBack()}
+        type="button" className="player__exit">Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">

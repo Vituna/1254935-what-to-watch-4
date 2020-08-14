@@ -4,6 +4,5 @@ export interface FullScreenVideoPlayerProps {
   currentProgress: string;
   onPlayPauseButtonClick: () => void;
   onFullScreenClick: () => void;
-  onPlayerExitClick: () => void;
   children: React.ReactNode;
 }

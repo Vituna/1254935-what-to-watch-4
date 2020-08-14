@@ -1,8 +1,9 @@
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {ActionCreator} from "../../reducer/state/state";
+import {Operation as UserOperation} from "../../reducer/user/user";
 
+import {history} from "../../utils";
 import VideoPlayer from "../video-player/video-player";
 import {VIDEO_DELAY} from "../../consts";
 import {MovieCardProps, MovieCardFromState, MovieCardDispatchFromStore} from "./types";
@@ -42,14 +43,16 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardFromState> 
   }
 
   private _handleCartTitleClick(id: number) {
-    return (evt) => {
+    return (evt: React.MouseEvent): void => {
       evt.preventDefault();
+      history.push(`/films/${id}`);
       this.props.onFilmTitleClick(id);
     };
   }
 
   private _handleCardClick(id: number) {
     return () => {
+      history.push(`/films/${id}`);
       this.props.onFilmTitleClick(id);
     };
   }
@@ -82,7 +85,7 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardFromState> 
 
 const mapDispatchToProps = (dispatch: any): MovieCardDispatchFromStore => ({
   onFilmTitleClick(id: number): void {
-    dispatch(ActionCreator.getActiveFilmId(id));
+    dispatch(UserOperation.loadReview(id));
   },
 });
 

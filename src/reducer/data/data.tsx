@@ -1,15 +1,13 @@
 import {AxiosResponse, AxiosInstance} from "axios";
 
 import {extend} from "../../utils";
-import filmAdapter from "../../adapter/adapter";
-import {comments} from "../../mocks/movies";
+import {filmAdapter} from "../../adapter/adapter";
 import {InitialStateData, ActionTypeData, TypeAndPayloadData} from "./types";
-import {FullMoves} from "../../types";
+import {FullMoves, FilmMain} from "../../types";
 
 const initialState: InitialStateData = {
   movies: [],
   promoFilm: {},
-  comments,
 };
 
 const ActionType: ActionTypeData = {
@@ -39,7 +37,7 @@ const Operation = {
         dispatch(ActionCreator.loadFilms(response.data.map((film: string) => filmAdapter(film))));
       });
   },
-  loadPromoFilm: () => (dispatch: any, getState: FullMoves, api: AxiosInstance) => {
+  loadPromoFilm: () => (dispatch: any, getState: FilmMain, api: AxiosInstance) => {
     return api.get(`/films/promo`)
       .then((response: AxiosResponse) => {
         dispatch(ActionCreator.loadPromoFilm(filmAdapter(response.data)));

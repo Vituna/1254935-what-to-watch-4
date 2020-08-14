@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
 import {ActionCreator} from "../../reducer/state/state";
-import {getPromoFilm} from "../../reducer/data/selectors";
+import {Operation as UserOperation} from "../../reducer/user/user";
 import {getShownMovies, getFilmsByGenre, getState} from "../../reducer/state/selectors";
 import {getAuthorizationStatus, getFavoritesFilms} from "../../reducer/user/selectors";
 import {AuthorizationStatus} from "../../reducer/user/user";
@@ -18,7 +18,7 @@ import {MainProps, MainFromStore, MainDispatchFromStore, MainFromState} from "./
 const MoviesListWrapped = withMoviesList(MoviesList);
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
-  const {movies, movie, filmsLength, onShowMoreClick, onPlayButtonClick, favoritesFilms, onAddButtonClick, authorizationStatus} = props;
+  const {movies, movie, filmsLength, onShowMoreClick, favoritesFilms, onAddButtonClick, authorizationStatus} = props;
 
   const {
     id,
@@ -26,12 +26,12 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
     genre,
     year,
     backgroundPoster,
-    filmPoster
+    filmPoster,
   } = movie;
 
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
-  const isFavorites = !favoritesFilms.find((films) => films.id === id);
+  const isFavorites = !favoritesFilms.find((film) => film.id === id);
 
   const handleAddButtonClick = (): void => {
     if (!isAuthorized) {
@@ -69,7 +69,10 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src={backgroundPoster} alt={title}/>
+          <img
+            src={backgroundPoster}
+            alt={title}
+          />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -91,7 +94,11 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src={filmPoster} alt={title} width="218" height="327" />
+              <img
+                src={filmPoster}
+                alt={title + ` poster`}
+                width="218" height="327"
+              />
             </div>
 
             <div className="movie-card__desc">
@@ -103,11 +110,13 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
 
               <div className="movie-card__buttons">
                 <button
-                  onClick={onPlayButtonClick}
+                  onClick={() => {
+                    history.push(`/films/${id}/player`);
+                  }}
                   className="btn btn--play movie-card__button"
                   type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s" />
+                    <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
@@ -121,9 +130,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-
           <GenresList/>
-
           <div className="catalog__movies-list">
             <MoviesListWrapped
               movies={movies.slice(0, filmsLength)}
@@ -157,7 +164,6 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
 };
 
 const mapStateToProps = (state: MainFromState): MainFromStore => ({
-  movie: getPromoFilm(state),
   movies: getFilmsByGenre(state),
   filmsLength: getShownMovies(state),
   authorizationStatus: getAuthorizationStatus(state),
@@ -170,12 +176,8 @@ const mapDispatchToProps = (dispatch: any): MainDispatchFromStore => ({
     dispatch(ActionCreator.changeFilmsLength());
   },
 
-  onPlayButtonClick(): void {
-    dispatch(ActionCreator.activatePlayingFilm());
-  },
-
-  onAddButtonClick(list): void {
-    dispatch(ActionCreator.setFilmsAddedToWatch(list));
+  onAddButtonClick(id, status): void {
+    dispatch(UserOperation.addFilmsToFavorites(id, status));
   },
 });
 

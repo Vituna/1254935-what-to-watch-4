@@ -1,15 +1,16 @@
 import * as React from "react";
 import {Subtract} from "utility-types";
 
+import {getCurentFilm} from "../../utils.js";
 import {INTEREST} from "../../consts";
 import {WithFullScreenVideoPlayerProps, WithFullScreenVideoPlayerState} from "./types";
 
 const withFullScreenVideoPlayer = (Component) => {
   type P = React.ComponentProps<typeof Component>;
-  type T = WithFullScreenVideoPlayerProps & Subtract<P, {}>;
+  type T = Subtract<P, WithFullScreenVideoPlayerProps>;
 
   class WithFullScreenVideoPlayer extends React.PureComponent<T, WithFullScreenVideoPlayerState> {
-    private videoRef: React.RefObject<HTMLVideoElement>;
+    private _videoRef: React.RefObject<HTMLVideoElement>;
 
     constructor(props: Readonly<T>) {
       super(props);
@@ -22,24 +23,28 @@ const withFullScreenVideoPlayer = (Component) => {
         duration: null,
       };
 
-      this.videoRef = React.createRef();
+      this._videoRef = React.createRef();
 
       this._handlePlayPauseButtonClick = this._handlePlayPauseButtonClick.bind(this);
       this._handleFullScreenClick = this._handleFullScreenClick.bind(this);
     }
 
     public componentDidMount(): void {
-      const {videoLink} = this.props;
-      const video = this.videoRef.current;
+      const {movies} = this.props;
+      const movie = getCurentFilm(movies, this.props);
+      const {backgroundPoster, src} = movie;
 
-      video.src = videoLink;
+      const video = this._videoRef.current;
+
+      video.poster = backgroundPoster;
+      video.src = src;
 
       video.ontimeupdate = () => this._timeUpdate(video);
     }
 
     public componentWillUnmount(): void {
 
-      const video = this.videoRef.current;
+      const video = this._videoRef.current;
       if (video) {
         video.poster = null;
         video.src = null;
@@ -49,7 +54,7 @@ const withFullScreenVideoPlayer = (Component) => {
 
     public componentDidUpdate(): void {
       const {isPlay, isFullscreen} = this.state;
-      const video = this.videoRef.current;
+      const video = this._videoRef.current;
 
       if (video) {
         if (isPlay) {
@@ -80,12 +85,10 @@ const withFullScreenVideoPlayer = (Component) => {
 
     private _handlePlayPauseButtonClick(): void {
 
-      this.setState((prevState) => {
-        return {
-          isPlay: !prevState.isPlay,
-          duration: prevState.duration,
-          progress: prevState.progress,
-        };
+      const {isPlay} = this.state;
+
+      this.setState({
+        isPlay: !isPlay
       });
     }
 
@@ -98,8 +101,6 @@ const withFullScreenVideoPlayer = (Component) => {
     }
 
     public render(): React.ReactNode {
-      const {onPlayerExitClick} = this.props;
-
       return (<Component
         {...this.props}
         isPlay={this.state.isPlay}
@@ -107,10 +108,9 @@ const withFullScreenVideoPlayer = (Component) => {
         currentProgress={Math.floor(this.state.progress * INTEREST / this.state.duration).toString()}
         onPlayPauseButtonClick={this._handlePlayPauseButtonClick}
         onFullScreenClick={this._handleFullScreenClick}
-        onPlayerExitClick={onPlayerExitClick}
       >
         <video
-          ref={this.videoRef}
+          ref={this._videoRef}
           autoPlay={true}
           className="player__video"
         />

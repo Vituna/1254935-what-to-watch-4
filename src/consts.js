@@ -18,3 +18,24 @@ export const INTEREST = 100;
 
 const Minute = 60;
 
+export const formatDate = (date) => {
+  const MONTH_NAMES = [
+    `January`,
+    `February`,
+    `March`,
+    `April`,
+    `May`,
+    `June`,
+    `July`,
+    `August`,
+    `September`,
+    `October`,
+    `November`,
+    `December`,
+  ];
+  return `${MONTH_NAMES[date.getMonth()]}
+  ${date.getDate()},
+  ${date.getFullYear()}`;
+
+};
+

@@ -2,8 +2,9 @@ import * as React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
-import {ActionCreator} from "../../reducer/state/state";
-import {getFilms} from "../../reducer/data/selectors";
+import {getFilmsByGenre} from "../../reducer/state/selectors";
+import {getAuthorizationStatus, getFavoritesFilms} from "../../reducer/user/selectors";
+import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user";
 
 import MoviesList from "../movie-list/movie-list";
 import PageOverview from "../page-overview/page-overview";
@@ -11,6 +12,7 @@ import PageDetails from "../page-details/page-details";
 import PageReviews from "../page-reviews/page-reviews";
 import withMoviesList from "../../hocs/with-movies-list";
 import {MaxSimilarCards} from "../../consts";
+import {getCurentFilm, history} from "../../utils";
 import {FullMoves} from "../../types";
 import {MoviesPageProps, MoviesPageFromState, MoviesPageFromStore, MoviesPageDispatchFromStore} from "./types";
 
@@ -21,9 +23,11 @@ const getSimilarCards = (movies: FullMoves[], genre: string): React.ReactNode =>
 };
 
 const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
-  const {movies, movie, onPlayButtonClick, renderTabs, activeTab} = props;
+  const {movies, renderTabs, activeTab, authorizationStatus, favoritesFilms, onAddButtonClick} = props;
 
+  const movie = getCurentFilm(movies, props);
   const {
+    id,
     title,
     genre,
     runTime,
@@ -34,10 +38,22 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
     ratingCount,
     description,
     director,
-    starring
+    starring,
   } = movie;
 
   const similarCards: React.ReactNode = getSimilarCards(movies, genre);
+
+  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
+  const isFavorites = !favoritesFilms.find((films) => films.id === id);
+
+  const handleAddButtonClick = (): void => {
+    if (!isAuthorized) {
+      history.push(`/login`);
+    }
+    const status = isFavorites ? 1 : 0;
+    onAddButtonClick(id, status);
+  };
 
   const renderActiveTab = (): React.ReactNode => {
     switch (activeTab) {
@@ -66,6 +82,52 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
     }
   };
 
+  const insertsAuthorizedTo: React.ReactElement =
+        isAuthorized
+          ? <Link
+            to={`/mylist`}
+            className="user-block__avatar"
+            style={{
+              display: `block`,
+            }}>
+            <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+          </Link>
+          : <Link
+            to={`/login`}
+            className="user-block__link"
+          >
+          Sign in
+          </Link>
+  ;
+
+  const insertsAuthorized: React.ReactElement =
+    isAuthorized
+      ? (
+        <Link
+          to={`/films/${id}/review`}
+          className="btn movie-card__button"
+        >
+        Add review
+        </Link>
+      )
+      : null
+    ;
+
+  const insertsMyList: React.ReactElement =
+    <button onClick={handleAddButtonClick} className="btn btn--list movie-card__button" type="button">
+      {isFavorites
+        ? (<svg viewBox="0 0 19 20" width="19" height="20">
+          <use xlinkHref="#add"></use>
+        </svg>)
+        : (<svg viewBox="0 0 18 14" width="18" height="14">
+          <use xlinkHref="#in-list"></use>
+        </svg>)
+      }
+      <span>My list</span>
+    </button>
+  ;
+
+
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
@@ -86,9 +148,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
             </div>
 
             <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
+              {insertsAuthorizedTo}
             </div>
           </header>
 
@@ -102,7 +162,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
 
               <div className="movie-card__buttons">
                 <button
-                  onClick={onPlayButtonClick}
+                  onClick={() => history.push(`/films/${id}/player`)}
                   className="btn btn--play movie-card__button"
                   type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -110,13 +170,8 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                {insertsMyList}
+                {insertsAuthorized}
               </div>
             </div>
           </div>
@@ -160,18 +215,19 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
           </div>
         </footer>
       </div>
-
     </React.Fragment>
   );
 };
 
 const mapStateToProps = (state: MoviesPageFromState): MoviesPageFromStore => ({
-  movies: getFilms(state),
+  movies: getFilmsByGenre(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  favoritesFilms: getFavoritesFilms(state),
 });
 
 const mapDispatchToProps = (dispatch: any): MoviesPageDispatchFromStore => ({
-  onPlayButtonClick(): void {
-    dispatch(ActionCreator.activatePlayingFilm());
+  onAddButtonClick(id, status): void {
+    dispatch(UserOperation.addFilmsToFavorites(id, status));
   },
 });
 

@@ -19,15 +19,14 @@ const MockComponent = () => {
 };
 
 it(`Render FullScreenVideoPlayer`, () => {
-  const tree = renderer.create(<FullScreenVideoPlayer
-
-    isPlay={true}
-    timeElapsed={0}
-    currentProgress={`0`}
-    onPlayPauseButtonClick={noop}
-    onFullScreenClick={noop}
-    onPlayerExitClick={noop}
-  ><MockComponent/></FullScreenVideoPlayer>, {createNodeMock})
+  const tree = renderer.create(
+      <FullScreenVideoPlayer
+        isPlay={true}
+        timeElapsed={0}
+        currentProgress={`0`}
+        onPlayPauseButtonClick={noop}
+        onFullScreenClick={noop}
+      ><MockComponent/></FullScreenVideoPlayer>, {createNodeMock})
   .toJSON();
 
   expect(tree).toMatchSnapshot();

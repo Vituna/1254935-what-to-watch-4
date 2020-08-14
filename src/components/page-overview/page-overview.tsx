@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {getRatingLevel} from "../../utils";
 import {PageOverviewProps} from "./types";
 
 const PageOverview: React.FC<PageOverviewProps> = (props: PageOverviewProps) => {
@@ -10,7 +11,7 @@ const PageOverview: React.FC<PageOverviewProps> = (props: PageOverviewProps) => 
       <div className="movie-rating">
         <div className="movie-rating__score">{rating}</div>
         <p className="movie-rating__meta">
-          <span className="movie-rating__level">Very good</span>
+          <span className="movie-rating__level">{getRatingLevel(rating)}</span>
           <span className="movie-rating__count">{numberVotes} ratings</span>
         </p>
       </div>

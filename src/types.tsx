@@ -6,6 +6,7 @@ export interface MovieListProp {
 }
 
 export interface MoviePageProp {
+  id: number;
   title: string;
   genre: string;
   runTime: string;
@@ -65,7 +66,6 @@ export interface FullMoves {
   runTime: string;
   genre: string;
   year: number;
-  isFavoriteFilm: string;
 }
 
 export interface MovieComments {
@@ -82,4 +82,16 @@ export interface FilmMain {
   year: number;
   backgroundPoster: string;
   filmPoster: string;
+  isFavorites: boolean;
+}
+
+export interface Review {
+  id: number;
+  user: {
+    id: number;
+    name: string;
+  };
+  rating: number;
+  comment: string;
+  date: string;
 }

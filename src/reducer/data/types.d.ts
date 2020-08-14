@@ -1,11 +1,10 @@
 import {match} from "react-router";
 import {mixed} from "utility-types/dist/utility-types";
-import {FullMoves, MovieComments} from "../../types";
+import {FullMoves, MovieComments, FilmMain} from "../../types";
 
 export interface InitialStateData {
   movies: FullMoves[],
-  promoFilm: {},
-  comments: string[];
+  promoFilm: object,
 }
 
 export interface ActionTypeData {
@@ -24,4 +23,5 @@ export interface SelectorsData {
 
 export interface DataStore {
   movies: FullMoves[],
+  movie: FilmMain,
 }

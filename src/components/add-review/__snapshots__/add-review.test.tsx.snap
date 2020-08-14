@@ -12,7 +12,6 @@ exports[`Render AddReview 1`] = `
     >
       <img
         alt="The Grand Budapest Hotel"
-        src="img/bg-the-grand-budapest-hotel.jpg"
       />
     </div>
     <h1
@@ -28,7 +27,8 @@ exports[`Render AddReview 1`] = `
       >
         <a
           className="logo__link"
-          href="main.html"
+          href="/"
+          onClick={[Function]}
         >
           <span
             className="logo__letter logo__letter--1"
@@ -58,7 +58,8 @@ exports[`Render AddReview 1`] = `
           >
             <a
               className="breadcrumbs__link"
-              href="movie-page.html"
+              href="/films/1"
+              onClick={[Function]}
             >
               The Grand Budapest Hotel
             </a>
@@ -77,16 +78,23 @@ exports[`Render AddReview 1`] = `
       <div
         className="user-block"
       >
-        <div
+        <a
           className="user-block__avatar"
+          href="/mylist"
+          onClick={[Function]}
+          style={
+            Object {
+              "display": "block",
+            }
+          }
         >
           <img
             alt="User avatar"
             height="63"
-            src="img/avatar.jpg"
+            src="/img/avatar.jpg"
             width="63"
           />
-        </div>
+        </a>
       </div>
     </header>
     <div
@@ -95,7 +103,6 @@ exports[`Render AddReview 1`] = `
       <img
         alt="The Grand Budapest Hotel"
         height="327"
-        src="img/the-grand-budapest-hotel-poster.jpg"
         width="218"
       />
     </div>
@@ -116,6 +123,7 @@ exports[`Render AddReview 1`] = `
         >
           <input
             className="rating__input"
+            disabled={false}
             id="star-1"
             name="rating"
             type="radio"
@@ -129,6 +137,7 @@ exports[`Render AddReview 1`] = `
           </label>
           <input
             className="rating__input"
+            disabled={false}
             id="star-2"
             name="rating"
             type="radio"
@@ -143,6 +152,7 @@ exports[`Render AddReview 1`] = `
           <input
             className="rating__input"
             defaultChecked={true}
+            disabled={false}
             id="star-3"
             name="rating"
             type="radio"
@@ -156,6 +166,7 @@ exports[`Render AddReview 1`] = `
           </label>
           <input
             className="rating__input"
+            disabled={false}
             id="star-4"
             name="rating"
             type="radio"
@@ -169,6 +180,7 @@ exports[`Render AddReview 1`] = `
           </label>
           <input
             className="rating__input"
+            disabled={false}
             id="star-5"
             name="rating"
             type="radio"
@@ -187,6 +199,7 @@ exports[`Render AddReview 1`] = `
       >
         <textarea
           className="add-review__textarea"
+          disabled={false}
           id="review-text"
           maxLength={400}
           minLength={50}

@@ -5,11 +5,10 @@ import {extend} from "../../utils";
 import {InitialStateState, ActionTypeState, TypeAndPayloadState} from "./types";
 
 const initialState: InitialStateState = {
-  genre: DefaultGenre,
+  genre: `All genres`,
   filmsLength: FILMS_LENGTH,
   isPlayingMovie: false,
   activeCard: null,
-  filmsAddedToWatch: {},
 };
 
 const ActionType: ActionTypeState = {
@@ -57,11 +56,6 @@ const ActionCreator = {
   activatePlayingFilm: (): TypeAndPayloadState => ({
     type: ActionType.ACTIVATE_PLAYING_FILM,
     payload: true,
-  }),
-
-  getActiveFilmId: (id: number): ReactNode => ({
-    type: ActionType.GET_ACTIVE_FILM_ID,
-    payload: id
   }),
 
   setFilmsAddedToWatch: (list) => ({
