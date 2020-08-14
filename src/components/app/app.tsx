@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router} from "react-router-dom";
 import {connect} from "react-redux";
 
 import {ActionCreator} from "../../reducer/state/state";
@@ -14,14 +14,14 @@ import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video
 import withTabs from "../../hocs/with-tabs/with-tabs";
 import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player/with-full-screen-video-player";
 import SignIn from "../sign-in/sign-in";
-import AddReview from "../add-review/add-review";
+import {history} from "../../utils";
 import {AppProps, AppDispatchFromStore, AppStateFromStore, AppFromState} from "./types";
 
 const MoviePageWrapped = withTabs(MoviePage);
 const FullScreenVideoPlayerWrapped = withFullScreenVideoPlayer(FullScreenVideoPlayer);
 
 const App: React.FC<AppProps> = (props: AppProps) => {
-  const {movies, active, activeCard, isPlayingMovie, onPlayerExitClick, login, authorizationStatus, sendReview, showSendError} = props;
+  const {movies, active, activeCard, isPlayingMovie, onPlayerExitClick, login, authorizationStatus} = props;
 
   const renderMain = (): React.ReactNode => {
 
@@ -52,33 +52,10 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     );
   };
 
-  const renderSingIn = (): React.ReactNode => {
-
-    return (
-      <SignIn
-        onSubmit={login}
-      />
-    );
-  };
-
-  const renderAddReview = () => {
-
-    const {title, backgroundPoster, filmPoster} = movies;
-
-    return (
-      <AddReview
-        title={title}
-        backgroundPoster={backgroundPoster}
-        filmPoster={filmPoster}
-        onSubmitReview={sendReview}
-        showSendError={showSendError}
-      />
-    );
-  };
-
   const renderApp = (): React.ReactNode => {
-    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      return (renderSingIn());
+    // временно, в рамках текущего задания для работы двух экранов, главной страницы и авторизации
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      history.push(`/`);
     }
 
     if (active === null && !isPlayingMovie) {
@@ -99,22 +76,20 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   const render = () => {
 
     return (
-      <BrowserRouter>
+      <Router
+        history={history}
+      >
         <Switch>
           <Route exact path="/">
             {renderApp()}
           </Route>
-          <Route exact path="/dev-film">
-            {renderMoviePage()}
-          </Route>
-          <Route exact path="/dev-player">
-            {renderFullScreenVideoPlayer()}
-          </Route>
-          <Route exact path="/dev-form">
-            {renderAddReview()}
+          <Route exact path="/login">
+            <SignIn
+              onSubmit={login}
+            />
           </Route>
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   };
   return (render());
@@ -138,7 +113,7 @@ const mapDispatchToProps = (dispatch: any): AppDispatchFromStore => ({
     dispatch(UserOperation.login(authData));
   },
 
-  sendReview(reviewData) {
+  sendReview(reviewData): void {
     dispatch(UserOperation.sendReview(reviewData));
   },
 });

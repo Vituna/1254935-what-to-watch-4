@@ -1,8 +1,9 @@
 import {reducer, ActionType} from "./state";
 
-
 const GENRE_DEFAULT = `All genres`;
 const FILMS_LENGTH = 8;
+
+const filmsWatch = `Aviator, The Revenant`;
 
 it(`Reducer should change the genre to a given value`, () => {
   expect(reducer({
@@ -111,5 +112,24 @@ it(`Reducer should change  the playback to a true`, () => {
     filmsLength: FILMS_LENGTH,
     isPlayingMovie: true,
 
+  });
+});
+
+it(`Reducer should change the list of movies to be watched by a given value`, () => {
+  expect(reducer({
+    currentGenre: GENRE_DEFAULT,
+    activeFilm: null,
+    filmsLength: FILMS_LENGTH,
+    isPlayingFilm: false,
+    filmsAddedToWatch: null,
+  }, {
+    type: ActionType.SET_FILMS_ADDED_TO_WATCH,
+    payload: filmsWatch,
+  })).toEqual({
+    currentGenre: GENRE_DEFAULT,
+    activeFilm: null,
+    filmsLength: FILMS_LENGTH,
+    isPlayingFilm: false,
+    filmsAddedToWatch: filmsWatch,
   });
 });

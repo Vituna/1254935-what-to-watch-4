@@ -76,6 +76,7 @@ export interface MovieComments {
 }
 
 export interface FilmMain {
+  id: number;
   title: string;
   genre: string;
   year: number;

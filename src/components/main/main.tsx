@@ -1,24 +1,27 @@
 import * as React from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
 import {ActionCreator} from "../../reducer/state/state";
 import {getPromoFilm} from "../../reducer/data/selectors";
 import {getShownMovies, getFilmsByGenre, getState} from "../../reducer/state/selectors";
-import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import {getAuthorizationStatus, getFavoritesFilms} from "../../reducer/user/selectors";
 import {AuthorizationStatus} from "../../reducer/user/user";
 
 import MoviesList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMore from "../show-more/show-more";
 import withMoviesList from "../../hocs/with-movies-list";
+import {history} from "../../utils";
 import {MainProps, MainFromStore, MainDispatchFromStore, MainFromState} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
-  const {movies, movie, filmsLength, onShowMoreClick, onPlayButtonClick, authorizationStatus} = props;
+  const {movies, movie, filmsLength, onShowMoreClick, onPlayButtonClick, favoritesFilms, onAddButtonClick, authorizationStatus} = props;
 
   const {
+    id,
     title,
     genre,
     year,
@@ -27,6 +30,40 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   } = movie;
 
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
+  const isFavorites = !favoritesFilms.find((films) => films.id === id);
+
+  const handleAddButtonClick = (): void => {
+    if (!isAuthorized) {
+      history.push(`/login`);
+    }
+    const status = isFavorites ? 1 : 0;
+    onAddButtonClick(id, status);
+  };
+
+  const insertsAuthorized: React.ReactElement =
+      isAuthorized
+        ? <Link to={`/mylist`}>
+          <div className="user-block__avatar">
+            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+          </div>
+        </Link>
+        : <Link to={`/login`} className="user-block__link">
+          Sign in
+        </Link>;
+
+  const insertsMyList: React.ReactElement =
+    <button onClick={handleAddButtonClick} className="btn btn--list movie-card__button" type="button">
+      {isFavorites
+        ? (<svg viewBox="0 0 19 20" width="19" height="20">
+          <use xlinkHref="#add"></use>
+        </svg>)
+        : (<svg viewBox="0 0 18 14" width="18" height="14">
+          <use xlinkHref="#in-list"></use>
+        </svg>)
+      }
+      <span>My list</span>
+    </button>;
 
   return (
     <>
@@ -39,24 +76,15 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
 
         <header className="page-header movie-card__head">
           <div className="logo">
-            <a className="logo__link">
+            <Link to={`/`} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="user-block">
-            {isAuthorized
-              ? (
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              )
-              : (
-                <a href="sign-in.html" className="user-block__link">Sign in</a>
-              )
-            }
+            {insertsAuthorized}
           </div>
         </header>
 
@@ -83,12 +111,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                </button>
+                {insertsMyList}
               </div>
             </div>
           </div>
@@ -99,8 +122,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList
-          />
+          <GenresList/>
 
           <div className="catalog__movies-list">
             <MoviesListWrapped
@@ -118,11 +140,11 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
 
         <footer className="page-footer">
           <div className="logo">
-            <a className="logo__link logo__link--light">
+            <Link to={`/`} className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">
@@ -140,6 +162,7 @@ const mapStateToProps = (state: MainFromState): MainFromStore => ({
   filmsLength: getShownMovies(state),
   authorizationStatus: getAuthorizationStatus(state),
   isPlayingMovie: getState(state),
+  favoritesFilms: getFavoritesFilms(state),
 });
 
 const mapDispatchToProps = (dispatch: any): MainDispatchFromStore => ({
@@ -149,6 +172,10 @@ const mapDispatchToProps = (dispatch: any): MainDispatchFromStore => ({
 
   onPlayButtonClick(): void {
     dispatch(ActionCreator.activatePlayingFilm());
+  },
+
+  onAddButtonClick(list): void {
+    dispatch(ActionCreator.setFilmsAddedToWatch(list));
   },
 });
 

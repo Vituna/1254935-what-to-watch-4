@@ -26,9 +26,23 @@ class AddReview extends React.PureComponent<AddReviewProps> {
     };
   }
 
+  private _addShowSendError(): React.ReactNode {
+    const {showSendError} = this.props;
+    return (
+      showSendError
+        ? (<div
+          style={{
+            color: `red`,
+          }}
+          className="rating__stars">
+            You have broken the most reliable application in the world! They are coming for you!
+        </div>)
+        : null
+    );
+  }
+
   public render(): React.ReactNode {
 
-    const {showSendError} = this.props;
     const {title, backgroundPoster, filmPoster} = this.props;
 
     return (
@@ -103,15 +117,7 @@ class AddReview extends React.PureComponent<AddReviewProps> {
                 <input className="rating__input" id="star-5" type="radio" name="rating" value="5" />
                 <label className="rating__label" htmlFor="star-5">Rating 5</label>
               </div>
-              {showSendError
-                ? (<div
-                  style={{
-                    color: `red`,
-                  }}
-                  className="rating__stars">
-                    You have broken the most reliable application in the world! They are coming for you!
-                </div>)
-                : null}
+              {this._addShowSendError()}
             </div>
 
             <div className="add-review__text">

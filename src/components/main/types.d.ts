@@ -6,12 +6,13 @@ interface MainFromStore {
   movie: FilmMain;
   isPlayingMovie: boolean;
   authorizationStatus: string;
-
+  favoritesFilms: FullMoves[];
 }
 
 interface MainDispatchFromStore {
   onShowMoreClick: () => void;
   onPlayButtonClick: () => void;
+  onAddButtonClick: (id: number, status: number) => void;
 }
 
 export interface MainFromState {
@@ -23,4 +24,8 @@ export interface MainFromState {
   allGenres: string[];
 }
 
-export type MainProps = MainFromStore & MainDispatchFromStore
+interface AdditionalProps {
+  onAddButtonClick: (evt: MouseEvent) => void;
+}
+
+export type MainProps = AdditionalProps & MainFromStore & MainDispatchFromStore

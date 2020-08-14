@@ -2,9 +2,11 @@ import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {Router} from "react-router-dom";
 
 import NameSpace from "../../reducer/name-space";
 import {Main} from "./main";
+import {history} from "../../utils";
 import {FullMoves, FilmMain} from "../../types";
 
 const mockStore = configureStore([]);
@@ -59,12 +61,15 @@ const movies: FullMoves[] = [
 ];
 
 const movie: FilmMain = {
+  id: 2,
   title: `The Grand Budapest Hotel`,
   filmPoster: `img/bg-the-grand-budapest-hotel.jpg`,
   backgroundPoster: `img/the-grand-budapest-hotel-poster.jpg`,
   genre: `Drama`,
   year: 2014,
 };
+
+const filmsWatch = new Set([`Aviator, The Revenant`]);
 
 const filmsLength = 8;
 
@@ -88,15 +93,21 @@ it(`Should WTW render correctly`, () => {
   const tree = renderer
   .create(
       <Provider store={store}>
-        <Main
-          movie={movie}
-          movies={movies}
-          filmsLength={filmsLength}
-          isPlayingMovie={true}
-          authorizationStatus={`NO_AUTH`}
-          onShowMoreClick={noop}
-          onPlayButtonClick={noop}
-        />
+        <Router
+          history={history}
+        >
+          <Main
+            movie={movie}
+            movies={movies}
+            filmsLength={filmsLength}
+            isPlayingMovie={true}
+            authorizationStatus={`NO_AUTH`}
+            favoritesFilms={[]}
+            onShowMoreClick={noop}
+            onPlayButtonClick={noop}
+            onAddButtonClick={noop}
+          />
+        </Router>
       </Provider>, {createNodeMock})
   .toJSON();
 
