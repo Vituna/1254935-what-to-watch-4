@@ -3,7 +3,6 @@ import {FullMoves, FilmMain} from "../../types";
 interface MainFromStore {
   movies: FullMoves[];
   filmsLength: number;
-  // movie: FilmMain;
   isPlayingMovie: boolean;
   authorizationStatus: string;
   favoritesFilms: FullMoves[];

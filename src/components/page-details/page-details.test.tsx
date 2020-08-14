@@ -23,10 +23,6 @@ const createNodeMock = () => {
 it(`Should PageDetails render correctly`, () => {
   const {director, genre, runTime, starring, year} = movie;
 
-  const store = mockStore({
-    mistakes: 0,
-  });
-
   const tree = renderer
     .create(
         <PageDetails

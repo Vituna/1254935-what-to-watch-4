@@ -57,7 +57,7 @@ const mapStateToProps = (state: PageReviewsFromState): PageReviewsFromStore => (
 
 const mapDispatchToProps = (dispatch: any): PageReviewsFromDispatch => ({
   getFilmReview(id: number) {
-    dispatch(UserOperation.loadReview(id))
+    dispatch(UserOperation.loadReview(id));
   }
 });
 

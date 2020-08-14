@@ -19,19 +19,6 @@ export interface MoviePageProp {
   director: string;
   starring: string;
 }
-export interface MovieDetailProp {
-  title: string;
-  genre: string;
-  runTime: string;
-  year: number;
-  backgroundPoster: string;
-  filmPoster: string;
-  rating: number;
-  ratingCount: number;
-  description: string;
-  director: string;
-  starring: string | string[];
-}
 
 export interface Move {
   title: string;
@@ -66,13 +53,6 @@ export interface FullMoves {
   runTime: string;
   genre: string;
   year: number;
-}
-
-export interface MovieComments {
-  text: string;
-  author: string;
-  date: string;
-  rating: string;
 }
 
 export interface FilmMain {

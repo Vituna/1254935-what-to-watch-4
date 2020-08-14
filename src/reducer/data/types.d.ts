@@ -1,6 +1,6 @@
 import {match} from "react-router";
 
-import {FullMoves, MovieComments, FilmMain} from "../../types";
+import {FullMoves, FilmMain} from "../../types";
 
 export interface InitialStateData {
   movies: FullMoves[],

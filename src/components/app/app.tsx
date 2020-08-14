@@ -6,9 +6,7 @@ import PrivateRoute from "../private-route/private-route";
 import {getFilmsByGenre} from "../../reducer/state/selectors";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user";
-import {getPromoFilm} from "../../reducer/data/selectors";
-import {getLoadingFilmsState, getLoadingPromoFilmState} from '../../reducer/data/selectors';
-
+import {getLoadingFilmsState, getLoadingPromoFilmState, getPromoFilm} from '../../reducer/data/selectors';
 
 import Main from "../main/main";
 import MoviePage from "../movie-page/movie-page";
@@ -19,7 +17,7 @@ import SignIn from "../sign-in/sign-in";
 import AddReview from "../add-review/add-review";
 import MyList from "../my-list/my-list";
 import {history} from "../../utils";
-import Preloader from '../preloader/preloader';
+import Preloader from "../preloader/preloader";
 
 import {AppProps, AppDispatchFromStore, AppStateFromStore, AppFromState} from "./types";
 

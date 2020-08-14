@@ -126,7 +126,6 @@ const Operation = {
   },
 
   loadReview: (id: number) => (dispatch: any, getState, api: AxiosInstance) => {
-    dispatch(ActionCreator.loadingComments(true));
     return api.get(`/comments/${id}`)
       .then((response) => {
         dispatch(ActionCreator.loadReview(response.data));
