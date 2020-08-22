@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
 import {ActionCreator} from "../../reducer/state/state";
-import {getPromoFilm} from "../../reducer/data/selectors";
+import {Operation as UserOperation} from "../../reducer/user/user";
 import {getShownMovies, getFilmsByGenre, getState} from "../../reducer/state/selectors";
 import {getAuthorizationStatus, getFavoritesFilms} from "../../reducer/user/selectors";
 import {AuthorizationStatus} from "../../reducer/user/user";
@@ -11,14 +11,14 @@ import {AuthorizationStatus} from "../../reducer/user/user";
 import MoviesList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMore from "../show-more/show-more";
-import withMoviesList from "../../hocs/with-movies-list";
+import withMoviesList from "../../hocs/with-movies-list/with-movies-list";
 import {history} from "../../utils";
 import {MainProps, MainFromStore, MainDispatchFromStore, MainFromState} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
-  const {movies, movie, filmsLength, onShowMoreClick, onPlayButtonClick, favoritesFilms, onAddButtonClick, authorizationStatus} = props;
+  const {movies, movie, filmsLength, onShowMoreClick, favoritesFilms, onAddButtonClick, authorizationStatus} = props;
 
   const {
     id,
@@ -26,12 +26,14 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
     genre,
     year,
     backgroundPoster,
-    filmPoster
+    filmPoster,
   } = movie;
 
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
-  const isFavorites = !favoritesFilms.find((films) => films.id === id);
+  const isFavorites = !favoritesFilms.find((film) => film.id === id);
+
+  const isShowMoreButtonHide = filmsLength < movies.length;
 
   const handleAddButtonClick = (): void => {
     if (!isAuthorized) {
@@ -41,7 +43,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
     onAddButtonClick(id, status);
   };
 
-  const insertsAuthorized: React.ReactElement =
+  const singIn: React.ReactElement =
       isAuthorized
         ? <Link to={`/mylist`}>
           <div className="user-block__avatar">
@@ -50,9 +52,10 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
         </Link>
         : <Link to={`/login`} className="user-block__link">
           Sign in
-        </Link>;
+        </Link>
+  ;
 
-  const insertsMyList: React.ReactElement =
+  const myList: React.ReactElement =
     <button onClick={handleAddButtonClick} className="btn btn--list movie-card__button" type="button">
       {isFavorites
         ? (<svg viewBox="0 0 19 20" width="19" height="20">
@@ -63,13 +66,17 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
         </svg>)
       }
       <span>My list</span>
-    </button>;
+    </button>
+  ;
 
   return (
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src={backgroundPoster} alt={title}/>
+          <img
+            src={backgroundPoster}
+            alt={title}
+          />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -84,14 +91,18 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
           </div>
 
           <div className="user-block">
-            {insertsAuthorized}
+            {singIn}
           </div>
         </header>
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src={filmPoster} alt={title} width="218" height="327" />
+              <img
+                src={filmPoster}
+                alt={title + ` poster`}
+                width="218" height="327"
+              />
             </div>
 
             <div className="movie-card__desc">
@@ -102,16 +113,13 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button
-                  onClick={onPlayButtonClick}
-                  className="btn btn--play movie-card__button"
-                  type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s" />
+                <Link to={`/films/${id}/player`} className="btn btn--play movie-card__button" type="button">
+                  <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M0 0L19 9.5L0 19V0Z" fill="#EEE5B5"/>
                   </svg>
                   <span>Play</span>
-                </button>
-                {insertsMyList}
+                </Link>
+                {myList}
               </div>
             </div>
           </div>
@@ -121,20 +129,16 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-
           <GenresList/>
-
           <div className="catalog__movies-list">
             <MoviesListWrapped
               movies={movies.slice(0, filmsLength)}
             />
           </div>
 
-          {filmsLength < movies.length
-            ? <ShowMore
-              onShowMoreClick={onShowMoreClick}
-            />
-            : null}
+          {isShowMoreButtonHide && <ShowMore
+            onShowMoreClick={onShowMoreClick}
+          />}
 
         </section>
 
@@ -157,7 +161,6 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
 };
 
 const mapStateToProps = (state: MainFromState): MainFromStore => ({
-  movie: getPromoFilm(state),
   movies: getFilmsByGenre(state),
   filmsLength: getShownMovies(state),
   authorizationStatus: getAuthorizationStatus(state),
@@ -166,16 +169,12 @@ const mapStateToProps = (state: MainFromState): MainFromStore => ({
 });
 
 const mapDispatchToProps = (dispatch: any): MainDispatchFromStore => ({
-  onShowMoreClick(): void {
+  onShowMoreClick() {
     dispatch(ActionCreator.changeFilmsLength());
   },
 
-  onPlayButtonClick(): void {
-    dispatch(ActionCreator.activatePlayingFilm());
-  },
-
-  onAddButtonClick(list): void {
-    dispatch(ActionCreator.setFilmsAddedToWatch(list));
+  onAddButtonClick(id, status) {
+    dispatch(UserOperation.addFilmsToFavorites(id, status));
   },
 });
 

@@ -1,24 +1,19 @@
-import {FullMoves} from "../../types";
+import {FullMoves, FilmMain} from "../../types";
 
 interface AppStateFromStore {
-  movies: FullMoves;
-  active: FullMoves;
+  movies: FullMoves[];
+  movie: FilmMain;
   authorizationStatus: string;
-  showSendError: boolean;
-  activeCard: string;
-  isPlayingMovie: boolean;
+  isLoadingFilms: boolean
+  isLoadingPromoFilm: boolean
 }
 
 interface AppDispatchFromStore {
-  onPlayerExitClick: () => void;
   login: (authData: { email: string; password: string }) => void;
-  sendReview: (reviewData: { rating: string; comment: string }) => void;
 }
 
 export type AppProps = AppStateFromStore & AppDispatchFromStore;
 
 export interface AppFromState {
-  movies: FullMoves;
-  activeCard: string;
-  isPlayingMovie: boolean;
+  movies: FullMoves[];
 }

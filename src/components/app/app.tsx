@@ -1,12 +1,12 @@
 import * as React from "react";
-import {Switch, Route, Router} from "react-router-dom";
+import {Switch, Route, Router, Redirect, RouteChildrenProps} from "react-router-dom";
 import {connect} from "react-redux";
+import PrivateRoute from "../private-route/private-route";
 
-import {ActionCreator} from "../../reducer/state/state";
-import {getState, getActive, getSelectedMovie} from "../../reducer/state/selectors";
-import {getPromoFilm} from "../../reducer/data/selectors";
-import {getAuthorizationStatus, getShowSendError} from "../../reducer/user/selectors";
+import {getFilmsByGenre} from "../../reducer/state/selectors";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user";
+import {getLoadingFilmsState, getLoadingPromoFilmState, getPromoFilm} from '../../reducer/data/selectors';
 
 import Main from "../main/main";
 import MoviePage from "../movie-page/movie-page";
@@ -14,111 +14,113 @@ import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video
 import withTabs from "../../hocs/with-tabs/with-tabs";
 import withFullScreenVideoPlayer from "../../hocs/with-full-screen-video-player/with-full-screen-video-player";
 import SignIn from "../sign-in/sign-in";
+import AddReview from "../add-review/add-review";
+import MyList from "../my-list/my-list";
 import {history} from "../../utils";
+import Preloader from "../preloader/preloader";
+
 import {AppProps, AppDispatchFromStore, AppStateFromStore, AppFromState} from "./types";
 
 const MoviePageWrapped = withTabs(MoviePage);
 const FullScreenVideoPlayerWrapped = withFullScreenVideoPlayer(FullScreenVideoPlayer);
 
 const App: React.FC<AppProps> = (props: AppProps) => {
-  const {movies, active, activeCard, isPlayingMovie, onPlayerExitClick, login, authorizationStatus} = props;
+  const {
+    movies,
+    login,
+    authorizationStatus,
+    movie,
+    isLoadingFilms,
+    isLoadingPromoFilm
+  } = props;
 
-  const renderMain = (): React.ReactNode => {
+  if (isLoadingFilms || isLoadingPromoFilm) {
+    return <Preloader />;
+  }
 
+  const renderSignIn = () => {
     return (
-      <Main
-      />
+      authorizationStatus === AuthorizationStatus.NO_AUTH
+        ? <SignIn
+          onSubmit={login}
+        />
+        : <Redirect to={`/`} />
     );
   };
 
-  const renderMoviePage = (): React.ReactNode => {
-
+  const renderAddReview = (prop: RouteChildrenProps) => {
     return (
-      <MoviePageWrapped
-        movie={activeCard}
-      />
+      authorizationStatus === AuthorizationStatus.AUTH
+        ? (
+          <AddReview
+            {...prop}
+          />
+        )
+        : <Redirect to={`/login`} />
     );
   };
 
-  const renderFullScreenVideoPlayer = (): React.ReactNode => {
-    const {backgroundPoster, src} = movies;
-
+  const renderFullScreenVideoPlayerWrapped = (prop: RouteChildrenProps) => {
     return (
       <FullScreenVideoPlayerWrapped
-        poster={backgroundPoster}
-        videoLink={src}
-        onPlayerExitClick={onPlayerExitClick}
+        {...prop}
+        movies={movies}
       />
     );
   };
 
-  const renderApp = (): React.ReactNode => {
-    // временно, в рамках текущего задания для работы двух экранов, главной страницы и авторизации
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      history.push(`/`);
-    }
-
-    if (active === null && !isPlayingMovie) {
-      return (renderMain());
-    }
-
-    if (active && !isPlayingMovie) {
-      return (renderMoviePage());
-    }
-
-    if (isPlayingMovie) {
-      return (renderFullScreenVideoPlayer());
-    }
-
-    return null;
-  };
-
-  const render = () => {
-
+  const renderMoviePageWrapped = (prop: RouteChildrenProps) => {
     return (
-      <Router
-        history={history}
-      >
-        <Switch>
-          <Route exact path="/">
-            {renderApp()}
-          </Route>
-          <Route exact path="/login">
-            <SignIn
-              onSubmit={login}
-            />
-          </Route>
-        </Switch>
-      </Router>
+      <MoviePageWrapped
+        {...prop}
+      />
     );
   };
-  return (render());
+
+  return (
+    <Router
+      history={history}
+    >
+      <Switch>
+        <Route exact path="/">
+          <Main
+            movie={movie}
+          />
+        </Route>
+        <Route exact path="/login"
+          render = {() => renderSignIn()}>
+        </Route>
+        <PrivateRoute
+          exact path="/mylist"
+          render = {() => <MyList/>}
+        />
+        <Route exact path="/films/:id/review"
+          render = {(prop) => renderAddReview(prop)}>
+        </Route>
+        <Route exact path="/films/:id/player"
+          render = {(prop) => renderFullScreenVideoPlayerWrapped(prop)}>
+        </Route>
+        <Route exact path="/films/:id"
+          render = {(prop) => renderMoviePageWrapped(prop)}>
+        </Route>
+      </Switch>
+    </Router>
+  );
 };
 
 const mapStateToProps = (state: AppFromState): AppStateFromStore => ({
-  activeCard: getSelectedMovie(state),
-  active: getActive(state),
-  isPlayingMovie: getState(state),
-  movies: getPromoFilm(state),
+  movies: getFilmsByGenre(state),
+  movie: getPromoFilm(state),
   authorizationStatus: getAuthorizationStatus(state),
-  showSendError: getShowSendError(state),
+  isLoadingFilms: getLoadingFilmsState(state),
+  isLoadingPromoFilm: getLoadingPromoFilmState(state)
 });
 
 const mapDispatchToProps = (dispatch: any): AppDispatchFromStore => ({
-  onPlayerExitClick(): void {
-    dispatch(ActionCreator.dropIsPlayingFilm());
-  },
-
-  login(authData): void {
+  login(authData) {
     dispatch(UserOperation.login(authData));
-  },
-
-  sendReview(reviewData): void {
-    dispatch(UserOperation.sendReview(reviewData));
   },
 });
 
 export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-

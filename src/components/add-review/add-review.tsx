@@ -1,6 +1,14 @@
 import * as React from "react";
+import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
-import {AddReviewProps} from "./types";
+import {Operation as UserOperation, ActionCreator as UserActionCreator} from "../../reducer/user/user";
+import {getFilmsByGenre} from "../../reducer/state/selectors";
+import {getShowSendError, getOnReviewSuccess, getIsSent} from "../../reducer/user/selectors";
+
+import {getCurentFilm, history} from "../../utils";
+import {LengthReview} from "../../consts";
+import {AddReviewProps, AddReviewDispatchFromStore, AddReviewFromState, AddReviewStateFromStore} from "./types";
 
 class AddReview extends React.PureComponent<AddReviewProps> {
   private reviewRef: React.RefObject<HTMLTextAreaElement>;
@@ -15,35 +23,41 @@ class AddReview extends React.PureComponent<AddReviewProps> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  public handleSubmit(): React.ReactNode {
-    return (evt: React.MouseEvent) => {
-      evt.preventDefault();
+  public componentDidUpdate(): void {
+    const {onReviewSuccess} = this.props;
+    const {id} = getCurentFilm(this.props.movies, this.props);
 
-      this.props.onSubmitReview({
-        rating: this.formRef.current.rating.value,
-        comment: this.reviewRef.current.value,
-      });
-    };
+    if (onReviewSuccess) {
+      history.push(`/films/${id}`);
+    }
   }
 
-  private _addShowSendError(): React.ReactNode {
-    const {showSendError} = this.props;
-    return (
-      showSendError
-        ? (<div
-          style={{
-            color: `red`,
-          }}
-          className="rating__stars">
-            You have broken the most reliable application in the world! They are coming for you!
-        </div>)
-        : null
-    );
+  public componentWillUnmount(): void {
+    this.props.onClosingReview();
+  }
+
+  public handleSubmit(evt): void {
+    const {sendReview} = this.props;
+    const {id} = getCurentFilm(this.props.movies, this.props);
+
+    evt.preventDefault();
+
+    sendReview(id, {
+      rating: this.formRef.current.rating.value,
+      comment: this.reviewRef.current.value,
+    });
   }
 
   public render(): React.ReactNode {
+    const {movies, showSendError, isSent} = this.props;
+    const film = getCurentFilm(movies, this.props);
+    const {title, backgroundPoster, filmPoster, id} = film;
 
-    const {title, backgroundPoster, filmPoster} = this.props;
+    const getErrorMessage = (): React.ReactElement => {
+      return showSendError ? (
+        <p style={{color: `red`, textAlign: `center`}}>Sending error. Please, try again.</p>
+      ) : null;
+    };
 
     return (
       <section className="movie-card movie-card--full">
@@ -59,19 +73,19 @@ class AddReview extends React.PureComponent<AddReviewProps> {
 
           <header className="page-header">
             <div className="logo">
-              <a href="main.html" className="logo__link">
+              <Link to={`/`} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
 
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a href="movie-page.html" className="breadcrumbs__link">
+                  <Link to={`/films/${id}`} className="breadcrumbs__link">
                     {title}
-                  </a>
+                  </Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -80,9 +94,14 @@ class AddReview extends React.PureComponent<AddReviewProps> {
             </nav>
 
             <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
+              <Link
+                to={`/mylist`}
+                className="user-block__avatar"
+                style={{
+                  display: `block`,
+                }}>
+                <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              </Link>
             </div>
           </header>
 
@@ -102,30 +121,31 @@ class AddReview extends React.PureComponent<AddReviewProps> {
             className="add-review__form">
             <div className="rating">
               <div className="rating__stars">
-                <input className="rating__input" id="star-1" type="radio" name="rating" value="1"/>
+                <input disabled={isSent} className="rating__input" id="star-1" type="radio" name="rating" value="1"/>
                 <label className="rating__label" htmlFor="star-1">Rating 1</label>
 
-                <input className="rating__input" id="star-2" type="radio" name="rating" value="2" />
+                <input disabled={isSent} className="rating__input" id="star-2" type="radio" name="rating" value="2" />
                 <label className="rating__label" htmlFor="star-2">Rating 2</label>
 
-                <input className="rating__input" id="star-3" type="radio" name="rating" value="3" defaultChecked />
+                <input disabled={isSent} className="rating__input" id="star-3" type="radio" name="rating" value="3" defaultChecked />
                 <label className="rating__label" htmlFor="star-3">Rating 3</label>
 
-                <input className="rating__input" id="star-4" type="radio" name="rating" value="4" />
+                <input disabled={isSent} className="rating__input" id="star-4" type="radio" name="rating" value="4" />
                 <label className="rating__label" htmlFor="star-4">Rating 4</label>
 
-                <input className="rating__input" id="star-5" type="radio" name="rating" value="5" />
+                <input disabled={isSent} className="rating__input" id="star-5" type="radio" name="rating" value="5" />
                 <label className="rating__label" htmlFor="star-5">Rating 5</label>
               </div>
-              {this._addShowSendError()}
+              <p style={{color: `red`, textAlign: `center`}}>{getErrorMessage()}</p>
             </div>
 
             <div className="add-review__text">
               <textarea
                 ref={this.reviewRef}
+                disabled={isSent}
                 required
-                minLength={50}
-                maxLength={400}
+                minLength={LengthReview.MIN}
+                maxLength={LengthReview.MAX}
                 className="add-review__textarea"
                 name="review-text"
                 id="review-text"
@@ -143,4 +163,25 @@ class AddReview extends React.PureComponent<AddReviewProps> {
   }
 }
 
-export default AddReview;
+const mapStateToProps = (state: AddReviewFromState): AddReviewStateFromStore => ({
+  movies: getFilmsByGenre(state),
+  showSendError: getShowSendError(state),
+  onReviewSuccess: getOnReviewSuccess(state),
+  isSent: getIsSent(state),
+
+});
+
+const mapDispatchToProps = (dispatch: any): AddReviewDispatchFromStore => ({
+  sendReview(id, reviewData) {
+    dispatch(UserOperation.sendReview(id, reviewData));
+  },
+
+  onClosingReview() {
+    dispatch(UserActionCreator.setShowSendError(false));
+    dispatch(UserActionCreator.sendReview(false));
+  },
+
+});
+
+export {AddReview};
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);

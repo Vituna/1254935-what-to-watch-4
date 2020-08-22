@@ -27,6 +27,21 @@ const createNodeMock = () => {
   return {};
 };
 
+const match: {
+  params: {
+      id: number;
+  };
+} = {
+  params: {
+    id: 1,
+  }
+};
+
+const props = {
+  match,
+};
+
+
 it(`Renders cards correctly`, () => {
   const store = mockStore({
     title,
@@ -38,6 +53,7 @@ it(`Renders cards correctly`, () => {
     .create(
         <Provider store={store}>
           <MovieCard
+            {...props}
             id={id}
             title={title}
             filmCover={filmCover}

@@ -1,5 +1,5 @@
-import {MovieComments} from "../../types";
+import {Review} from "../../types";
 
 export interface ReviewProps {
-  review: MovieComments;
+  comment: Review;
 }

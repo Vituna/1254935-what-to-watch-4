@@ -30,7 +30,6 @@ const movies: FullMoves[] = [
     runTime: `1h 39m`,
     genre: `Drama`,
     year: 2014,
-    isFavoriteFilm: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   },
   {
     id: 1,
@@ -49,7 +48,6 @@ const movies: FullMoves[] = [
     runTime: `1h 39m`,
     genre: `Drama`,
     year: 2014,
-    isFavoriteFilm: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   }
 ];
 

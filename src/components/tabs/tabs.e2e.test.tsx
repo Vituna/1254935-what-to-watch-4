@@ -3,9 +3,9 @@ import {configure, shallow} from "enzyme";
 import * as Adapter from "enzyme-adapter-react-16";
 
 import Tabs from "./tabs";
-import {nameTab} from "../../consts";
+import {TabType} from "../../consts";
 
-const activeTab: string = nameTab;
+const activeTab: string = TabType.OVERVIEW;
 
 configure({adapter: new Adapter()});
 

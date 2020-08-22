@@ -3,6 +3,7 @@ import {Subtract} from "utility-types";
 
 import Tabs from "../../components/tabs/tabs";
 import {WithTabsState, WithTabsInjectingProps} from "./types";
+import {TabType} from "../../consts";
 
 const withTabs = (Component) => {
   type P = React.ComponentProps<typeof Component>;
@@ -13,7 +14,7 @@ const withTabs = (Component) => {
       super(props);
 
       this.state = {
-        activeTab: `Overview`,
+        activeTab: TabType.OVERVIEW,
       };
 
       this._getTabs = this._getTabs.bind(this);

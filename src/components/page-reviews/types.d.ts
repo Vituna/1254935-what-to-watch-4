@@ -1,13 +1,19 @@
-import {MovieComments} from "../../types";
+import {Review, FullMoves} from "../../types";
 
 export interface PageReviewsProps {
-  comments: MovieComments[];
+  reviews: Review[];
+  movie: FullMoves
+  getFilmReview: (id: number) => void
 }
 
 export interface PageReviewsFromStore {
-  comments: MovieComments[];
+  reviews: Review[];
 }
 
 export interface PageReviewsFromState {
-  comments: MovieComments[];
+  reviews: Review[];
+}
+
+export interface PageReviewsFromDispatch {
+  getFilmReview: (id: number) => void
 }

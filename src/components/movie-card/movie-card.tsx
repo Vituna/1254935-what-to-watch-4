@@ -1,8 +1,9 @@
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {ActionCreator} from "../../reducer/state/state";
+import {Operation as UserOperation} from "../../reducer/user/user";
 
+import {history} from "../../utils";
 import VideoPlayer from "../video-player/video-player";
 import {VIDEO_DELAY} from "../../consts";
 import {MovieCardProps, MovieCardFromState, MovieCardDispatchFromStore} from "./types";
@@ -12,50 +13,55 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardFromState> 
   constructor(props: Readonly<MovieCardProps>) {
     super(props);
 
-    this.state = {
-      isPlaying: false,
-    };
     this._timer = null;
-    this._handleCartTitleClick = this._handleCartTitleClick.bind(this);
-    this._handleCardClick = this._handleCardClick.bind(this);
     this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
     this._handleCardMouseRemove = this._handleCardMouseRemove.bind(this);
-    this._startPlaying = this._startPlaying.bind(this);
   }
 
-  private _startPlaying(): void {
-    this.setState({
-      isPlaying: true
-    });
+  componentWillUnmount(): void {
+    clearTimeout(this._timer);
+  }
+
+  private _stopPlaying(): void {
+    const {onStopPlaying} = this.props;
+    clearTimeout(this._timer);
+    this._timer = null;
+
+    onStopPlaying();
   }
 
   private _handleCardMouseEnter(): void {
-    const {title} = this.props;
+    const {title, onStartPlaying} = this.props;
+    this._timer = window.setTimeout(onStartPlaying, VIDEO_DELAY);
     this.props.onCardMouseEnter(title);
-    this._timer = window.setTimeout(this._startPlaying, VIDEO_DELAY);
   }
 
   private _handleCardMouseRemove(): void {
-    clearTimeout(this._timer);
-    this.setState({isPlaying: false});
+    this._stopPlaying();
+    if (this._timer) {
+      this._stopPlaying();
+    }
+
     this.props.onCardMouseLeave();
   }
 
   private _handleCartTitleClick(id: number) {
-    return (evt) => {
+    return (evt: React.MouseEvent): void => {
       evt.preventDefault();
+      history.push(`/films/${id}`);
       this.props.onFilmTitleClick(id);
     };
   }
 
   private _handleCardClick(id: number) {
     return () => {
+      history.push(`/films/${id}`);
       this.props.onFilmTitleClick(id);
     };
   }
 
   public render(): React.ReactNode {
-    const {id, title, filmCover, previewVideo} = this.props;
+    const {id, title, filmCover, previewVideo, isPlaying} = this.props;
 
     return (
       <article className="small-movie-card catalog__movies-card"
@@ -67,7 +73,7 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardFromState> 
             src={previewVideo}
             poster={filmCover}
             muted={true}
-            isPlaying={this.state.isPlaying}
+            isPlaying={isPlaying}
           />
         </div>
         <h3 className="small-movie-card__title">
@@ -81,8 +87,8 @@ class MovieCard extends React.PureComponent<MovieCardProps, MovieCardFromState> 
 }
 
 const mapDispatchToProps = (dispatch: any): MovieCardDispatchFromStore => ({
-  onFilmTitleClick(id: number): void {
-    dispatch(ActionCreator.getActiveFilmId(id));
+  onFilmTitleClick(id) {
+    dispatch(UserOperation.loadReview(id));
   },
 });
 
