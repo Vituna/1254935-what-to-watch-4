@@ -4,7 +4,7 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 
 import {GenresList} from "./genres-list";
-import {DefaultGenre} from "../../consts";
+import {DEFAULT_GENRE} from "../../consts";
 
 const mockStore = configureStore([]);
 
@@ -26,7 +26,7 @@ it(`Should GenresList render correctly`, () => {
       <Provider store={store}>
         <GenresList
           allGenres={genres}
-          activeGenre={DefaultGenre}
+          activeGenre={DEFAULT_GENRE}
           onGenreItemClick={noop}
         />
       </Provider>, {createNodeMock})

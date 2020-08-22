@@ -1,11 +1,11 @@
 import {ReactNode} from "react";
 
-import {DefaultGenre, FILMS_LENGTH} from "../../consts";
+import {DEFAULT_GENRE, FILMS_LENGTH} from "../../consts";
 import {extend} from "../../utils";
 import {InitialStateState, ActionTypeState, TypeAndPayloadState} from "./types";
 
 const initialState: InitialStateState = {
-  genre: DefaultGenre,
+  genre: DEFAULT_GENRE,
   filmsLength: FILMS_LENGTH,
 };
 

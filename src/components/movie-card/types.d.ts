@@ -5,6 +5,10 @@ interface MovieCardFromProps {
   previewVideo: string;
   onCardMouseEnter: (title: string) => void;
   onCardMouseLeave: () => void;
+  onStopPlaying: () => void
+  onStartPlaying: () => void
+  isPlaying: boolean
+
 }
 
 interface MovieCardDispatchFromStore {

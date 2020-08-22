@@ -1,13 +1,13 @@
 import * as React from "react";
 
 import {history} from "../../utils";
-import {сlockCalculations, сalculatingMinutes, сalculatingSeconds} from "../../consts";
+import {calculateTime, calculateTimeMinutes, calculateTimeSeconds} from "../../consts";
 import {FullScreenVideoPlayerProps} from "./types";
 
-const formatTime = (time: number): string => {
-  const hours = сlockCalculations(time);
-  const minutes = сalculatingMinutes(time, hours);
-  const seconds = сalculatingSeconds(time);
+const getFormatTime = (time: number): string => {
+  const hours = calculateTime(time);
+  const minutes = calculateTimeMinutes(time, hours);
+  const seconds = calculateTimeSeconds(time);
 
   return `${hours}:${minutes}:${seconds}`;
 };
@@ -20,11 +20,29 @@ const FullScreenVideoPlayer: React.FC<FullScreenVideoPlayerProps> = (props: Full
     onFullScreenClick,
     children} = props;
 
+  const insertsIsPlay =
+      isPlay ? (
+        <>
+          <svg viewBox="0 0 14 21" width="14" height="21">
+            <use xlinkHref="#pause"/>
+          </svg>
+          <span>Pause</span>
+        </>
+      ) : (
+        <>
+            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fillRule="evenodd" clipRule="evenodd" d="M0 0L19 9.5L0 19V0Z" fill="#EEE5B5"/>
+            </svg>
+          <span>Play</span>
+        </>
+      )
+  ;
+
   return (
     <div className="player">
       {children}
 
-      <button onClick={() => history.goBack()}
+      <button onClick={history.goBack}
         type="button" className="player__exit">Exit</button>
 
       <div className="player__controls">
@@ -40,7 +58,7 @@ const FullScreenVideoPlayer: React.FC<FullScreenVideoPlayerProps> = (props: Full
             >Toggler</div>
           </div>
           <div className="player__time-value">
-            {formatTime(timeElapsed)}
+            {getFormatTime(timeElapsed)}
           </div>
         </div>
 
@@ -49,12 +67,7 @@ const FullScreenVideoPlayer: React.FC<FullScreenVideoPlayerProps> = (props: Full
             onClick={onPlayPauseButtonClick}
             type="button"
             className="player__play">
-            <svg viewBox="0 0 19 19" width="19" height="19">
-              <use
-                xlinkHref={isPlay ? `#pause` : `#play-s`}>
-              </use>
-            </svg>
-            <span>Play</span>
+            {insertsIsPlay}
           </button>
           <div className="player__name">Transpotting</div>
 

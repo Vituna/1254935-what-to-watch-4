@@ -1,12 +1,8 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
-import configureStore from "redux-mock-store";
 
 import PageDetails from "./page-details";
 import {PageDetailsProps} from "./types";
-
-const mockStore = configureStore([]);
-
 
 const movie: PageDetailsProps = {
   genre: `Drama`,

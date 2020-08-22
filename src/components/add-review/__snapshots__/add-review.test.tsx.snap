@@ -193,6 +193,14 @@ exports[`Render AddReview 1`] = `
             Rating 5
           </label>
         </div>
+        <p
+          style={
+            Object {
+              "color": "red",
+              "textAlign": "center",
+            }
+          }
+        />
       </div>
       <div
         className="add-review__text"

@@ -4,8 +4,8 @@ import {Link} from "react-router-dom";
 import {SignInProps} from "./types";
 
 class SignIn extends React.PureComponent <SignInProps> {
-  private emailRef: React.RefObject<HTMLInputElement>;
-  private passwordRef: React.RefObject<HTMLInputElement>;
+  private readonly emailRef: React.RefObject<HTMLInputElement>;
+  private readonly passwordRef: React.RefObject<HTMLInputElement>;
 
   constructor(props: Readonly<SignInProps>) {
     super(props);

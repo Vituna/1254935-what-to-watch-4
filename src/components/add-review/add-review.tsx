@@ -7,6 +7,7 @@ import {getFilmsByGenre} from "../../reducer/state/selectors";
 import {getShowSendError, getOnReviewSuccess, getIsSent} from "../../reducer/user/selectors";
 
 import {getCurentFilm, history} from "../../utils";
+import {LengthReview} from "../../consts";
 import {AddReviewProps, AddReviewDispatchFromStore, AddReviewFromState, AddReviewStateFromStore} from "./types";
 
 class AddReview extends React.PureComponent<AddReviewProps> {
@@ -32,8 +33,7 @@ class AddReview extends React.PureComponent<AddReviewProps> {
   }
 
   public componentWillUnmount(): void {
-    const {onClosingReview} = this.props;
-    onClosingReview();
+    this.props.onClosingReview();
   }
 
   public handleSubmit(evt): void {
@@ -52,6 +52,12 @@ class AddReview extends React.PureComponent<AddReviewProps> {
     const {movies, showSendError, isSent} = this.props;
     const film = getCurentFilm(movies, this.props);
     const {title, backgroundPoster, filmPoster, id} = film;
+
+    const getErrorMessage = (): React.ReactElement => {
+      return showSendError ? (
+        <p style={{color: `red`, textAlign: `center`}}>Sending error. Please, try again.</p>
+      ) : null;
+    };
 
     return (
       <section className="movie-card movie-card--full">
@@ -130,15 +136,7 @@ class AddReview extends React.PureComponent<AddReviewProps> {
                 <input disabled={isSent} className="rating__input" id="star-5" type="radio" name="rating" value="5" />
                 <label className="rating__label" htmlFor="star-5">Rating 5</label>
               </div>
-              {showSendError
-                ? (<div
-                  style={{
-                    color: `red`,
-                  }}
-                  className="rating__stars">
-                    You have broken the most reliable application in the world! They are coming for you!
-                </div>)
-                : null}
+              <p style={{color: `red`, textAlign: `center`}}>{getErrorMessage()}</p>
             </div>
 
             <div className="add-review__text">
@@ -146,8 +144,8 @@ class AddReview extends React.PureComponent<AddReviewProps> {
                 ref={this.reviewRef}
                 disabled={isSent}
                 required
-                minLength={50}
-                maxLength={400}
+                minLength={LengthReview.MIN}
+                maxLength={LengthReview.MAX}
                 className="add-review__textarea"
                 name="review-text"
                 id="review-text"
@@ -176,7 +174,6 @@ const mapStateToProps = (state: AddReviewFromState): AddReviewStateFromStore => 
 const mapDispatchToProps = (dispatch: any): AddReviewDispatchFromStore => ({
   sendReview(id, reviewData) {
     dispatch(UserOperation.sendReview(id, reviewData));
-    dispatch(UserActionCreator.activateSent());
   },
 
   onClosingReview() {

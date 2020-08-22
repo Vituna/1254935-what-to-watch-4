@@ -22,7 +22,7 @@ const GenresList: React.FC<GenresListProps> = (props: GenresListProps) => {
 
   const getGenre = (genre: string, i: number): React.ReactNode => {
     const genreClass = `catalog__genres-item ${activeClass(activeGenre, genre)}`;
-    const key = `${genre} + ${i}`;
+    const key = `${genre}`;
 
     return (
       <li
@@ -34,11 +34,11 @@ const GenresList: React.FC<GenresListProps> = (props: GenresListProps) => {
     );
   };
 
-  const renderGenres = (): React.ReactNode => allGenres.map(getGenre);
+  const renderGenres = allGenres.map(getGenre);
 
   return (
     <ul className="catalog__genres-list">
-      {renderGenres()}
+      {renderGenres}
     </ul>
   );
 };
@@ -49,7 +49,7 @@ const mapStateToProps = (state: GenresListFromState): GenresListFromStore => ({
 });
 
 const mapDispatchToProps = (dispatch: any): GenresListDispatchFromStore => ({
-  onGenreItemClick(genre: string): void {
+  onGenreItemClick(genre) {
     dispatch(ActionCreator.changeCurrentGenre(genre));
     dispatch(ActionCreator.changeFilter(genre));
   },

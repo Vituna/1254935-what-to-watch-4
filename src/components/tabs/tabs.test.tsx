@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
-import {nameTab} from "../../consts";
+import {TabType} from "../../consts";
 
 import Tabs from "./tabs";
 
@@ -8,7 +8,7 @@ export const noop = () => {
   return;
 };
 
-const activeTab: string = nameTab;
+const activeTab: string = TabType.OVERVIEW;
 
 it(`Should Tabs render correctly`, () => {
   const tree = renderer

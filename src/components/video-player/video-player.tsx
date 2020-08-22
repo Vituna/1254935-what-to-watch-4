@@ -3,7 +3,7 @@ import * as React from "react";
 import {VideoPlayerProps, VideoPlayerState} from "./types";
 
 class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState> {
-  private videoRef: React.RefObject<HTMLVideoElement>;
+  private _videoRef: React.RefObject<HTMLVideoElement>;
 
   constructor(props: Readonly<VideoPlayerProps>) {
     super(props);
@@ -12,11 +12,11 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
       isPlaying: props.isPlaying
     };
 
-    this.videoRef = React.createRef();
+    this._videoRef = React.createRef();
   }
 
   public componentDidUpdate(): void {
-    const video = this.videoRef.current;
+    const video = this._videoRef.current;
 
     if (video) {
       if (this.props.isPlaying) {
@@ -40,7 +40,7 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
   }
 
   public componentWillUnmount(): void {
-    const video = this.videoRef.current;
+    const video = this._videoRef.current;
 
     if (video) {
       video.onplay = null;
@@ -51,7 +51,7 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
   }
 
   public componentDidMount(): void {
-    const video = this.videoRef.current;
+    const video = this._videoRef.current;
     const {src, poster, muted} = this.props;
 
     if (video) {
@@ -72,12 +72,12 @@ class VideoPlayer extends React.PureComponent<VideoPlayerProps, VideoPlayerState
     return (
       <React.Fragment>
         <video
-          ref={this.videoRef}
+          ref={this._videoRef}
           className="player__video"
           src={src}
           poster={poster}
           muted={muted}
-        ></video>
+        />
       </React.Fragment>
     );
   }

@@ -10,8 +10,8 @@ import MoviesList from "../movie-list/movie-list";
 import PageOverview from "../page-overview/page-overview";
 import PageDetails from "../page-details/page-details";
 import PageReviews from "../page-reviews/page-reviews";
-import withMoviesList from "../../hocs/with-movies-list";
-import {MaxSimilarCards} from "../../consts";
+import withMoviesList from "../../hocs/with-movies-list/with-movies-list";
+import {MAM_SIMILAR_CARDS, TabType} from "../../consts";
 import {getCurentFilm, history} from "../../utils";
 import {FullMoves} from "../../types";
 import {MoviesPageProps, MoviesPageFromState, MoviesPageFromStore, MoviesPageDispatchFromStore} from "./types";
@@ -19,7 +19,7 @@ import {MoviesPageProps, MoviesPageFromState, MoviesPageFromStore, MoviesPageDis
 const MoviesListWrapped = withMoviesList(MoviesList);
 
 const getSimilarCards = (movies: FullMoves[], genre: string): React.ReactNode => {
-  return movies.filter((film) => film.genre === genre).slice(0, MaxSimilarCards);
+  return movies.filter((film) => film.genre === genre).slice(0, MAM_SIMILAR_CARDS);
 };
 
 const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
@@ -41,7 +41,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
     starring,
   } = movie;
 
-  const similarCards: React.ReactNode = getSimilarCards(movies, genre);
+  const similarCards = getSimilarCards(movies, genre);
 
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
@@ -55,9 +55,15 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
     onAddButtonClick(id, status);
   };
 
+  const onPlayButtonClick = () => {
+    return (
+      history.push(`/films/${id}/player`)
+    );
+  };
+
   const renderActiveTab = (): React.ReactNode => {
     switch (activeTab) {
-      case `Overview`:
+      case TabType.OVERVIEW:
         return <PageOverview
           rating={rating}
           numberVotes={ratingCount}
@@ -66,7 +72,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
           director={director}
           starring={starring}
         />;
-      case `Details`:
+      case TabType.DETAILS:
         return <PageDetails
           director={director}
           genre={genre}
@@ -74,7 +80,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
           starring={starring}
           year={year}
         />;
-      case `Reviews`:
+      case TabType.REVIEWS:
         return <PageReviews
           movie={movie}
         />;
@@ -83,7 +89,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
     }
   };
 
-  const insertsAuthorizedTo: React.ReactElement =
+  const signIn: React.ReactElement =
         isAuthorized
           ? <Link
             to={`/mylist`}
@@ -101,7 +107,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
           </Link>
   ;
 
-  const insertsAuthorized: React.ReactElement =
+  const addReview: React.ReactElement =
     isAuthorized
       ? (
         <Link
@@ -111,10 +117,15 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
         Add review
         </Link>
       )
-      : null
+      : <Link
+        to={`/login`}
+        className="btn movie-card__button"
+      >
+        Add review
+      </Link>
     ;
 
-  const insertsMyList: React.ReactElement =
+  const myList: React.ReactElement =
     <button onClick={handleAddButtonClick} className="btn btn--list movie-card__button" type="button">
       {isFavorites
         ? (<svg viewBox="0 0 19 20" width="19" height="20">
@@ -127,7 +138,6 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
       <span>My list</span>
     </button>
   ;
-
 
   return (
     <React.Fragment>
@@ -149,7 +159,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
             </div>
 
             <div className="user-block">
-              {insertsAuthorizedTo}
+              {signIn}
             </div>
           </header>
 
@@ -163,16 +173,16 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
 
               <div className="movie-card__buttons">
                 <button
-                  onClick={() => history.push(`/films/${id}/player`)}
+                  onClick={() => onPlayButtonClick()}
                   className="btn btn--play movie-card__button"
                   type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s" />
+                  <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M0 0L19 9.5L0 19V0Z" fill="#EEE5B5"/>
                   </svg>
                   <span>Play</span>
                 </button>
-                {insertsMyList}
-                {insertsAuthorized}
+                {myList}
+                {addReview}
               </div>
             </div>
           </div>

@@ -11,15 +11,12 @@ import {Review} from "../../types";
 class PageReviews extends React.PureComponent<PageReviewsProps> {
 
   public componentDidMount(): void {
-    const {movie, getFilmReview} = this.props;
-    getFilmReview(movie.id);
+    this.props.getFilmReview(this.props.movie.id);
   }
 
   public componentDidUpdate(prevProps): void {
-    const {getFilmReview, movie} = this.props;
-
-    if (prevProps.movie.id !== movie.id) {
-      getFilmReview(movie.id);
+    if (prevProps.movie.id !== this.props.movie.id) {
+      this.props.getFilmReview(this.props.movie.id);
     }
   }
 
@@ -33,18 +30,17 @@ class PageReviews extends React.PureComponent<PageReviewsProps> {
   }
 
   public renderReviews(): React.ReactNodeArray {
-    const {reviews} = this.props;
-    return reviews.map(this.getReview);
+    return this.props.reviews.map(this.getReview);
   }
 
   public render(): React.ReactElement {
     return (
       <div className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
-          {this.renderReviews().slice(0, 3)}
+          {this.renderReviews().slice(0, 6)}
         </div>
         <div className="movie-card__reviews-col">
-          {this.renderReviews().slice(3, 5)}
+          {this.renderReviews().slice(6, Infinity)}
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Switch, Route, Router, Redirect} from "react-router-dom";
+import {Switch, Route, Router, Redirect, RouteChildrenProps} from "react-router-dom";
 import {connect} from "react-redux";
 import PrivateRoute from "../private-route/private-route";
 
@@ -38,6 +38,45 @@ const App: React.FC<AppProps> = (props: AppProps) => {
     return <Preloader />;
   }
 
+  const renderSignIn = () => {
+    return (
+      authorizationStatus === AuthorizationStatus.NO_AUTH
+        ? <SignIn
+          onSubmit={login}
+        />
+        : <Redirect to={`/`} />
+    );
+  };
+
+  const renderAddReview = (prop: RouteChildrenProps) => {
+    return (
+      authorizationStatus === AuthorizationStatus.AUTH
+        ? (
+          <AddReview
+            {...prop}
+          />
+        )
+        : <Redirect to={`/login`} />
+    );
+  };
+
+  const renderFullScreenVideoPlayerWrapped = (prop: RouteChildrenProps) => {
+    return (
+      <FullScreenVideoPlayerWrapped
+        {...prop}
+        movies={movies}
+      />
+    );
+  };
+
+  const renderMoviePageWrapped = (prop: RouteChildrenProps) => {
+    return (
+      <MoviePageWrapped
+        {...prop}
+      />
+    );
+  };
+
   return (
     <Router
       history={history}
@@ -49,44 +88,20 @@ const App: React.FC<AppProps> = (props: AppProps) => {
           />
         </Route>
         <Route exact path="/login"
-          render = {() => authorizationStatus === AuthorizationStatus.NO_AUTH
-            ? <SignIn
-              onSubmit={login}
-            />
-            : <Redirect to={`/`} /> }>
+          render = {() => renderSignIn()}>
         </Route>
         <PrivateRoute
           exact path="/mylist"
-          render={() => {
-            return (
-              <MyList
-              />
-            );
-          }}
+          render = {() => <MyList/>}
         />
         <Route exact path="/films/:id/review"
-          render = {(prop) => authorizationStatus === AuthorizationStatus.AUTH
-            ? (
-              <AddReview
-                {...prop}
-              />
-            )
-            : <Redirect to={`/login`} />}>
+          render = {(prop) => renderAddReview(prop)}>
         </Route>
         <Route exact path="/films/:id/player"
-          render = {(prop) => (
-            <FullScreenVideoPlayerWrapped
-              {...prop}
-              movies={movies}
-            />
-          )}>
+          render = {(prop) => renderFullScreenVideoPlayerWrapped(prop)}>
         </Route>
         <Route exact path="/films/:id"
-          render = {(prop) => (
-            <MoviePageWrapped
-              {...prop}
-            />
-          )}>
+          render = {(prop) => renderMoviePageWrapped(prop)}>
         </Route>
       </Switch>
     </Router>
@@ -99,16 +114,13 @@ const mapStateToProps = (state: AppFromState): AppStateFromStore => ({
   authorizationStatus: getAuthorizationStatus(state),
   isLoadingFilms: getLoadingFilmsState(state),
   isLoadingPromoFilm: getLoadingPromoFilmState(state)
-
 });
 
 const mapDispatchToProps = (dispatch: any): AppDispatchFromStore => ({
-  login(authData): void {
+  login(authData) {
     dispatch(UserOperation.login(authData));
   },
 });
 
 export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-

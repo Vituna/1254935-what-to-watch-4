@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {getFavoritesFilms} from "../../reducer/user/selectors";
 
 import MoviesList from "../movie-list/movie-list";
-import withMoviesList from "../../hocs/with-movies-list";
+import withMoviesList from "../../hocs/with-movies-list/with-movies-list";
 import {MyListFromProps, MyListFromStore, MyListFromState} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);

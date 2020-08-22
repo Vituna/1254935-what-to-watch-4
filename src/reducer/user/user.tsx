@@ -1,7 +1,8 @@
 import {AxiosInstance} from "axios";
 
 import {filmAdapter} from "../../adapter/adapter";
-import {extend} from "../../utils";
+import {extend, getDeleteFavoritesFilm} from "../../utils";
+
 import {FullMoves} from "../../types";
 import {AuthorizationStatusUser, InitialStateUser, ActionTypeUser, TypeAndPayloadUser} from "./types";
 
@@ -27,9 +28,8 @@ const ActionType: ActionTypeUser = {
   LOAD_FAVORITES_FILMS: `LOAD_FAVORITES_FILMS`,
   ADD_FAVORITES_FILM: `ADD_FAVORITES_FILM`,
   DELETE_FAVORITES_FILM: `DELETE_FAVORITES_FILM`,
-  ACTIVATE_SENT: `ACTIVATE_SENT`,
-  DEACTIVATE_SENT: `DEACTIVATE_SENT`,
   LOADING_COMMENTS: `LOADING_COMMENTS`,
+  SET_FORM_DISABLED: `SET_FORM_DISABLED`,
 
 };
 
@@ -83,19 +83,11 @@ const ActionCreator = {
     };
   },
 
-  activateSent: () => {
-    return {
-      type: ActionType.ACTIVATE_SENT,
-      payload: true,
-    };
-  },
+  setFormDisabled: (bool) => ({
+    type: ActionType.SET_FORM_DISABLED,
+    payload: bool
+  }),
 
-  deactivateSent: () => {
-    return {
-      type: ActionType.DEACTIVATE_SENT,
-      payload: false,
-    };
-  },
 
   loadingComments: (bool) => ({
     type: ActionType.LOADING_COMMENTS,
@@ -108,7 +100,7 @@ const Operation = {
   checkAuth: () => (dispatch: any, getState, api: AxiosInstance) => {
     return api.get(`/login`)
       .then(() => {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       })
       .catch((err) => {
         throw err;
@@ -140,18 +132,19 @@ const Operation = {
   },
 
   sendReview: (id: number, reviewData: { rating: string; comment: string }) => (dispatch: any, getState, api: AxiosInstance) => {
+    dispatch(ActionCreator.setFormDisabled(true));
     return api.post(`/comments/${id}`, {
       rating: reviewData.rating,
       comment: reviewData.comment,
     })
       .then(() => {
+        dispatch(ActionCreator.setFormDisabled(false));
         dispatch(ActionCreator.sendReview(true));
-        dispatch(ActionCreator.deactivateSent());
       })
 
       .catch((err) => {
         dispatch(ActionCreator.setShowSendError(true));
-        dispatch(ActionCreator.deactivateSent());
+        dispatch(ActionCreator.setFormDisabled(false));
         throw err;
       });
   },
@@ -170,14 +163,13 @@ const Operation = {
         if (movie.isFavorite) {
           dispatch(ActionCreator.addFavoritesFilm(movie));
         } else {
-          dispatch(ActionCreator.deleteFavoritesFilm(movie));
+          dispatch(ActionCreator.deleteFavoritesFilm(getDeleteFavoritesFilm(movie)));
         }
       })
       .catch((err) => {
         throw err;
       });
   },
-
 };
 
 const reducer = (state = extend(initialState), action: TypeAndPayloadUser): React.ReactNode => {
@@ -215,17 +207,12 @@ const reducer = (state = extend(initialState), action: TypeAndPayloadUser): Reac
 
     case ActionType.DELETE_FAVORITES_FILM:
       return extend(state, {
-        favoritesFilms: [...state.favoritesFilms].filter((film) => film.id !== action.payload.id),
+        favoritesFilms: action.payload,
       });
 
-    case ActionType.ACTIVATE_SENT:
+    case ActionType.SET_FORM_DISABLED:
       return extend(state, {
-        isSent: action.payload,
-      });
-
-    case ActionType.DEACTIVATE_SENT:
-      return extend(state, {
-        isSent: action.payload,
+        isSent: action.payload
       });
   }
 

@@ -11,7 +11,7 @@ import {AuthorizationStatus} from "../../reducer/user/user";
 import MoviesList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMore from "../show-more/show-more";
-import withMoviesList from "../../hocs/with-movies-list";
+import withMoviesList from "../../hocs/with-movies-list/with-movies-list";
 import {history} from "../../utils";
 import {MainProps, MainFromStore, MainDispatchFromStore, MainFromState} from "./types";
 
@@ -32,6 +32,8 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
   const isFavorites = !favoritesFilms.find((film) => film.id === id);
+
+  const isShowMoreButtonHide = filmsLength < movies.length;
 
   const handleAddButtonClick = (): void => {
     if (!isAuthorized) {
@@ -109,17 +111,12 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button
-                  onClick={() => {
-                    history.push(`/films/${id}/player`);
-                  }}
-                  className="btn btn--play movie-card__button"
-                  type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
+                <Link to={`/films/${id}/player`} className="btn btn--play movie-card__button" type="button">
+                  <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M0 0L19 9.5L0 19V0Z" fill="#EEE5B5"/>
                   </svg>
                   <span>Play</span>
-                </button>
+                </Link>
                 {insertsMyList}
               </div>
             </div>
@@ -137,11 +134,9 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
             />
           </div>
 
-          {filmsLength < movies.length
-            ? <ShowMore
-              onShowMoreClick={onShowMoreClick}
-            />
-            : null}
+          {isShowMoreButtonHide && <ShowMore
+            onShowMoreClick={onShowMoreClick}
+          />}
 
         </section>
 
@@ -172,11 +167,11 @@ const mapStateToProps = (state: MainFromState): MainFromStore => ({
 });
 
 const mapDispatchToProps = (dispatch: any): MainDispatchFromStore => ({
-  onShowMoreClick(): void {
+  onShowMoreClick() {
     dispatch(ActionCreator.changeFilmsLength());
   },
 
-  onAddButtonClick(id, status): void {
+  onAddButtonClick(id, status) {
     dispatch(UserOperation.addFilmsToFavorites(id, status));
   },
 });
