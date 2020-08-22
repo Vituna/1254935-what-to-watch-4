@@ -12,8 +12,6 @@ export interface InitialStateUser {
   favoritesFilms: FullMoves[],
   isSent: boolean,
   reviews: Review[],
-
-
 }
 
 export interface ActionTypeUser {
@@ -26,7 +24,6 @@ export interface ActionTypeUser {
   DELETE_FAVORITES_FILM: string,
   LOADING_COMMENTS: string,
   SET_FORM_DISABLED: string,
-
 }
 
 export interface TypeAndPayloadUser {

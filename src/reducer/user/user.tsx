@@ -30,7 +30,6 @@ const ActionType: ActionTypeUser = {
   DELETE_FAVORITES_FILM: `DELETE_FAVORITES_FILM`,
   LOADING_COMMENTS: `LOADING_COMMENTS`,
   SET_FORM_DISABLED: `SET_FORM_DISABLED`,
-
 };
 
 const ActionCreator = {
@@ -88,12 +87,10 @@ const ActionCreator = {
     payload: bool
   }),
 
-
   loadingComments: (bool) => ({
     type: ActionType.LOADING_COMMENTS,
     payload: bool
   }),
-
 };
 
 const Operation = {

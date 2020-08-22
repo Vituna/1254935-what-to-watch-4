@@ -1,7 +1,7 @@
 import {Move} from "../../types";
 
 export interface InitialStateState {
-  genre: `All genres`;
+  genre: string;
   filmsLength: number;
 }
 
@@ -15,4 +15,3 @@ export interface TypeAndPayloadState {
   type: string,
   payload: number | string | boolean,
 }
-

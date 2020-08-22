@@ -43,7 +43,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
     onAddButtonClick(id, status);
   };
 
-  const insertsAuthorized: React.ReactElement =
+  const singIn: React.ReactElement =
       isAuthorized
         ? <Link to={`/mylist`}>
           <div className="user-block__avatar">
@@ -52,9 +52,10 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
         </Link>
         : <Link to={`/login`} className="user-block__link">
           Sign in
-        </Link>;
+        </Link>
+  ;
 
-  const insertsMyList: React.ReactElement =
+  const myList: React.ReactElement =
     <button onClick={handleAddButtonClick} className="btn btn--list movie-card__button" type="button">
       {isFavorites
         ? (<svg viewBox="0 0 19 20" width="19" height="20">
@@ -65,7 +66,8 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
         </svg>)
       }
       <span>My list</span>
-    </button>;
+    </button>
+  ;
 
   return (
     <>
@@ -89,7 +91,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
           </div>
 
           <div className="user-block">
-            {insertsAuthorized}
+            {singIn}
           </div>
         </header>
 
@@ -117,7 +119,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
                   </svg>
                   <span>Play</span>
                 </Link>
-                {insertsMyList}
+                {myList}
               </div>
             </div>
           </div>

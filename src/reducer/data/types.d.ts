@@ -12,8 +12,8 @@ export interface InitialStateData {
 export interface ActionTypeData {
   LOAD_FILMS: string,
   LOAD_PROMO_FILM: string,
-  LOADING_FILMS: `LOADING_FILMS`,
-  LOADING_PROMO_FILM: `LOADING_PROMO_FILM`,
+  LOADING_FILMS: string,
+  LOADING_PROMO_FILM: string,
 }
 
 export interface TypeAndPayloadData {

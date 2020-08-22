@@ -123,7 +123,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
       >
         Add review
       </Link>
-    ;
+  ;
 
   const myList: React.ReactElement =
     <button onClick={handleAddButtonClick} className="btn btn--list movie-card__button" type="button">

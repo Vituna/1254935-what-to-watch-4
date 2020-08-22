@@ -185,5 +185,3 @@ const mapDispatchToProps = (dispatch: any): AddReviewDispatchFromStore => ({
 
 export {AddReview};
 export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
-
-
