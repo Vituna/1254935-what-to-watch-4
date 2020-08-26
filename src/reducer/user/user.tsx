@@ -154,13 +154,14 @@ const Operation = {
   },
 
   addFilmsToFavorites: (id, status) => (dispatch: any, getState, api: AxiosInstance) => {
+    const favorit = [...initialState.favoritesFilms];
     return api.post(`/favorite/${id}/${status}`)
       .then((response) => {
         const movie = filmAdapter(response.data);
         if (movie.isFavorite) {
           dispatch(ActionCreator.addFavoritesFilm(movie));
         } else {
-          dispatch(ActionCreator.deleteFavoritesFilm(getDeleteFavoritesFilm(movie)));
+          dispatch(ActionCreator.deleteFavoritesFilm(getDeleteFavoritesFilm(movie.id, favorit)));
         }
       })
       .catch((err) => {

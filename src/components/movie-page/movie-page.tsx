@@ -11,16 +11,11 @@ import PageOverview from "../page-overview/page-overview";
 import PageDetails from "../page-details/page-details";
 import PageReviews from "../page-reviews/page-reviews";
 import withMoviesList from "../../hocs/with-movies-list/with-movies-list";
-import {MAM_SIMILAR_CARDS, TabType} from "../../consts";
-import {getCurentFilm, history} from "../../utils";
-import {FullMoves} from "../../types";
+import {TabType} from "../../consts";
+import {getCurentFilm, history, getSimilarCards} from "../../utils";
 import {MoviesPageProps, MoviesPageFromState, MoviesPageFromStore, MoviesPageDispatchFromStore} from "./types";
 
 const MoviesListWrapped = withMoviesList(MoviesList);
-
-const getSimilarCards = (movies: FullMoves[], genre: string): React.ReactNode => {
-  return movies.filter((film) => film.genre === genre).slice(0, MAM_SIMILAR_CARDS);
-};
 
 const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
   const {movies, renderTabs, activeTab, authorizationStatus, favoritesFilms, onAddButtonClick} = props;
@@ -41,7 +36,7 @@ const MoviePage: React.FC<MoviesPageProps> = (props: MoviesPageProps) => {
     starring,
   } = movie;
 
-  const similarCards = getSimilarCards(movies, genre);
+  const similarCards = getSimilarCards(movies, movie);
 
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 

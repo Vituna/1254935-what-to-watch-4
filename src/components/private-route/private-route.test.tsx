@@ -5,10 +5,6 @@ import {Router} from "react-router-dom";
 import {PrivateRoute} from "./private-route";
 import {history} from "../../utils";
 
-const noop = () => {
-  return;
-};
-
 const createNodeMock = () => {
   return {};
 };

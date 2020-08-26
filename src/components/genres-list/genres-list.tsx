@@ -20,7 +20,7 @@ const GenresList: React.FC<GenresListProps> = (props: GenresListProps) => {
     };
   };
 
-  const getGenre = (genre: string, i: number): React.ReactNode => {
+  const getGenre = (genre: string): React.ReactNode => {
     const genreClass = `catalog__genres-item ${activeClass(activeGenre, genre)}`;
     const key = `${genre}`;
 

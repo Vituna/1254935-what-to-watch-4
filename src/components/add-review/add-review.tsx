@@ -151,7 +151,7 @@ class AddReview extends React.PureComponent<AddReviewProps> {
                 id="review-text"
                 placeholder="Review text"></textarea>
               <div className="add-review__submit">
-                <button className="add-review__btn" type="submit">Post</button>
+                <button className="add-review__btn" type="submit" disabled={isSent}>Post</button>
               </div>
 
             </div>
