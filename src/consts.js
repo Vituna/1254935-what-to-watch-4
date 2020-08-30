@@ -1,4 +1,4 @@
-export const MAM_SIMILAR_CARDS = 4;
+export const MAX_SIMILAR_CARDS = 4;
 
 export const DEFAULT_GENRE = `All genres`;
 

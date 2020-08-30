@@ -1,6 +1,6 @@
 import {createBrowserHistory} from "history";
 
-import {DEFAULT_GENRE, RatingType, MovieRating, MAM_SIMILAR_CARDS} from "./consts";
+import {DEFAULT_GENRE, RatingType, MovieRating, MAX_SIMILAR_CARDS} from "./consts";
 
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
@@ -39,6 +39,6 @@ export const getRatingLevel = (rating) => {
 export const getDeleteFavoritesFilm = (movie, favorit) => [favorit].filter((film) => film.id !== movie.id);
 
 export const getSimilarCards = (movies, movie) => {
-  return movies.filter((film) => movie && film.id !== movie.id && film.genre === movie.genre).slice(0, MAM_SIMILAR_CARDS);
+  return movies.filter((film) => movie && film.id !== movie.id && film.genre === movie.genre).slice(0, MAX_SIMILAR_CARDS);
 };
 
